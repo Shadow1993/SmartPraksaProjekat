@@ -1,0 +1,5 @@
+node_modules
+bower_components
+client/scripts
+client/styles
+development/temp

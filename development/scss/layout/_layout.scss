@@ -1,0 +1,16 @@
+/*-~- layout -~-*/
+html {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+body {
+    font-family: $font-main;
+    font-size: 14px;
+    color: $black;
+    background-color: $white;
+}
