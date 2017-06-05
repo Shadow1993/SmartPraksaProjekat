@@ -3,9 +3,9 @@
 
     var app = angular.module('app');
 
-    app.controller('MainController', MainController);
+    app.controller('AdminController', AdminController);
 
-    function MainController() {
+    function AdminController() {
         var vm = this;
         vm.test = 'test';
 

@@ -7,6 +7,11 @@
 
         //State Definition
         var states = {
+            test: {
+                name: 'test',
+                url: '/test',
+                template: 'TESTING'
+            },
             home: {
                 name: 'home',
                 abstract: 'true',
@@ -30,11 +35,6 @@
                 parent: 'home',
                 templateUrl: './../templates/main.html'
             },
-            test: {
-                name: 'test',
-                url: '/test',
-                template: 'TESTING'
-            },
             login: {
                 name: 'login',
                 url: '/login',
@@ -47,16 +47,48 @@
                 url: '/logout',
                 template: null,
                 controller: 'LogoutController'
+            },
+            admin: {
+                name: 'main.admin',
+                url: '/admin',
+                templateUrl: './../templates/admin.html',
+                controller: 'AdminController',
+                controllerAs: 'admin'
+            },
+            facilitator: {
+                name: 'main.facilitator',
+                url: '/facilitator',
+                templateUrl: './../templates/facilitator.html',
+                controller: 'FacilitatorController',
+                controllerAs: 'facilitator'
+            },
+            activeListing: {
+                name: 'main.activeListing',
+                url: '/activelisting',
+                templateUrl: './../templates/activelisting.html',
+                controller: 'ActiveListingController',
+                controllerAs: 'activeListing'
+            },
+            archivedListing: {
+                name: 'main.archivedListing',
+                url: '/archivedlisting',
+                templateUrl: './../templates/archivedlisting.html',
+                controller: 'ArchivedListingController',
+                controllerAs: 'archivedListing'
             }
         };
         // State Initialization
         $stateProvider
+        // TESTING PURPOSES ROOT
+            .state(states.test)
             .state(states.home)
             .state(states.main)
-            // TESTING PURPOSES ROOT
-            .state(states.test)
             .state(states.logout)
-            .state(states.login);
+            .state(states.login)
+            .state(states.admin)
+            .state(states.facilitator)
+            .state(states.activeListing)
+            .state(states.archivedListing);
 
         // Default Redirect
         $urlRouterProvider.otherwise('/login');
