@@ -1,3 +1,47 @@
-.navbar {
-    color: red;
+.breadcrumb {
+    margin-top: 10px;
+    display: flex;
+    float: right;
+    li {
+        color: #000;
+        font-size: 14px;
+    }
+}
+
+.users-table {
+    margin-top: 70px;
+    h2 {
+        margin-bottom: 40px;
+    }
+    li {
+        vertical-align: middle !important;
+    }
+    span.delete-user {
+        background: red;
+        padding: 4px 12px 7px 12px;
+        color: #fff;
+        font-weight: bold;
+    }
+     span.delete-user:hover {
+         cursor: pointer;
+     }
+    .pagination-smart {
+        margin-top: 40px;
+        margin-bottom: 100px;
+        display: flex;
+        justify-content: center;
+        a {
+            color: #000;
+        }
+        .page-link {
+            border: 1px solid rgb(245, 245, 245);
+        }
+        .page-item.active .page-link {
+            background-color: #ecf0f1;
+            color: #000;
+        }
+    }
+}
+.table td, .table th {
+    vertical-align: middle;
 }
