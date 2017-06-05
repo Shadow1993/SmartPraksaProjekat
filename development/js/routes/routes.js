@@ -3,7 +3,8 @@
 
     var app = angular.module('app');
 
-    app.config(function ($stateProvider, $urlRouterProvider) {
+    app.config(['$stateProvider', '$urlRouterProvider', configFunc]);
+    function configFunc($stateProvider, $urlRouterProvider) {
 
         //State Definition
         var states = {
@@ -93,5 +94,5 @@
         // Default Redirect
         $urlRouterProvider.otherwise('/login');
 
-    });
+    }
 }());
