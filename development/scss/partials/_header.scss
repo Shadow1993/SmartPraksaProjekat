@@ -9,13 +9,27 @@
         padding: 10px 10px 10px 20px;
         margin-right: 20px;
     }
+    .nav-right {
+        list-style: none;
+        text-align: center;
+    }
     a {
         color: brown !important;
     }
     a:hover {
         opacity: .7;
     }
+    .logo-link:hover {
+        opacity: 1 !important;
+    }
     .logout {
         margin-right: 10px;
     }
+    .navbar-nav {
+        align-items: center !important;
+    }
+    .navbar-toggler.navbar-toggler-right {
+        top: 30px;
+    }
+    
 }

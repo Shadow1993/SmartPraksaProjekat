@@ -7,67 +7,69 @@
 
         <div class="col-xs-12 users-table">
             <h4>All Users</h4>
-            <table class="table table-striped">
-                <thead>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Username</th>
+                            <th>Password</th>
+                            <th>Act. Date</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>mark@oto.com</td>
+                            <td>1234567890</td>
+                            <td>21.05.2017.</td>
+                            <td><span class="delete-user">x</span></td>
+                        </tr>
                     <tr>
-                        <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
-                        <th>Password</th>
-                        <th>Act. Date</th>
-                        <th>Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>mark@oto.com</td>
-                        <td>1234567890</td>
-                        <td>21.05.2017.</td>
-                        <td><span class="delete-user">x</span></td>
-                    </tr>
-                   <tr>
-                        <th scope="row">2</th>
-                        <td>Peter</td>
-                        <td>Someone</td>
-                        <td>peter@someone.com</td>
-                        <td>1234567890</td>
-                        <td>22.05.2017.</td>
-                        <td><span class="delete-user">x</span></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>John</td>
-                        <td>Peoplefox</td>
-                        <td>john@peoplefox.com</td>
-                        <td>1234567890</td>
-                        <td>23.05.2017.</td>
-                        <td><span class="delete-user">x</span></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>Lebron</td>
-                        <td>James</td>
-                        <td>lb23@james.com</td>
-                        <td>1234567890</td>
-                        <td>24.05.2017.</td>
-                        <td><span class="delete-user">x</span></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">5</th>
-                        <td>Kobee</td>
-                        <td>Bryent</td>
-                        <td>kobee@bryent.com</td>
-                        <td>1234567890</td>
-                        <td>25.05.2017.</td>
-                        <td><span class="delete-user">x</span></td>
-                    </tr>
-                </tbody>
-            </table>
-            
+                            <th scope="row">2</th>
+                            <td>Peter</td>
+                            <td>Someone</td>
+                            <td>peter@someone.com</td>
+                            <td>1234567890</td>
+                            <td>22.05.2017.</td>
+                            <td><span class="delete-user">x</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>John</td>
+                            <td>Peoplefox</td>
+                            <td>john@peoplefox.com</td>
+                            <td>1234567890</td>
+                            <td>23.05.2017.</td>
+                            <td><span class="delete-user">x</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">4</th>
+                            <td>Lebron</td>
+                            <td>James</td>
+                            <td>lb23@james.com</td>
+                            <td>1234567890</td>
+                            <td>24.05.2017.</td>
+                            <td><span class="delete-user">x</span></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">5</th>
+                            <td>Kobee</td>
+                            <td>Bryent</td>
+                            <td>kobee@bryent.com</td>
+                            <td>1234567890</td>
+                            <td>25.05.2017.</td>
+                            <td><span class="delete-user">x</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <div class="pagination-smart">
                 <ul class="pagination">
                     <li class="page-item"><a class="page-link" href="#"><</a></li>
@@ -77,5 +79,30 @@
                     <li class="page-item"><a class="page-link" href="#">></a></li>
                 </ul>
             </div>
+        </div>
+        
+        <div class="add-user col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
+            <h4>Add New User</h4>
+            <form>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Name">
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Last Name</label>
+                    <input type="text" class="form-control" id="lastname" placeholder="Last Name">
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="lastname" placeholder="Username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Password">
+                </div>
+
+                    <button class="btn btn-success create-user">Create User</button>
+                
+            </form>
         </div>
     </div>
