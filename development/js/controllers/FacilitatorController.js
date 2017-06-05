@@ -3,7 +3,7 @@
 
     var app = angular.module('app');
 
-    app.controller('FacilitatorController', FacilitatorController);
+    app.controller('FacilitatorController', [FacilitatorController]);
 
     function FacilitatorController() {
         var vm = this;

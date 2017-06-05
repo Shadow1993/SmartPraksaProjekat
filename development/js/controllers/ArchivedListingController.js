@@ -3,7 +3,7 @@
 
     var app = angular.module('app');
 
-    app.controller('ArchivedListingController', ArchivedListingController);
+    app.controller('ArchivedListingController', [ArchivedListingController]);
 
     function ArchivedListingController() {
         var vm = this;

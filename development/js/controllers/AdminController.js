@@ -3,11 +3,15 @@
 
     var app = angular.module('app');
 
-    app.controller('AdminController', AdminController);
+    app.controller('AdminController', [AdminController]);
 
     function AdminController() {
         var vm = this;
         vm.test = 'test';
 
+        vm.user = {
+            name: '',
+            password: ''
+        };
     }
 }());
