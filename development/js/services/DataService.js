@@ -18,7 +18,7 @@
                     return response;
                 })
                 .catch(function(response) {
-                    return $q.reject('Error: ' + response.status + '. ' + response);
+                    return $q.reject('Error: ' + response.status + '; Response: ' + response);
                 });
         }
     }
