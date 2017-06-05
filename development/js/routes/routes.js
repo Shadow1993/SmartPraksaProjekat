@@ -10,7 +10,7 @@
             test: {
                 name: 'test',
                 url: '/test',
-                template: 'TESTING'
+                templateUrl: './../templates/test.html'
             },
             home: {
                 name: 'home',
