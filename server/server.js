@@ -7,8 +7,9 @@ var serverConfig = require('./server-config.js'),
     logger = require('morgan'),
     favicon = require('serve-favicon'),
     path = require('path'),
-    app = express();
-
+    app = express()
+    mongoose = require('mongoose');
+//testing
 /*-~- Server Setup -~-*/
     //Cross-origin
 app.use(cors());
