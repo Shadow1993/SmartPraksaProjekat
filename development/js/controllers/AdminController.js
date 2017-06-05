@@ -9,5 +9,9 @@
         var vm = this;
         vm.test = 'test';
 
+        vm.user = {
+            name: '',
+            password: ''
+        };
     }
 }());
