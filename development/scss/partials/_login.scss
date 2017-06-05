@@ -1,31 +1,42 @@
+body{
+    background-image: url("/images/login-background.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+
 #wrapper{
-    background-color: black;
     min-height: 100vh;
     width: 100%;
-    display: inline-flex;
+    max-width: 1280px;
+    margin: 0 auto;
+    display: flex;
     align-items: center;
     justify-content: center;
-    
     .form-input{
+        border: double 3px $black;
         text-align: center;
-        width: 25%;
+        width: 280px;
         border-radius:5px;
-        background-color:grey;
-        padding:30px;
+        background-color: $loginCol;
+        padding:20px;
         .login{
+            border: 1px solid $black;
             width:100%;
-            margin-bottom:2px;
+            margin-bottom:5px;
             &[type="submit"]{
-                margin-top:5px;
-                width:50%;
+
+                font-weight: bold;
+                color:$black;
+                background-color: darken($loginCol, 5%);
+                width:30%;
                 border-radius: 5px;
-                background-color:blue;
-                border:1px solid lightblue;
+                border:1px solid $black;
                 &:hover{
-                    background-color:white;
+                    color:white;
+                     background-color: lighten($loginCol, 10%);
                 }
-        }
             }
-            
+        }
     }
 }
