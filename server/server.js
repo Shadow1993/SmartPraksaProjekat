@@ -25,6 +25,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.normalize(__dirname + serverConfig.PUBLIC)));
 
 
+app.get('/tryout', function(req, res) {
+    res.send({test: 'test'});
+});
 
     //Angular HTML5 Mode
 app.get('*',function(req,res) {
