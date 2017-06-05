@@ -21,11 +21,12 @@ body{
         background-color: $loginCol;
         padding:20px;
         .login{
+            padding-left: 5px;
             border: 1px solid $black;
             width:100%;
             margin-bottom:5px;
             &[type="submit"]{
-
+                cursor: pointer;
                 font-weight: bold;
                 color:$black;
                 background-color: darken($loginCol, 5%);
