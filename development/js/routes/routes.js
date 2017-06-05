@@ -92,7 +92,7 @@
             .state(states.archivedListing);
 
         // Default Redirect
-        $urlRouterProvider.otherwise('/login');
+        $urlRouterProvider.otherwise('/test');
 
     }
 }());
