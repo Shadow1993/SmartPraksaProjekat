@@ -11,9 +11,13 @@
         border-radius:5px;
         background-color:grey;
         padding:30px;
-        form input{
+        .input{
             width:100%;
             margin-bottom:2px;
+            .input.submit{
+                border-radius: 5px;
+                background-color: blue;
+            }
         }
 
     }
