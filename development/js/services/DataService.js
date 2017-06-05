@@ -6,13 +6,13 @@
 
     function DataService($http, $q) {
         return {
-            getData: getData
+            getTest: getTest
         };
 
-        function getData() {
+        function getTest() {
             return $http({
                 method: 'GET',
-                url: 'api/..'
+                url: '/tryout'
             })
                 .then(function(response) {
                     return response;
