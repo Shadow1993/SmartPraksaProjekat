@@ -9,7 +9,7 @@ var serverConfig = require('./server-config.js'),
     path = require('path'),
     app = express()
     mongoose = require('mongoose');
-//test
+//testing
 /*-~- Server Setup -~-*/
     //Cross-origin
 app.use(cors());
