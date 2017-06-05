@@ -3,7 +3,7 @@
 
     var app = angular.module('app');
 
-    app.controller('HeaderController', HeaderController);
+    app.controller('HeaderController', [HeaderController]);
 
     function HeaderController() {
         var vm = this;
