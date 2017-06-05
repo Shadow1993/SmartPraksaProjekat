@@ -43,17 +43,9 @@
         <!-- Styles:End -->
 
     </head>
-    <body ng-controller='MainController as main'>
-        <header>
-            <h1>Template</h1>
-            <h2 ng-cloak>{{ main.test }}</h2>
-        </header>
-        <main>
-
-        </main>
-        <footer>
-
-        </footer>
+    <body>
+        
+        <div ui-view></div>
 
         <!-- Dependencies -->
         <script src='./dependencies/bower_components/jquery/dist/jquery.min.js'></script>
@@ -64,7 +56,8 @@
 
         <!-- Scripts -->
         <script src='./scripts/app.js'></script>
-        <script src='./scripts/controllers/MainController.js'></script>
+        <script src='./scripts/routes/routes.js'></script>
+        <!--<script src='./scripts/controllers/MainController.js'></script>-->
         <!-- Scripts:End -->
 
     </body>
