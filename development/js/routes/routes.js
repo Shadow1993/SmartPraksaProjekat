@@ -59,7 +59,7 @@
             .state(states.login);
 
         // Default Redirect
-        $urlRouterProvider.otherwise('/');
+        $urlRouterProvider.otherwise('/login');
 
     });
 }());
