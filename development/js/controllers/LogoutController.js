@@ -3,7 +3,7 @@
 
     var app = angular.module('app');
 
-    app.controller('LogoutController', LogoutController);
+    app.controller('LogoutController', [LogoutController]);
 
     function LogoutController() {
         var vm = this;

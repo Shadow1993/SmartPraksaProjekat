@@ -3,7 +3,7 @@
 
     var app = angular.module('app');
 
-    app.controller('ActiveListingController', ActiveListingController);
+    app.controller('ActiveListingController', [ActiveListingController]);
 
     function ActiveListingController() {
         var vm = this;
