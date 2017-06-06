@@ -1,0 +1,32 @@
+'use strict';
+
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema,
+    User = require('./user.model'),
+    Comment = require('./comment.model');
+
+var voteSchema = new Schema({
+    type: {
+        type: String,
+        enum: ['Against', 'Reserved', 'For'],
+        default: 'Agreed',
+        required: true
+    },
+    dateSubmited: {
+        type: Date,
+        default: Date.now(),
+        required: true
+    },
+    submitedBy: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
+    comments: [{
+        type: {
+            type: Schema.Types.ObjectId,
+            ref: 'Comment'
+        }
+    }]
+});
+
+module.exports = mongoose.model('Vote', voteSchema);

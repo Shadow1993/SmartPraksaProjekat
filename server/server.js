@@ -9,6 +9,14 @@ var serverConfig = require('./server-config.js'),
     path = require('path'),
     app = express()
     mongoose = require('mongoose');
+
+    mongoose.connect('mongodb://localhost/SmartPraksaProjekatDB', function(err) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('connected to db');
+        }
+    });
 //testing
 /*-~- Server Setup -~-*/
     //Cross-origin
