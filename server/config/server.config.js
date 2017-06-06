@@ -2,5 +2,7 @@
 
 module.exports = {
     dbUrl: 'mongodb://localhost/SmartProjekatPraksaDb',
-    port: process.env.PORT|| 8080
+    PORT: process.env.PORT || 8080,
+    PUBLIC: './../client/',
+    HOMEFILE: 'index.html'
 };

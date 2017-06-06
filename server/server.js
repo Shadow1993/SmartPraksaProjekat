@@ -1,17 +1,16 @@
-/*-~- Configuration -~-*/
-var serverConfig = require('./server-config.js'),
 /*-~- Packages -~-*/
-    cors = require('cors'),
+var cors = require('cors'),
     express = require('express'),
     bodyParser = require('body-parser'),
     logger = require('morgan'),
     favicon = require('serve-favicon'),
     path = require('path'),
-    app = express()
-    mongoose = require('mongoose'),
-    dbConfig = require('./config/server.config'),
-    require('./config/mongoose.config')(dbConfig);
+    app = express(),
+    serverConfig = require('./config/server.config');
+require('./config/mongoose.config')(serverConfig);
+var userRoute = require('./routes/user.route.js');
 
+app.use('/userRoute', userRoute);
 /*-~- Server Setup -~-*/
     //Cross-origin
 app.use(cors());
@@ -33,7 +32,7 @@ app.get('/tryout', function(req, res) {
 
     //Angular HTML5 Mode
 app.get('*',function(req,res) {
-   res.sendFile(path.normalize(__dirname + serverConfig.PUBLIC + serverConfig.HOMEFILE));
+    res.sendFile(path.normalize(__dirname + serverConfig.PUBLIC + serverConfig.HOMEFILE));
 });
 
 	/* Handlers */

@@ -1,9 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    Comment = require('./comment.model'),
-    Vote = require('./vote.model');
+    Schema = mongoose.Schema;
 
 var decisionSchema = new Schema({
     title: {
@@ -43,7 +41,7 @@ var decisionSchema = new Schema({
         type: [{
             type: Schema.Types.ObjectId,
             ref: 'Comment'
-        }] 
+        }]
     },
     votes: {
         type: [{
