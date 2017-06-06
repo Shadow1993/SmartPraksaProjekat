@@ -8,15 +8,9 @@ var serverConfig = require('./server-config.js'),
     favicon = require('serve-favicon'),
     path = require('path'),
     app = express()
-    mongoose = require('mongoose');
-
-    mongoose.connect('mongodb://localhost/SmartPraksaProjekatDB', function(err) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log('connected to db');
-        }
-    });
+    mongoose = require('mongoose'),
+    dbConfig = require('./config/server.config'),
+    require('./config/mongoose.config')(dbConfig);
 
 /*-~- Server Setup -~-*/
     //Cross-origin

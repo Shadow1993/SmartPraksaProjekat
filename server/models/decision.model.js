@@ -36,7 +36,8 @@ var decisionSchema = new Schema({
         required: 'Expiration date field is required!'
     },
     active: {
-        type: Boolean
+        type: Boolean,
+        default: true
     },
     comments: {
         type: [{
