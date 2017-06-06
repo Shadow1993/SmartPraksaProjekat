@@ -18,7 +18,7 @@
 .users-table {
     margin-top: 70px;
     tr {
-        background-color: #eceeef;
+        background-color: $loginCol;
     }
     h4 {
         margin-bottom: 40px;
@@ -32,10 +32,12 @@
         padding: 5px 12px 7px 12px;
         color: #fff;
         font-weight: bold;
-    }
-     span.delete-user:hover {
+        &:hover {
          cursor: pointer;
+         background-color: darken(red,10%);
      }
+    }
+     
     .pagination-smart {
         margin-top: 40px;
         margin-bottom: 100px;
