@@ -6,7 +6,7 @@
     display: flex;
     float: right;
     li {
-        color: #000;
+        color: brown;
         font-size: 14px;
     }
 }
@@ -17,8 +17,12 @@
 ===========================*/
 .users-table {
     margin-top: 70px;
+    tr {
+        background-color: #eceeef;
+    }
     h4 {
         margin-bottom: 40px;
+        color: #fff;
     }
     li {
         vertical-align: middle !important;
@@ -60,6 +64,9 @@
 .add-user {
     margin-bottom: 100px;
     line-height: normal;
+    h4, label {
+        color: #fff;
+    }
     .form-control {
         font-size: 14px !important;
     }

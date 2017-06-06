@@ -8,7 +8,7 @@
         <div class="col-xs-12 users-table">
             <h4>All Users</h4>
             <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table ">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -16,6 +16,7 @@
                             <th>Last Name</th>
                             <th>Username</th>
                             <th>Password</th>
+                            <th>Privileges</th>
                             <th>Act. Date</th>
                             <th>Delete</th>
                         </tr>
@@ -27,6 +28,7 @@
                             <td>Otto</td>
                             <td>mark@oto.com</td>
                             <td>1234567890</td>
+                            <td>Voter</td>
                             <td>21.05.2017.</td>
                             <td><span class="delete-user">x</span></td>
                         </tr>
@@ -36,6 +38,7 @@
                             <td>Someone</td>
                             <td>peter@someone.com</td>
                             <td>1234567890</td>
+                            <td>Voter</td>
                             <td>22.05.2017.</td>
                             <td><span class="delete-user">x</span></td>
                         </tr>
@@ -45,6 +48,7 @@
                             <td>Peoplefox</td>
                             <td>john@peoplefox.com</td>
                             <td>1234567890</td>
+                            <td>Viewer</td>
                             <td>23.05.2017.</td>
                             <td><span class="delete-user">x</span></td>
                         </tr>
@@ -54,6 +58,7 @@
                             <td>James</td>
                             <td>lb23@james.com</td>
                             <td>1234567890</td>
+                            <td>Facilitator</td>
                             <td>24.05.2017.</td>
                             <td><span class="delete-user">x</span></td>
                         </tr>
@@ -63,6 +68,7 @@
                             <td>Bryent</td>
                             <td>kobee@bryent.com</td>
                             <td>1234567890</td>
+                            <td>Admin</td>
                             <td>25.05.2017.</td>
                             <td><span class="delete-user">x</span></td>
                         </tr>
@@ -99,6 +105,17 @@
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" class="form-control" id="password" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <label for="privileges">Privilege</label>
+                    <select class="form-control" id="privileges">
+                        <option value="">--</option>
+                        <option value="admin">Admin</option>
+                        <option value="facilitator">Facilitator</option>
+                        <option value="voter">Voter</option>
+                        <option value="viewer">Viewer</option>
+                        <option value="facilitator_and_voter">Facilitator&Voter</option>
+                    </select>
                 </div>
 
                     <button class="btn btn-success create-user">Create User</button>
