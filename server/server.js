@@ -17,7 +17,7 @@ var serverConfig = require('./server-config.js'),
             console.log('connected to db');
         }
     });
-//testing
+
 /*-~- Server Setup -~-*/
     //Cross-origin
 app.use(cors());

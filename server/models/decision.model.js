@@ -8,13 +8,13 @@ var mongoose = require('mongoose'),
 var decisionSchema = new Schema({
     title: {
         type: String,
-        required: 'Title field is required',
+        required: 'Title field is required!',
         unique: true,
         trim: true
     },
     description: {
         type: String,
-        required: 'Description field is required',
+        required: 'Description field is required!',
         trim: true
     },
     type: {
@@ -33,7 +33,7 @@ var decisionSchema = new Schema({
     },
     expirationDate: {
         type: Date,
-        required: 'Expiration date field is required'
+        required: 'Expiration date field is required!'
     },
     active: {
         type: Boolean

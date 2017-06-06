@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
 var commentSchema = new Schema({
     text: {
         type: String,
-        required: 'Text field is required',
+        required: 'Text field is required!',
         trim: true
     },
     submitedBy: {
@@ -17,7 +17,7 @@ var commentSchema = new Schema({
     submitedDate: {
         type: Date,
         default: Date.now(),
-        required: 'Date of posting comment is required'
+        required: 'Date of posting comment is required!'
     }
 });
 

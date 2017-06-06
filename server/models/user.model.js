@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
 var userSchema = new Schema({
     username: {
         type: String,
-        required: 'Username field is required',
+        required: 'Username field is required!',
         unique: true,
         trim: true
     },

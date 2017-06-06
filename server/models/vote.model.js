@@ -8,9 +8,9 @@ var mongoose = require('mongoose'),
 var voteSchema = new Schema({
     type: {
         type: String,
+        required: true,
         enum: ['Against', 'Reserved', 'For'],
-        default: 'Agreed',
-        required: true
+        default: 'Agreed'
     },
     dateSubmited: {
         type: Date,
