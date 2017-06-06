@@ -1,0 +1,160 @@
+/*============================
+    Pols - view
+==============================*/
+#decisions {
+    margin-top: 170px;
+    margin-bottom: 70px;
+    .card {
+        margin: 0 auto;
+        margin-bottom: 50px;
+    }
+    .voting-type {
+        width: 45%;
+        float: left;
+        padding: 12px;
+        font-weight: 600;
+        font-size: 12px;
+    }
+    .expiration-date {
+        width: 55%;
+        float: left;
+        color: #000;
+        font-family: Arial;
+        padding: 10px 20px;
+    }
+    .decision-text {
+        margin: 30px 5px;
+        color: #34495e;
+        text-align: center;
+        font-size: 17px;
+        font-weight: 600;
+        font-family: Arial;
+    }
+    span {
+        &:first-of-type {
+            color: #34495e;
+        }
+        &:nth-of-type(2) {
+            color: #2c3e50;
+        }
+        &:last-of-type {
+            color: #2c3e50;
+        }
+    }
+
+    .btn {
+        &:hover {
+            cursor: pointer;
+        }
+        &.btn-success, &.btn-danger, &.btn-info, &.btn-warning, &.btn-secondary {
+            font-size: 14px;
+            margin-right: 4px;
+        }
+        &.btn-danger {
+            padding-left: 18px;
+            padding-right: 18px;
+        }
+        &.btn-secondary {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 12px;
+            border: none;
+            padding-left: 0;
+            &:hover, &:visited, &:active, &:focus {
+                background-color: transparent;
+                border: none;
+                box-shadow: none;
+            }
+        }
+    }
+    .super-majority {
+        .btn {
+            &.btn-danger {
+                padding-left: 14px;
+                padding-right: 14px;
+            }
+        }
+    }
+    .card-block {
+        margin-top: -20px;
+        margin-bottom: 0;
+        border: none;
+        .progress {
+            margin-bottom: 10px;
+            max-width: 70%;
+            span {
+                color: #fff;
+                font-weight: 600;
+            }
+        }
+    }
+    .vote {
+        margin-top: 20px;
+        a {
+            font-size: 14.5px;
+        }
+    }
+    .collapse-results {
+        margin: 0;
+        margin-top: -23px;
+        padding: 0 10px 0 20px;
+        &:hover {
+            opacity: .8;
+        }
+    }
+    
+}
+
+    @media screen and (max-width: 400px){
+        #decisions {
+            .vote {
+                a {
+                    font-size: 12px;
+                }
+            }
+            .voting-type {
+                width: 100%;
+                display: block;
+                margin-bottom: -14px;
+                font-size: 12px;
+                text-align: center;
+            }
+            .expiration-date {
+                width: 100%;
+                display: block;
+                font-size: 12px;
+                text-align: center !important;
+            }
+            .decision-text {
+                font-size: 12px;
+            }
+            .card-block {
+                overflow-x: scroll;
+                .btn {
+                    font-size: 11px;
+                }
+            }
+        }
+        
+    }
+
+
+/*=============================
+    Form to add new Decision
+===============================*/
+#form-voting {
+    margin-top: 170px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    .create-decision {
+        margin-top: 20px;
+        font-size: 15px;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    input, select {
+        font-size: 14px;
+    }
+}
