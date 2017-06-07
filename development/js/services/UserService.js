@@ -6,11 +6,18 @@
 
     function UserService($http, $q) {
         return {
-            getUsers: getUsers
+            getUsers: getUsers,
+            createUser: createUser
         };
 
         function ReturnError(response) {
-            return $q.reject('Error: ' + response.status + '; Response: ' + response);
+            return $q.reject('Error: ' + response.status + '; Response: ' + response.data.message);
+        }
+        function ReturnData(response) {
+            return response.data;
+        }
+        function ReturnSuccess() {
+            return $q.resolve();
         }
 
         function getUsers() {
@@ -18,9 +25,16 @@
                 method: 'GET',
                 url: '/users'
             })
-                .then(function (response) {
-                    return response.data;
-                })
+                .then(ReturnData)
+                .catch(ReturnError);
+        }
+        function createUser(data) {
+            return $http({
+                method: 'POST',
+                url: '/users',
+                data: data
+            })
+                .then(ReturnSuccess)
                 .catch(ReturnError);
         }
     }
