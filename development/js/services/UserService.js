@@ -2,9 +2,9 @@
     'use strict';
 
     var app = angular.module('app');
-    app.factory('DataService', ['$http', '$q', DataService]);
+    app.factory('UserService', ['$http', '$q', UserService]);
 
-    function DataService($http, $q) {
+    function UserService($http, $q) {
         return {
             getUsers: getUsers
         };

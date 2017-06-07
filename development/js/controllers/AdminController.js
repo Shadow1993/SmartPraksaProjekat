@@ -3,22 +3,10 @@
 
     var app = angular.module('app');
 
-    app.controller('AdminController', ['DataService', AdminController]);
+    app.controller('AdminController', [AdminController]);
 
-    function AdminController(DataService) {
+    function AdminController() {
         var vm = this;
         vm.test = 'test';
-
-        vm.user = {
-            name: '',
-            password: ''
-        };
-
-        function DataS(response) {
-            console.log(response);
-        }
-
-        DataService.getUsers()
-            .then(DataS, DataS);
     }
 }());
