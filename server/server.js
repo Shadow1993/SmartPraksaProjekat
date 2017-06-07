@@ -10,6 +10,7 @@ var cors = require('cors'),
 require('./config/mongoose.config')(serverConfig);
 
 var userRouter = require('./routes/user.route');
+var decisionRouter = require('./routes/decision.route');
 
 /*-~- Server Setup -~-*/
     //Cross-origin
@@ -25,7 +26,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
     //Express
 app.use(express.static(path.normalize(__dirname + serverConfig.PUBLIC)));
 
-app.use('/user', userRouter);
+app.use('/users', userRouter);
+app.use('/decisions', decisionRouter);
 
     //Angular HTML5 Mode
 app.get('*',function(req,res) {

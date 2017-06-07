@@ -16,7 +16,7 @@ var userSchema = new Schema({
     },
     role: {
         type: String,
-        enum: ['Administrator', 'Viewer', 'Voter', 'Fasciliator'],
+        enum: ['Administrator', 'Viewer', 'Voter', 'Fasciliator', 'Fasc-VOte'],
         default: 'Viewer'
     }
 });

@@ -1,7 +1,9 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    Comment = require('./comment.model'),
+    Vote = require('./vote.model');
 
 var decisionSchema = new Schema({
     title: {

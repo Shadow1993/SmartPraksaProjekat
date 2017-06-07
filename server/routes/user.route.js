@@ -2,20 +2,13 @@
 
 var express = require('express'),
     router = express.Router(),
-    userController = require('../controllers/user.controller'),
-    userModel = require('../models/user.model');
+    userController = require('../controllers/user.controller');
 
-router.get('/', function(req, res) {
-    console.log('hihihi');
-    userModel.find({}, function(err, userDb) {
-        if (err) {
-            console.log(err);
-            res.send(err);
-        } else {
-            console.log(userDb);
-            res.send(userDb);
-        }
-    });
-});
+router
+    .get('/', userController.getAllUsers)
+    .get('/:id', userController.getUserByID)
+    .delete('/:id', userController.deleteUserById)
+    .put('/', userController.updateUser)
+    .post('/', userController.createUser);
 
 module.exports = router;
