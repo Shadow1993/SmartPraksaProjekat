@@ -17,7 +17,8 @@
         function DataS(response) {
             console.log(response);
         }
-        DataService.getTest()
+
+        DataService.getUsers()
             .then(DataS, DataS);
     }
 }());

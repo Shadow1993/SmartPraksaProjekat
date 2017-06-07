@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     var app = angular.module('app');
@@ -6,20 +6,22 @@
 
     function DataService($http, $q) {
         return {
-            getTest: getTest
+            getUsers: getUsers
         };
 
-        function getTest() {
+        function ReturnError(response) {
+            return $q.reject('Error: ' + response.status + '; Response: ' + response);
+        }
+
+        function getUsers() {
             return $http({
                 method: 'GET',
-                url: '/tryout'
+                url: '/users'
             })
-                .then(function(response) {
-                    return response;
+                .then(function (response) {
+                    return response.data;
                 })
-                .catch(function(response) {
-                    return $q.reject('Error: ' + response.status + '; Response: ' + response);
-                });
+                .catch(ReturnError);
         }
     }
 }());
