@@ -19,7 +19,7 @@
                 url: '/users'
             })
                 .then(function (response) {
-                    return response;
+                    return response.data;
                 })
                 .catch(ReturnError);
         }
