@@ -11,66 +11,18 @@
             <table class="table ">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
                         <th>Username</th>
-                        <th>Password</th>
                         <th>Privileges</th>
-                        <th>Act. Date</th>
                         <th>Delete</th>
+                        <th>Edit</th>
+                        <th>Act.Date</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>mark@oto.com</td>
-                        <td>1234567890</td>
-                        <td>Voter</td>
-                        <td>21.05.2017.</td>
-                        <td><span class="delete-user">x</span></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Peter</td>
-                        <td>Someone</td>
-                        <td>peter@someone.com</td>
-                        <td>1234567890</td>
-                        <td>Voter</td>
-                        <td>22.05.2017.</td>
-                        <td><span class="delete-user">x</span></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>John</td>
-                        <td>Peoplefox</td>
-                        <td>john@peoplefox.com</td>
-                        <td>1234567890</td>
-                        <td>Viewer</td>
-                        <td>23.05.2017.</td>
-                        <td><span class="delete-user">x</span></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>Lebron</td>
-                        <td>James</td>
-                        <td>lb23@james.com</td>
-                        <td>1234567890</td>
-                        <td>Facilitator</td>
-                        <td>24.05.2017.</td>
-                        <td><span class="delete-user">x</span></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">5</th>
-                        <td>Kobee</td>
-                        <td>Bryent</td>
-                        <td>kobee@bryent.com</td>
-                        <td>1234567890</td>
-                        <td>Admin</td>
-                        <td>25.05.2017.</td>
-                        <td><span class="delete-user">x</span></td>
+                   <tr ng-repeat="info in admin.userInfo">
+                       <td>{{info.username}}</td>
+                       <td>{{info.role}}</td>
+                       <td><span class="delete-user">x</span></td>
                     </tr>
                 </tbody>
             </table>
