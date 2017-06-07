@@ -1,0 +1,15 @@
+h4 {
+    &.archived-listing {
+        color: #fff;
+        margin-top: 27px;
+        text-align: center;
+    }
+}
+.progress-archived {
+    height: 25px;
+    margin: auto;
+    margin-bottom: 10px;
+    .progress-bar {
+        height: 100%;
+    }
+}
