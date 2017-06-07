@@ -3,7 +3,6 @@
 var DecisionModel = require('../models/decision.model');
 
 module.exports.getAllDecisions = function(req, res) {
-    console.log('im here barabo');
         DecisionModel.find({})
             .populate(['comments', 'votes'])
             .exec(function (err, decisionDb) {
@@ -18,7 +17,6 @@ module.exports.getAllDecisions = function(req, res) {
 };
 
 module.exports.getDecisionById = function(req, res) {
-    console.log('we gucci');
     console.log(req.params.id);
 
     DecisionModel.findById({_id: req.params.id}, function(err, decisionDb) {
@@ -33,7 +31,6 @@ module.exports.getDecisionById = function(req, res) {
 };
 
 module.exports.deleteDecisionById = function(req, res) {
-    console.log('gucci');
     console.log(req.params.id);
     DecisionModel.findByIdAndRemove({_id: req.params.id}, function(err, decisionDb) {
         if (err) {
@@ -47,7 +44,6 @@ module.exports.deleteDecisionById = function(req, res) {
 };
 
 module.exports.createDecision = function(req, res) {
-    console.log('prada');
     console.log(req.body);
     DecisionModel.create({
         title: req.body.title,
