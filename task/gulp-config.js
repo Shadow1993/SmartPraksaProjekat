@@ -30,7 +30,7 @@ module.exports = function() {
             scss: origin.dev + 'scss/**/*.scss'       //SASS Files
         },
     //Browser support
-        browsers : [
+        browsers: [
             '> 5%',
             'ie 6-8',
             'last 3 ie versions',
@@ -42,6 +42,6 @@ module.exports = function() {
             'last 3 ie_mob versions',
             'last 3 Edge versions'
         ]
-    }
+    };
     return config;
 };

@@ -84,7 +84,7 @@ function clean(dir) {
 
     //JS (for Task)
 function funcJS() {
-    if(args.server) {   //if passed --server argument checks the server js file
+    if (args.server) {   //if passed --server argument checks the server js file
         logMsg('[JS] Checking server file for errors..');
         return gulp
             .src(config.pathsDev.server)
@@ -106,7 +106,7 @@ function funcJS() {
             .pipe($.logger({
                 after: $.util.colors.magenta('[JS]') + ' JSHint complete!',
                 colors: true
-            }))
+            }));
             //.pipe($.jscs.reporter())
     } else {            //else it checks the development js files
         logMsg('[JS] Checking JavaScript files for errors..');
@@ -174,7 +174,7 @@ function funcCSS() {
             after: $.util.colors.magenta('[CSS]') + ' Gulp CSS complete!',
             colors: true
         }))
-        .pipe(gulp.dest(config.outputClient.css))
+        .pipe(gulp.dest(config.outputClient.css));
 }
 
     //Error
@@ -193,8 +193,12 @@ gulp.task('server', ['css', 'js'], function() {
     $.nodemon({
         script: config.pathsDev.server,
         ext: 'html scss js',
-        watch: [config.outputClient.client + '/**/*.html', config.pathsDev.scss, config.pathsDev.js, config.pathsDev.server],
-        env: {NODE_ENV : 'development'}
+        watch: [
+            config.outputClient.client + '**/*.html',
+            config.pathsDev.scss, config.pathsDev.js,
+            config.pathsDev.server
+        ],
+        env: {NODE_ENV: 'development'}
     })
         .on('change', ['js'])
         .on('restart', function () {
@@ -212,7 +216,6 @@ gulp.task('server', ['css', 'js'], function() {
             .src(config.outputClient.client + '/**/*.html')
             .pipe($.livereload());
     });
-    
 
     // watch app scripts
     gulp.watch(config.pathsDev.js, ['js'], function() {
