@@ -2,7 +2,7 @@
 var cors = require('cors'),
     express = require('express'),
     bodyParser = require('body-parser'),
-    logger = require('morgan'),
+    // logger = require('morgan'),
     favicon = require('serve-favicon'),
     path = require('path'),
     app = express(),
@@ -19,7 +19,7 @@ app.use(cors());
 app.use(favicon((path.normalize(__dirname + serverConfig.PUBLIC + '/favicon.ico'))));
     //Logger(Morgan)
 //app.use(logger('dev')); //Enable if needed
-	//Body Parser
+    //Body Parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -30,13 +30,13 @@ app.use('/users', userRouter);
 app.use('/decisions', decisionRouter);
 
     //Angular HTML5 Mode
-app.get('*',function(req,res) {
+app.get('*', function(req, res) {
     res.sendFile(path.normalize(__dirname + serverConfig.PUBLIC + serverConfig.HOMEFILE));
 });
 
-	/* Handlers */
+/* Handlers */
 
-// catch 404 and forward to error handler
+    // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
@@ -48,7 +48,7 @@ app.use(function(req, res, next) {
     // development error handler
     // will print stacktrace
 if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
+    app.use(function(err, req, res) {
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
@@ -59,7 +59,7 @@ if (app.get('env') === 'development') {
 
     // production error handler
     // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,
