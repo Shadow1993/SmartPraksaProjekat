@@ -6,7 +6,10 @@
     "requireParenthesesAroundIIFE": true,
     "maximumLineLength": 120,
     "validateLineBreaks": null, //CRFL or LF or null
-    "validateIndentation": 4,
+    "validateIndentation": {
+        "value": 4,
+        "allExcept": ["comments", "emptyLines"]
+    },
     "disallowTrailingComma": true,
     "disallowUnusedParams": true,
     "disallowMultipleVarDecl": false,
