@@ -90,13 +90,16 @@
 
 .checkboxes {
     margin: 0 0 30px 0;
-    p{
+    :first-child{
         color: white;
         font-size: 20px;
         letter-spacing: 1px;
     }
-    label{
+        label{
         font-size: 15px;
         margin: 0 0 15px 0;
+    }
+    .newline{
+        display:block;
     }
 }
