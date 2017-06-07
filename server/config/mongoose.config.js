@@ -9,7 +9,7 @@ module.exports = function(config) {
         }
         var db = mongoose.connection;
         db.once('open', function callback() {
-            console.log('Connected to database on address: "mongodb://localhost/SmartProjekatPraksaDb"');
+            console.log('Connected to database on address: "mongodb://localhost/test"');
         });
     });
 };

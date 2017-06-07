@@ -8,9 +8,9 @@ var cors = require('cors'),
     app = express(),
     serverConfig = require('./config/server.config');
 require('./config/mongoose.config')(serverConfig);
-var userRoute = require('./routes/user.route.js');
 
-app.use('/userRoute', userRoute);
+var userRouter = require('./routes/user.route');
+
 /*-~- Server Setup -~-*/
     //Cross-origin
 app.use(cors());
@@ -25,10 +25,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
     //Express
 app.use(express.static(path.normalize(__dirname + serverConfig.PUBLIC)));
 
-
-app.get('/tryout', function(req, res) {
-    res.send({test: 'test'});
-});
+app.use('/user', userRouter);
 
     //Angular HTML5 Mode
 app.get('*',function(req,res) {
