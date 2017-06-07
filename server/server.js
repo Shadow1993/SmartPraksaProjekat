@@ -1,3 +1,4 @@
+'use strict';
 /*-~- Packages -~-*/
 var cors = require('cors'),
     express = require('express'),
@@ -11,6 +12,7 @@ require('./config/mongoose.config')(serverConfig);
 
 var userRouter = require('./routes/user.route');
 var decisionRouter = require('./routes/decision.route');
+var commentRouter = require('./routes/comment.route');
 
 /*-~- Server Setup -~-*/
     //Cross-origin
@@ -28,6 +30,7 @@ app.use(express.static(path.normalize(__dirname + serverConfig.PUBLIC)));
 
 app.use('/users', userRouter);
 app.use('/decisions', decisionRouter);
+app.use('/comments', commentRouter);
 
     //Angular HTML5 Mode
 app.get('*', function(req, res) {

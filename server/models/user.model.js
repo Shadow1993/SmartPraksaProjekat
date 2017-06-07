@@ -2,7 +2,8 @@
 
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema,
-    bcrypt = require('bcryptjs');
+    bcrypt = require('bcryptjs'),
+    Role = require('./role.model');
 
 var userSchema = new Schema({
     username: {
@@ -12,13 +13,13 @@ var userSchema = new Schema({
         trim: true
     },
     password: {
-        type: String
-    },
-    role: {
         type: String,
-        enum: ['Administrator', 'Viewer', 'Voter', 'Fasciliator', 'Fasc-VOte'],
-        default: 'Viewer'
-    }
+        required: 'Password field is required'
+    },
+    role: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Role'
+    }]
 });
 
 userSchema.methods.generateHash = function(password) {

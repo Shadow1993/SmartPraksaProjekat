@@ -18,7 +18,6 @@ module.exports.getAllDecisions = function(req, res) {
 
 module.exports.getDecisionById = function(req, res) {
     console.log(req.params.id);
-
     DecisionModel.findById({_id: req.params.id}, function(err, decisionDb) {
         if (err) {
             console.log(err);
@@ -44,6 +43,7 @@ module.exports.deleteDecisionById = function(req, res) {
 };
 
 module.exports.createDecision = function(req, res) {
+    //TODO change to work properly
     console.log(req.body);
     DecisionModel.create({
         title: req.body.title,
