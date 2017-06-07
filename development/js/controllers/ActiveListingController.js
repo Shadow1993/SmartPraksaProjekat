@@ -10,10 +10,10 @@
         vm.test = 'test';
 
         var someData = {
-            username: 'asdf',
-            password: 'testasdfasdfing'
+            id: '5937faf5a667e5120403c8fd',
+            newUsername: 'bla'
         };
-        UserService.createUser(someData)
+        UserService.editUser(someData)
             .then(function() {
                 console.log('nice');
             })

@@ -7,7 +7,8 @@
     function UserService($http, $q) {
         return {
             getUsers: getUsers,
-            createUser: createUser
+            createUser: createUser,
+            editUser: editUser
         };
 
         function ReturnError(response) {
@@ -31,6 +32,15 @@
         function createUser(data) {
             return $http({
                 method: 'POST',
+                url: '/users',
+                data: data
+            })
+                .then(ReturnSuccess)
+                .catch(ReturnError);
+        }
+        function editUser(data) {
+            return $http({
+                method: 'PUT',
                 url: '/users',
                 data: data
             })
