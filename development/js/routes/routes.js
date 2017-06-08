@@ -11,7 +11,9 @@
             test: {
                 name: 'test',
                 url: '/test',
-                templateUrl: './../templates/test.html'
+                templateUrl: './../templates/test.html',
+                controller: 'TestController',
+                controllerAs: 'test'
             },
             home: {
                 name: 'home',
