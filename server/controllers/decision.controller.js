@@ -43,7 +43,6 @@ module.exports.deleteDecisionById = function(req, res) {
 };
 
 module.exports.createDecision = function(req, res) {
-    //TODO change to work properly
     console.log(req.body);
     DecisionModel.create({
         title: req.body.title,
@@ -52,7 +51,6 @@ module.exports.createDecision = function(req, res) {
         steps: req.body.steps,
         startingDate: req.body.startingDate,
         expirationDate: req.body.expirationDate
-
     }, function(err, decisionDb) {
         if (err) {
             console.log(err);
@@ -63,3 +61,10 @@ module.exports.createDecision = function(req, res) {
         }
     });
 };
+
+/*
+GET DECISIONS ('/decisions', GET) => params = {}
+GET DECISION ('/decisions/:id', GET) => params = id
+DELETE DECISION ('/decisions/:id', DELETE) => params = id
+CREATE DECISION ('/decisions', POST) => body = title, description, type, steps, startingDate, expirationDate
+*/

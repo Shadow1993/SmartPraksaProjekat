@@ -12,6 +12,9 @@ var userSchema = new Schema({
         unique: true,
         trim: true
     },
+    dateCreated: {
+        type: Date
+    },
     password: {
         type: String,
         required: 'Password field is required'
@@ -22,7 +25,7 @@ var userSchema = new Schema({
     }]
 });
 
-userSchema.methods.generateHash = function(password) {
+module.exports = userSchema.methods.generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 

@@ -1,5 +1,6 @@
 'use strict';
-var UserModel = require('../models/user.model');
+var UserModel = require('../models/user.model'),
+    RoleModel = require('../models/role.model');
 
 module.exports.getAllUsers = function(req, res) {
         UserModel.find({}, function(err, userDb) {
@@ -42,6 +43,7 @@ module.exports.deleteUserById = function(req, res) {
 module.exports.updateUser = function(req, res) {
     //TODO change to work properly
         console.log('my body put params: ' + req.body.id + req.body.username);
+
         UserModel.findByIdAndUpdate(req.body.id, {$set: {username: req.body.username}}, function(err, userDb) {
             if (err) {
                 console.log(err);
@@ -56,18 +58,62 @@ module.exports.updateUser = function(req, res) {
 module.exports.createUser = function(req, res) {
     //TODO change to work with new database
         console.log(req.body);
-        console.log('my body post params: ' + req.body.username + req.body.password + req.body.role);
+        var rolesTemp = [];
+        console.log(role);
+        for (var i in req.body.role) {
+            console.log(req.body.role[i]);
+            RoleModel.find({title: req.body.role[i].title}, function(err, roleDb) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    rolesTemp.push(roleDb._id);
+                }
+            });
+        }
+/*
         UserModel.create({
             username: req.body.username,
             password: req.body.password,
-            role: req.body.role
-        }, function(err, userDb) {
+            role: rolesTemp
+            },
+            function(err, userDb) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log(userDb);
+                }
+            });
+            */
+            res.send('ok ok ok');
+/*
+        RoleModel.find({title: req.body.role}, function(err, roleDb) {
             if (err) {
                 console.log(err);
                 res.send(err);
             } else {
-                console.log(userDb);
-                res.send(userDb);
+
+                UserModel.create({
+                    username: req.body.username,
+                    password: req.body.password,
+                    role: roleDb._id,
+                    dateCreated: req.body.dateCreated
+                }, function(err, userDb) {
+                    if (err) {
+                        console.log(err);
+                        res.send(err);
+                    } else {
+                        console.log(userDb);
+                        res.send(userDb);
+                    }
+                });
             }
         });
+        */
     };
+/*
+GET USERS ('/users', GET) => params = {}
+GET USER ('/users/:id', GET) => params = id
+DELETE USER ('/users/:id', DELETE) => params = id
+UPDATE USER ('/users', PUT) => body = id, username
+CREATE USER ('/users', POST) => body = username, password, role, dateCreated
+*/
