@@ -3,15 +3,16 @@ var UserModel = require('../models/user.model'),
     RoleModel = require('../models/role.model');
 
 module.exports.getAllUsers = function (req, res) {
-    UserModel.find({}, function (err, userDb) {
-        if (err) {
-            console.log(err);
-            res.send(err);
-        } else {
-            console.log(userDb);
-            res.send(userDb);
-        }
-    });
+    UserModel.find({})
+        .populate('role')
+        .exec(function(err, userDb) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(userDb);
+                res.send(userDb);
+            }
+        });
 };
 
 module.exports.getUserByID = function (req, res) {
@@ -71,6 +72,7 @@ module.exports.updateUser = function (req, res) {
 };
 
 module.exports.createUser = function (req, res) {
+    console.log(req.body.test);
     RoleModel.find({
         title: {
             $in: req.body.role

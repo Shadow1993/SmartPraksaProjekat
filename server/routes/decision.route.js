@@ -2,12 +2,12 @@
 
 var express = require('express'),
     router = express.Router(),
-    decisionController = require('../controllers/decision.controller');
+    DecisionController = require('../controllers/decision.controller');
 
 router
-    .get('/', decisionController.getAllDecisions)
-    .get('/:id', decisionController.getDecisionById)
-    .delete('/:id', decisionController.deleteDecisionById)
-    .post('/', decisionController.createDecision);
+    .get('/', DecisionController.getAllDecisions)
+    .get('/:id', DecisionController.getDecisionById)
+    .delete('/:id', DecisionController.deleteDecisionById)
+    .post('/', DecisionController.createDecision);
 
 module.exports = router;

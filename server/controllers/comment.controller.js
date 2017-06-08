@@ -20,11 +20,12 @@ module.exports.getAllComments = function(req, res) {
 };
 
 module.exports.createComment = function(req, res) {
-    console.log(req.body.test);
+    console.log(req);
+
 /*
     CommentModel.create({
-        text: req.body.text,
-        submitedBy: req.body.submitedBy,
+        text: 'hardcoded',
+        submitedBy: '59392b8675479904c4ba3863',
         submitedDate: Date.now()
     }, function(err, commentDb) {
         if (err) {
@@ -33,7 +34,7 @@ module.exports.createComment = function(req, res) {
         } else {
             console.log(commentDb);
             DecisionModel.update(
-                {_id: req.body.decisionId},
+                {_id: '5937eb776ed2c928b0a07288'},
                 {
                     $push: {
                         comments: commentDb._id
@@ -50,5 +51,12 @@ module.exports.createComment = function(req, res) {
         }
     });
     */
-    res.send('pl');
+    res.send('ok');
+};
+
+module.exports.editComment = function(req, res) {
+    console.log('assasa');
+    console.log(req.body.test);
+    //CommentModel.findByIdAndUpdate({id: req.body.id}, )
+    res.send('sasa');
 };
