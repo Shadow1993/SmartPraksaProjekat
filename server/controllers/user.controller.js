@@ -55,6 +55,7 @@ module.exports.updateUser = function(req, res) {
 
 module.exports.createUser = function(req, res) {
     //TODO change to work with new database
+        console.log(req.body);
         console.log('my body post params: ' + req.body.username + req.body.password + req.body.role);
         UserModel.create({
             username: req.body.username,
