@@ -8,14 +8,6 @@
 
         var api = '/users';
 
-        return {
-            getUsers: getUsers,
-            getUser: getUser,
-            createUser: createUser,
-            editUser: editUser,
-            deleteUser: deleteUser
-        };
-
         function getUsers() {
             return $http({
                 method: 'GET',
@@ -58,5 +50,13 @@
                 .then(HandlingService.ReturnSuccess)
                 .catch(HandlingService.ReturnError);
         }
+
+        return {
+            getUsers: getUsers,
+            getUser: getUser,
+            createUser: createUser,
+            editUser: editUser,
+            deleteUser: deleteUser
+        };
     }
 }());
