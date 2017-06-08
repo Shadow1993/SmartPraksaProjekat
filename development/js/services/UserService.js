@@ -2,9 +2,9 @@
     'use strict';
 
     var app = angular.module('app');
-    app.factory('UserService', ['$http', '$q', UserService]);
+    app.factory('UserService', ['$http', 'HandlingService', UserService]);
 
-    function UserService($http, $q) {
+    function UserService($http, HandlingService) {
 
         var api = '/users';
 
@@ -16,31 +16,21 @@
             deleteUser: deleteUser
         };
 
-        function ReturnError(response) {
-            return $q.reject('Error: ' + response.status + '; Response: ' + response.data.message);
-        }
-        function ReturnData(response) {
-            return response.data;
-        }
-        function ReturnSuccess() {
-            return $q.resolve();
-        }
-
         function getUsers() {
             return $http({
                 method: 'GET',
                 url: api
             })
-                .then(ReturnData)
-                .catch(ReturnError);
+                .then(HandlingService.ReturnData)
+                .catch(HandlingService.ReturnError);
         }
         function getUser(id) {
             return $http({
                 method: 'GET',
                 url: api + '/' + id
             })
-                .then(ReturnData)
-                .catch(ReturnError);
+                .then(HandlingService.ReturnData)
+                .catch(HandlingService.ReturnError);
         }
         function createUser(data) {
             return $http({
@@ -48,8 +38,8 @@
                 url: api,
                 data: data
             })
-                .then(ReturnSuccess)
-                .catch(ReturnError);
+                .then(HandlingService.ReturnSuccess)
+                .catch(HandlingService.ReturnError);
         }
         function editUser(data) {
             return $http({
@@ -57,16 +47,16 @@
                 url: api,
                 data: data
             })
-                .then(ReturnSuccess)
-                .catch(ReturnError);
+                .then(HandlingService.ReturnSuccess)
+                .catch(HandlingService.ReturnError);
         }
         function deleteUser(id) {
             return $http({
                 method: 'DELETE',
                 url: api + '/' + id
             })
-                .then(ReturnSuccess)
-                .catch(ReturnError);
+                .then(HandlingService.ReturnSuccess)
+                .catch(HandlingService.ReturnError);
         }
     }
 }());
