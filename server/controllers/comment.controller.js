@@ -20,7 +20,35 @@ module.exports.getAllComments = function(req, res) {
 };
 
 module.exports.createComment = function(req, res) {
-    console.log('nesto');
-
-    res.send('ok');
+    console.log(req.body.test);
+/*
+    CommentModel.create({
+        text: req.body.text,
+        submitedBy: req.body.submitedBy,
+        submitedDate: Date.now()
+    }, function(err, commentDb) {
+        if (err) {
+            console.log(err);
+            res.send(err);
+        } else {
+            console.log(commentDb);
+            DecisionModel.update(
+                {_id: req.body.decisionId},
+                {
+                    $push: {
+                        comments: commentDb._id
+                    }
+                }, function(err, decisionDb) {
+                    if (err) {
+                        console.log(err);
+                        res.send(err);
+                    } else {
+                        console.log(decisionDb);
+                        res.send(decisionDb);
+                    }
+                });
+        }
+    });
+    */
+    res.send('pl');
 };
