@@ -3,11 +3,10 @@
 
     var app = angular.module('app');
 
-    app.controller('ArchivedListingController', [ArchivedListingController]);
+    app.controller('DecisionsController', [DecisionsController]);
 
-    function ArchivedListingController() {
+    function DecisionsController() {
         var vm = this;
         vm.test = 'test';
-
     }
 }());

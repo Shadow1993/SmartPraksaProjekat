@@ -3,10 +3,11 @@
 
     var app = angular.module('app');
 
-    app.controller('ActiveListingController', [ActiveListingController]);
+    app.controller('DecisionController', [DecisionController]);
 
-    function ActiveListingController() {
+    function DecisionController() {
         var vm = this;
         vm.test = 'test';
+
     }
 }());

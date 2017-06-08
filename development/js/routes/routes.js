@@ -65,19 +65,19 @@
                 controller: 'FacilitatorController',
                 controllerAs: 'facilitator'
             },
-            activeListing: {
-                name: 'main.activeListing',
-                url: '/activelisting',
-                templateUrl: './../templates/activelisting.html',
-                controller: 'ActiveListingController',
-                controllerAs: 'activeListing'
+            decisions: {
+                name: 'main.decisions',
+                url: '/decisions',
+                templateUrl: './../templates/decisions.html',
+                controller: 'DecisionsController',
+                controllerAs: 'decisions'
             },
-            archivedListing: {
-                name: 'main.archivedListing',
-                url: '/archivedlisting',
-                templateUrl: './../templates/archivedlisting.html',
-                controller: 'ArchivedListingController',
-                controllerAs: 'archivedListing'
+            decision: {
+                name: 'main.decision',
+                url: '/decisions/:id',
+                templateUrl: './../templates/decision.html',
+                controller: 'DecisionController',
+                controllerAs: 'decision'
             }
         };
         // State Initialization
@@ -90,8 +90,8 @@
             .state(states.login)
             .state(states.admin)
             .state(states.facilitator)
-            .state(states.activeListing)
-            .state(states.archivedListing);
+            .state(states.decisions)
+            .state(states.decision);
 
         // Default Redirect
         $urlRouterProvider.otherwise('/test');
