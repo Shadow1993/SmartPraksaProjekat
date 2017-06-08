@@ -11,6 +11,7 @@
         UserService.getUsers().then(function(res) {
             console.log(res);
             vm.userInfo = res;
+            
         });
     }
 }());
