@@ -51,7 +51,7 @@ module.exports.createDecision = function(req, res) {
         type: req.body.type,
         steps: req.body.steps,
         startingDate: req.body.startingDate,
-        expirationDate: req.body.expirationDate,
+        expirationDate: req.body.expirationDate
 
     }, function(err, decisionDb) {
         if (err) {
