@@ -17,15 +17,16 @@ module.exports.getAllUsers = function (req, res) {
 
 module.exports.getUserByID = function (req, res) {
     console.log('here is my id: ' + req.params.id);
-    UserModel.findOne({ _id: req.params.id }, function (err, userDb) {
-        if (err) {
-            console.log(err);
-            res.send('err');
-        } else {
-            console.log(userDb);
-            res.send(userDb);
-        }
-    });
+    UserModel.findOne({_id: req.params.id})
+        .populate('role')
+        .exec(function(err, userDb) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(userDb);
+                res.send(userDb);
+            }
+        })
 };
 
 module.exports.deleteUserById = function (req, res) {
@@ -57,14 +58,13 @@ module.exports.updateUser = function (req, res) {
             UserModel.findByIdAndUpdate(req.body.id, {
                 $set: {
                     username: req.body.username,
-                    role: roleDb._id
+                    role: roleDb
                 }
             }, function (err, userDb) {
                 if (err) {
                     console.log(err);
                 } else {
                     console.log(userDb);
-                    res.send(userDb);
                 }
             });
         }

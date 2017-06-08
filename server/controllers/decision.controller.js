@@ -44,7 +44,6 @@ module.exports.deleteDecisionById = function(req, res) {
 
 module.exports.createDecision = function(req, res) {
     console.log(req.body.test);
-    /*
     console.log(req.body);
     DecisionModel.create({
         title: req.body.title,
@@ -61,7 +60,7 @@ module.exports.createDecision = function(req, res) {
             console.log(decisionDb);
             res.send(decisionDb);
         }
-    });*/
+    });
 };
 
 /*

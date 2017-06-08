@@ -13,6 +13,7 @@ require('./config/mongoose.config')(serverConfig);
 var userRouter = require('./routes/user.route');
 var decisionRouter = require('./routes/decision.route');
 var commentRouter = require('./routes/comment.route');
+var voteRouter = require('./routes/vote.route');
 
 /*-~- Server Setup -~-*/
     //Cross-origin
@@ -31,6 +32,7 @@ app.use(express.static(path.normalize(__dirname + serverConfig.PUBLIC)));
 app.use('/users', userRouter);
 app.use('/decisions', decisionRouter);
 app.use('/comments', commentRouter);
+app.use('/votes', voteRouter);
 
     //Angular HTML5 Mode
 app.get('*', function(req, res) {
