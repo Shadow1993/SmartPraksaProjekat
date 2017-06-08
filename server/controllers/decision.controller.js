@@ -48,7 +48,11 @@ module.exports.createDecision = function(req, res) {
     DecisionModel.create({
         title: req.body.title,
         description: req.body.description,
-        expirationDate: Date.now()
+        type: req.body.type,
+        steps: req.body.steps,
+        startingDate: req.body.startingDate,
+        expirationDate: req.body.expirationDate,
+
     }, function(err, decisionDb) {
         if (err) {
             console.log(err);

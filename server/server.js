@@ -10,9 +10,6 @@ var cors = require('cors'),
     serverConfig = require('./config/server.config');
 require('./config/mongoose.config')(serverConfig);
 
-var fill = require('./fill');
-fill();
-
 var userRouter = require('./routes/user.route');
 var decisionRouter = require('./routes/decision.route');
 var commentRouter = require('./routes/comment.route');

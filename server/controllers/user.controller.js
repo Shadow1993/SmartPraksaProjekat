@@ -41,8 +41,8 @@ module.exports.deleteUserById = function(req, res) {
 
 module.exports.updateUser = function(req, res) {
     //TODO change to work properly
-        console.log('my body put params: ' + req.body.id + req.body.newUsername);
-        UserModel.findByIdAndUpdate(req.body.id, {$set: {username: req.body.newUsername}}, function(err, userDb) {
+        console.log('my body put params: ' + req.body.id + req.body.username);
+        UserModel.findByIdAndUpdate(req.body.id, {$set: {username: req.body.username}}, function(err, userDb) {
             if (err) {
                 console.log(err);
                 res.send(userDb);
