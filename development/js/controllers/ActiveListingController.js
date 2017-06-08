@@ -10,12 +10,13 @@
         vm.test = 'test';
 
         var someData = {
-            id: '5937faf5a667e5120403c8fd',
-            newUsername: 'bla'
+            id: '5937b3ae2f35c86fe7fff0e3',
+            newUsername: 'yeeee'
         };
-        UserService.editUser(someData)
-            .then(function() {
+        UserService.getUser(someData.id)
+            .then(function(res) {
                 console.log('nice');
+                console.log(res);
             })
             .catch(function(res) {
                 console.log(res);
