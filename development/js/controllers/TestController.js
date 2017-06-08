@@ -3,20 +3,13 @@
 
     var app = angular.module('app');
 
-    app.controller('TestController', ['UserService', TestController]);
+    app.controller('TestController', ['TestService', TestController]);
 
-    function TestController(UserService) {
+    function TestController(TestService) {
         var vm = this;
         vm.test = 'test';
-        var data = {
-            username: 'hehh',
-            password: '123',
-            dateCreated: Date.now(),
-            role: ['Viewer', 'Fasciliator']
-        };
-        UserService.createUser(data)
-            .then(function(response) {
-                console.log(response);
-            });
+
+        TestService.populate('users');
+        TestService.populate('decisions');
     }
 }());
