@@ -7,8 +7,8 @@ var express = require('express'),
 router
     .get('/', UserController.getAllUsers)
     .get('/:id', UserController.getUserByID)
-    .delete('/:id', UserController.deleteUserById)
+    .post('/', UserController.createUser)
     .put('/', UserController.updateUser)
-    .post('/', UserController.createUser);
+    .delete('/:id', UserController.deleteUserById);
 
 module.exports = router;

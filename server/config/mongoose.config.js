@@ -2,8 +2,8 @@
 
 var mongoose = require('mongoose');
 
-module.exports = function(config) {
-    mongoose.connect(config.dbUrl, function(err) {
+module.exports = function (config) {
+    mongoose.connect(config.dbUrl, function (err) {
         if (err) {
             console.log(err);
         }
