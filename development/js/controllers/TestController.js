@@ -9,7 +9,11 @@
         var vm = this;
         vm.test = 'test';
 
-        TestService.populate('users');
-        TestService.populate('decisions');
+        vm.populateUsers = function () {
+            TestService.populate('users');
+        };
+        vm.populateDecisions = function () {
+            TestService.populate('decisions');
+        };
     }
 }());
