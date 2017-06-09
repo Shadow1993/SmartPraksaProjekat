@@ -2,13 +2,13 @@
     'use strict';
 
     var app = angular.module('app');
-    app.factory('DecisionService', ['$http', 'HandlingService', DecisionService]);
+    app.factory('ResolutionService', ['$http', 'HandlingService', ResolutionService]);
 
-    function DecisionService($http, HandlingService) {
+    function ResolutionService($http, HandlingService) {
 
         var api = '/decisions';
 
-        function getDecisions() {
+        function getResolutions() {
             return $http({
                 method: 'GET',
                 url: api
@@ -16,7 +16,7 @@
                 .then(HandlingService.ReturnData)
                 .catch(HandlingService.ReturnError);
         }
-        function getDecision(id) {
+        function getResolution(id) {
             return $http({
                 method: 'GET',
                 url: api + '/' + id
@@ -24,7 +24,7 @@
                 .then(HandlingService.ReturnData)
                 .catch(HandlingService.ReturnError);
         }
-        function createDecision(data) {
+        function createResolution(data) {
             return $http({
                 method: 'POST',
                 url: api,
@@ -33,7 +33,7 @@
                 .then(HandlingService.ReturnSuccess)
                 .catch(HandlingService.ReturnError);
         }
-        function editDecision(data) {
+        function editResolution(data) {
             return $http({
                 method: 'PUT',
                 url: api,
@@ -42,7 +42,7 @@
                 .then(HandlingService.ReturnSuccess)
                 .catch(HandlingService.ReturnError);
         }
-        function deleteDecision(id) {
+        function deleteResolution(id) {
             return $http({
                 method: 'DELETE',
                 url: api + '/' + id
@@ -52,11 +52,11 @@
         }
 
         return {
-            getDecisions: getDecisions,
-            getDecision: getDecision,
-            createDecision: createDecision,
-            editDecision: editDecision,
-            deleteDecision: deleteDecision
+            getResolutions: getResolutions,
+            getResolution: getResolution,
+            createResolution: createResolution,
+            editResolution: editResolution,
+            deleteResolution: deleteResolution
         };
     }
 }());

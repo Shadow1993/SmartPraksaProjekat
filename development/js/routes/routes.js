@@ -66,18 +66,18 @@
                 controllerAs: 'facilitator'
             },
             decisions: {
-                name: 'main.decisions',
-                url: '/decisions',
-                templateUrl: './../templates/decisions.html',
-                controller: 'DecisionsController',
-                controllerAs: 'decisions'
+                name: 'main.resolutions',
+                url: '/resolutions',
+                templateUrl: './../templates/resolutions.html',
+                controller: 'ResolutionsController',
+                controllerAs: 'resolutions'
             },
             decision: {
-                name: 'main.decision',
-                url: '/decisions/:id',
-                templateUrl: './../templates/decision.html',
-                controller: 'DecisionController',
-                controllerAs: 'decision'
+                name: 'main.resolution',
+                url: '/resolution/:id',
+                templateUrl: './../templates/resolution.html',
+                controller: 'ResolutionController',
+                controllerAs: 'resolution'
             }
         };
         // State Initialization

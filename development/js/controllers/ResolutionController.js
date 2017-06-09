@@ -3,10 +3,11 @@
 
     var app = angular.module('app');
 
-    app.controller('DecisionsController', [DecisionsController]);
+    app.controller('ResolutionController', [ResolutionController]);
 
-    function DecisionsController() {
+    function ResolutionController() {
         var vm = this;
         vm.test = 'test';
+
     }
 }());
