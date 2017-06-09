@@ -1,12 +1,12 @@
 <div class="container">
-    
+
     <!-- ============================
         Show Created Decisions
     ================================= -->
-     <div class="col-xs-12">
-        <div class="col-xs-12 clearfix">   
+    <div class="col-xs-12">
+        <div class="col-xs-12 clearfix">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item">You are  <strong>Facilitator</strong></li>
+                <li class="breadcrumb-item">You are <strong>Facilitator</strong></li>
             </ol>
         </div>
 
@@ -62,7 +62,10 @@
 
         <div class="pagination-smart">
             <ul class="pagination">
-                <li class="page-item"><a class="page-link" href="#"><</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">
+                        <</a>
+                </li>
                 <li class="page-item page-item-page active"><a class="page-link" href="#">1</a></li>
                 <li class="page-item page-item-page"><a class="page-link" href="#">2</a></li>
                 <li class="page-item page-item-page"><a class="page-link" href="#">3</a></li>
@@ -80,6 +83,10 @@
             <h4>Add New Decision</h4>
             <form>
                 <div class="form-group">
+                    <label for="decision_title">Decision Title</label>
+                    <input type="text" required="" placeholder="Title" class="form-control" id="decision_title">
+                </div>
+                <div class="form-group">
                     <label for="dec_type">Decision Type</label>
                     <select class="form-control" id="dec_type">
                         <option value="simple_majority" selected>Simple Majority</option>
@@ -88,25 +95,30 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="dec_expiration_date">Expiration Date</label>
-                    <input type="date" class="form-control" id="dec_expiration_date">
+                    <label for="dec_question">Decision Content</label>
+                    <textarea class="form-control" id="dec_question" rows="4" placeholder="Changing the world, one word at a time..." required=""></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="dec_question">Poll Question</label>
-                    <textarea class="form-control" id="dec_question" rows="4"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="dec_comments">Allow Comments</label>
-                    <div>
-                        <input type="radio" name="dec_comment" value="yes"> Yes<br>
-                        <input type="radio" name="dec_comment" value="no"> No<br>  
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <p class="input-group">
+                            <input type="text" class="form-control" 
+                            uib-datepicker-popup="{{format}}" 
+                            ng-model="dt" 
+                            is-open="popup1.opened" 
+                            datepicker-options="dateOptions"
+                            ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+                            <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+             </span>
+                        </p>
+                        <button class="btn btn-success create-decision">Create Decision</button>
                     </div>
-                </div>
 
-                <button class="btn btn-success create-decision">Create Decision</button>
-                
+
+
             </form>
+            </div>
         </div>
-    </div>
 
-</div>
+    </div>
