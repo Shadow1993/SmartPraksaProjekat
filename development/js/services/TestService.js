@@ -103,32 +103,38 @@
                     {
                         username: 'Ana',
                         password: 'Contributovic',
-                        role: ['Viewer']
+                        role: ['Viewer'],
+                        dateCreated: Date.now()
                     },
                     {
                         username: 'Aleksandar',
                         password: 'CEOvic',
-                        role: ['Viewer', 'Voter']
+                        role: ['Viewer', 'Voter'],
+                        dateCreated: Date.now()
                     },
                     {
                         username: 'Marija',
                         password: 'Marketin',
-                        role: ['Viewer', 'Facilitator']
+                        role: ['Viewer', 'Facilitator'],
+                        dateCreated: Date.now()
                     },
                     {
                         username: 'Sandra',
                         password: 'Sale Serifovic',
-                        role: ['Viewer, Voter', 'Facilitator']
+                        role: ['Viewer, Voter', 'Facilitator'],
+                        dateCreated: Date.now()
                     },
                     {
                         username: 'Sanja',
                         password: 'HRtkovic',
-                        role: ['Viewer', 'Facilitator', 'Voter']
+                        role: ['Viewer', 'Facilitator', 'Voter'],
+                        dateCreated: Date.now()
                     },
                     {
                         username: 'Nikola',
                         password: 'Systemadministratoric',
-                        role: ['Viewer', 'Administrator']
+                        role: ['Viewer', 'Administrator'],
+                        dateCreated: Date.now()
                     }
                 ],
                 decisions: [
