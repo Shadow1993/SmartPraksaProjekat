@@ -74,7 +74,7 @@
             },
             decision: {
                 name: 'main.resolution',
-                url: '/resolution/:id',
+                url: '/resolutions/:id',
                 templateUrl: './../templates/resolution.html',
                 controller: 'ResolutionController',
                 controllerAs: 'resolution'
