@@ -12,7 +12,7 @@ var voteSchema = new Schema({
         enum: ['Against', 'Reserved', 'For'],
         default: 'Agreed'
     },
-    dateSubmited: {
+    submitedDate: {
         type: Date,
         default: Date.now(),
         required: true

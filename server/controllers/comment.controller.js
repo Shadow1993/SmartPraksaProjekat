@@ -1,14 +1,19 @@
 'use strict';
 
+/*
+* GET ALL COMMENTS ('/comments', GET) => params = id
+* CREATE COMMENT ('/comments'), POST) => body = id, text, submitedBy, submitedDate
+*/
+
 var CommentModel = require('../models/comment.model'),
     DecisionModel = require('../models/decision.model');
 
-module.exports.getAllComments = function(req, res) {
-    console.log('hi' + req.params.id);
+module.exports.getAllComments = function (req, res) {
+    console.log(req.params);
     DecisionModel
-        .findOne({_id: req.params.id})
+        .findOne({ _id: req.params.id })
         .populate('comments')
-        .exec(function(err, decisionDb) {
+        .exec(function (err, decisionDb) {
             if (err) {
                 console.log(err);
                 res.send(err);
@@ -19,27 +24,25 @@ module.exports.getAllComments = function(req, res) {
         });
 };
 
-module.exports.createComment = function(req, res) {
-    console.log(req);
-
-/*
+module.exports.createComment = function (req, res) {
+    console.log(req.body);
     CommentModel.create({
-        text: 'hardcoded',
-        submitedBy: '59392b8675479904c4ba3863',
-        submitedDate: Date.now()
-    }, function(err, commentDb) {
+        text: req.body.submitedBy,
+        submitedBy: req.body.submitedBy,
+        submitedDate: req.body.submitedDate
+    }, function (err, commentDb) {
         if (err) {
             console.log(err);
             res.send(err);
         } else {
             console.log(commentDb);
             DecisionModel.update(
-                {_id: '5937eb776ed2c928b0a07288'},
+                { _id: req.body.id },
                 {
                     $push: {
                         comments: commentDb._id
                     }
-                }, function(err, decisionDb) {
+                }, function (err, decisionDb) {
                     if (err) {
                         console.log(err);
                         res.send(err);
@@ -50,13 +53,4 @@ module.exports.createComment = function(req, res) {
                 });
         }
     });
-    */
-    res.send('ok');
-};
-
-module.exports.editComment = function(req, res) {
-    console.log('assasa');
-    console.log(req.body.test);
-    //CommentModel.findByIdAndUpdate({id: req.body.id}, )
-    res.send('sasa');
 };
