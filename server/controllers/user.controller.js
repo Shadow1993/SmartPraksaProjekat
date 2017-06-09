@@ -2,10 +2,18 @@
 var UserModel = require('../models/user.model'),
     RoleModel = require('../models/role.model');
 
+/*
+* GET USERS ('/users', GET) => params = {}
+* GET USER ('/users/:id', GET) => params = id
+* DELETE USER ('/users/:id', DELETE) => params = id
+* UPDATE USER ('/users', PUT) => body = id, username, role
+* CREATE USER ('/users', POST) => body = username, password, role, dateCreated
+*/
+
 module.exports.getAllUsers = function (req, res) {
     UserModel.find({})
         .populate('role')
-        .exec(function(err, userDb) {
+        .exec(function (err, userDb) {
             if (err) {
                 console.log(err);
             } else {
@@ -16,10 +24,10 @@ module.exports.getAllUsers = function (req, res) {
 };
 
 module.exports.getUserByID = function (req, res) {
-    console.log('here is my id: ' + req.params.id);
-    UserModel.findOne({_id: req.params.id})
+    console.log(req.params);
+    UserModel.findOne({ _id: req.params.id })
         .populate('role')
-        .exec(function(err, userDb) {
+        .exec(function (err, userDb) {
             if (err) {
                 console.log(err);
             } else {
@@ -30,7 +38,7 @@ module.exports.getUserByID = function (req, res) {
 };
 
 module.exports.deleteUserById = function (req, res) {
-    console.log('my delete id: ' + req.params.id);
+    console.log(req.params);
     UserModel.findOneAndRemove({ _id: req.params.id }, function (err, userDb) {
         if (err) {
             console.log(err);
@@ -43,9 +51,7 @@ module.exports.deleteUserById = function (req, res) {
 };
 
 module.exports.updateUser = function (req, res) {
-    //TODO change to work properly+
-    console.log('my body put params: ' + req.body.id + req.body.username + req.body.role);
-
+    console.log(req.body);
     RoleModel.find({
         title: {
             $in: req.body.role
@@ -71,15 +77,15 @@ module.exports.updateUser = function (req, res) {
     });
 };
 
-module.exports.createUser = function (req, res) {
-    console.log(req.body.test);
+module.exports.createUser = function (req, res, next) {
+    console.log(req.body);
     RoleModel.find({
         title: {
             $in: req.body.role
         }
     }, function (err, roleDb) {
         if (err) {
-            console.log(err);
+            return next(err);
         } else {
             console.log(roleDb);
             UserModel.create({
@@ -89,8 +95,7 @@ module.exports.createUser = function (req, res) {
                 role: roleDb
             }, function (err, userDb) {
                 if (err) {
-                    console.log(err);
-                    res.send(err);
+                    return next(err);
                 } else {
                     console.log(userDb);
                     res.send(userDb);
@@ -99,10 +104,3 @@ module.exports.createUser = function (req, res) {
         }
     });
 };
-/*
-GET USERS ('/users', GET) => params = {}
-GET USER ('/users/:id', GET) => params = id
-DELETE USER ('/users/:id', DELETE) => params = id
-UPDATE USER ('/users', PUT) => body = id, username, role
-CREATE USER ('/users', POST) => body = username, password, role, dateCreated
-*/

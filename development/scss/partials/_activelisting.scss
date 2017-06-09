@@ -1,16 +1,82 @@
 /*============================
     Decisions - view
 ==============================*/
-h4 {
-    &.active-listing {
-        color: #fff;
-        margin-top: 27px;
-        text-align: center;
+.results-progressbar {
+    .progress {
+        margin-bottom: 5px;
+        .progress-bar {
+            height: 23px;
+            &.bg-success {
+                background: #27ae60;
+            }
+             &.bg-danger {
+                background: #e74c3c;
+            }
+        }
     }
 }
-#decisions {
-    margin-top: 24px;
-    margin-bottom: 70px;
+h4 {
+    &.title-listing {
+        color: #fff;
+        margin-top: 37px;
+        text-align: center;
+    }
+    &.resolution {
+        margin-top: 100px;
+        margin-bottom: -30px;
+    }
+    &.archived-title {
+        margin-top: 100px;
+    }
+}
+.decisions {
+    &.resolution {
+        margin-bottom: 500px;
+        margin-top: 70px;
+        .resolution-back {
+            width: 120px;
+            float: right;
+            margin-bottom: 15px;
+            color: #fff;
+            font-size: 14px;
+        }
+    }
+    .table-decisions {  
+        background: #ae713d;
+        max-width: 100%;
+        overflow-x: scroll;
+        vertical-align: middle;
+        tr {
+            color: #fff;
+            vertical-align: middle;
+            span {
+                color: #fff;
+                max-width: 300px;
+            }
+            td, th {
+                vertical-align: middle;
+                &:last-of-type {
+                    min-width: 150px;
+                    span {
+                        position: relative;
+
+                        right: 5px;
+                        float: right;
+                    }
+                }
+                max-width: 300px;
+            }
+            td {
+                &:nth-child(2) {
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+    margin-top: 30px;
+    margin-bottom: 0px;
     .card {
         margin: 0 auto;
         margin-bottom: 50px;
@@ -48,7 +114,6 @@ h4 {
             color: #2c3e50;
         }
     }
-
     .btn {
         &:hover {
             cursor: pointer;
@@ -73,6 +138,10 @@ h4 {
                 box-shadow: none;
             }
         }
+    }
+    .decision-ractivate {
+        width: 90%;
+        margin-left: 5%;
     }
     .super-majority {
         .btn {
@@ -108,8 +177,21 @@ h4 {
         &:hover {
             opacity: .8;
         }
+    }  
+}
+
+.archived-decisions {
+    margin-bottom: 140px;
+}  
+
+.archived-progressbar-result {
+    min-width: 150px;
+    max-width: 300px;
+    span {
+        position: relative;
+        right: 5px;
+        float: right;
     }
-    
 }
 
     @media screen and (max-width: 400px){

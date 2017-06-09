@@ -7,139 +7,97 @@
                 <li class="breadcrumb-item">You are <strong>Voter/Viewer/Admin</strong></li>
             </ol>
         </div>
-        <h4 class="active-listing">Active Listing</h4>
-        <div id="decisions">
-            <div class="card col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3"> 
-                <div class="clearfix alert-success">
-                    <div class="voting-type">
-                        <span>Simple Majority</span>
-                    </div> 
-                    <div class="expiration-date text-right">
-                        <span><strong>17</strong> days</span>, <span><strong>7</strong> hours</span>, <span><strong>14</strong> minutes</span>
-                    </div>
-                </div>
-                <div class="decision-text">
-                    Does Cleveland have chance to win 2017 NBA finals?
-                </div>
-                <div class="card-block">
-                    <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-success">
-                            <input type="radio" autocomplete="off"> Yes
-                        </label>
-                        <label class="btn btn-danger">
-                            <input type="radio" autocomplete="off"> No
-                        </label>
-                    </div>
-                    <div class="vote">
-                        <a href="#" class="btn btn-primary">Vote</a>
-                    </div>
-                </div>
-                <p class="collapse-results">
-                    <button class="btn btn-secondary pull-right" type="button" data-toggle="collapse" data-target="#simple-majority" aria-expanded="false" aria-controls="simple-majority">
-                        See Results
-                    </button>
-                </p>
-                <div class="collapse" id="simple-majority">
-                    <div class="card card-block">
-                    <div class="progress">
-                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="60" style="width: 60%" aria-valuemin="100">Yes &nbsp; <span>60%</span></div>
+        <h4 class="title-listing">Active Listing</h4>
+        
+        <div class="clearfix decisions">
+            <table class="table table-decisions">
+                <tr>
+                    <th>#</th>
+                    <th>Question</th>
+                    <th>Type</th>
+                    <th>Date Created</th>
+                    <th>Expiration Date</th>
+                    <th>Results</th>
+                </tr>
+                <tr ng-repeat="active_decisions in resolutions.resoultionsInfo | filter: { active: true }">
+                    <td>{{ $index+1 }}</td>
+                    <td ui-sref="main.resolution({ id: active_decisions._id })"><span>{{ active_decisions.description }}</span></td>
+                    <td>{{ active_decisions.type }}</td>
+                    <td>{{ active_decisions.startingDate | date:"medium" }}</td>
+                    <td>{{ active_decisions.expirationDate | date:"medium" }}</td>
+                    <td>
+                        <div class="results-progressbar">
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" aria-valuenow="60" style="width: 60%" aria-valuemin="100"><span>60%</span></div>
+                            </div>
+                            
+                            <div class="progress">
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"><span>40%</span></div>
+                            </div>
                         </div>
-                        
-                        <div class="progress">
-                            <div class="progress-bar bg-danger" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">No &nbsp; <span>40%</span></div>
+                    </td>
+                </tr>
+            </table>
+            <!--<div class="pagination-smart">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <</a>
+                    </li>
+                    <li class="page-item page-item-page active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item page-item-page"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item page-item-page"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">></a></li>
+                </ul>
+            </div>-->
+    </div>
+        
+    <h4 class="title-listing archived-title">Archived Listing</h4>
+        <div class="clearfix decisions archived-decisions">
+            <table class="table table-decisions table-archived-decisions">
+                <tr>
+                    <th>#</th>
+                    <th>Question</th>
+                    <th>Type</th>
+                    <th>Date Created</th>
+                    <th>Expiration Date</th>
+                    <th>Results</th>
+                    <th>Reactivate</th>
+                </tr>
+                <tr ng-repeat="archived_decisions in resolutions.resoultionsInfo | filter: { active: false }">
+                    <td>{{ $index+1 }}</td>
+                    <td ui-sref="main.resolution({ id: archived_decisions._id })"><span>{{ archived_decisions.description }}</span></td>
+                    <td>{{ archived_decisions.type }}</td>
+                    <td>{{ archived_decisions.startingDate | date:"medium" }}</td>
+                    <td>{{ archived_decisions.expirationDate | date:"medium" }}</td>
+                    <td class="archived-progressbar-result">
+                        <div class="results-progressbar">
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" aria-valuenow="60" style="width: 60%" aria-valuemin="100"><span>60%</span></div>
+                            </div>
+                            
+                            <div class="progress">
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"><span>40%</span></div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div><!-- .card -->
-
-
-            <div class="card col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3"> 
-                <div class="clearfix alert-success">
-                    <div class="voting-type">
-                        <span>Super Majority</span>
-                    </div> 
-                    <div class="expiration-date text-right">
-                        <span><strong>17</strong> days</span>, <span><strong>7</strong> hours</span>, <span><strong>14</strong> minutes</span>
-                    </div>
-                </div>
-                <div class="decision-text">
-                    Does Cleveland have chance to win 2017 NBA finals?
-                </div>
-                <div class="card-block">
-                    <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-success">
-                            <input type="radio" autocomplete="off"> Yes
-                        </label>
-                        <label class="btn btn-danger">
-                            <input type="radio" autocomplete="off"> No
-                        </label>
-                    </div>
-                    <div class="vote">
-                        <a href="#" class="btn btn-primary">Vote</a>
-                    </div>
-                </div>
-                <p class="collapse-results">
-                    <button class="btn btn-secondary pull-right" type="button" data-toggle="collapse" data-target="#super-majority" aria-expanded="false" aria-controls="super-majority">
-                        See Results
-                    </button>
-                </p>
-                <div class="collapse" id="super-majority">
-                    <div class="card card-block">
-                    <div class="progress">
-                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="60" style="width: 60%" aria-valuemin="100">Yes &nbsp; <span>60%</span></div>
-                        </div>
-                        
-                        <div class="progress">
-                            <div class="progress-bar bg-danger" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">No &nbsp; <span>40%</span></div>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- .card -->
-
-
-
-            <div class="card col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3"> 
-                <div class="clearfix alert-success">
-                    <div class="voting-type">
-                        <span>Unanimous</span>
-                    </div> 
-                    <div class="expiration-date text-right">
-                        <span><strong>17</strong> days</span>, <span><strong>7</strong> hours</span>, <span><strong>14</strong> minutes</span>
-                    </div>
-                </div>
-                <div class="decision-text">
-                    Does Cleveland have chance to win 2017 NBA finals?
-                </div>
-                <div class="card-block">
-                    <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-success">
-                            <input type="radio" autocomplete="off"> Yes
-                        </label>
-                        <label class="btn btn-danger">
-                            <input type="radio" autocomplete="off"> No
-                        </label>
-                    </div>
-                    <div class="vote">
-                        <a href="#" class="btn btn-primary">Vote</a>
-                    </div>
-                </div>
-                <p class="collapse-results">
-                    <button class="btn btn-secondary pull-right" type="button" data-toggle="collapse" data-target="#unanimous" aria-expanded="false" aria-controls="unanimous">
-                        See Results
-                    </button>
-                </p>
-                <div class="collapse" id="unanimous">
-                    <div class="card card-block">
-                    <div class="progress">
-                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="60" style="width: 60%" aria-valuemin="100">Yes &nbsp; <span>70%</span></div>
-                        </div>
-                        
-                        <div class="progress">
-                            <div class="progress-bar bg-danger" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">No &nbsp; <span>30%</span></div>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- .card -->
-
-        </div><!-- #decisions -->
+                    </td>
+                    <td>
+                        <button class="btn btn-success decision-ractivate">Reactivate</button>
+                    </td>
+                </tr>
+            </table>
+            <!--<div class="pagination-smart">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#">
+                            <</a>
+                    </li>
+                    <li class="page-item page-item-page active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item page-item-page"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item page-item-page"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">></a></li>
+                </ul>
+            </div>-->
+        </div>
+        
 </div>
