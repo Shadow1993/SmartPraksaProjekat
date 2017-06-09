@@ -12,7 +12,7 @@
         ResolutionService.getResolutions()
             .then(function (res) {
                 console.log(res);
-                vm.resoultionInfo = res;
+                vm.resoultionsInfo = res;
             })
     }
 }());
