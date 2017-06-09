@@ -6,61 +6,88 @@
     </div>
 
     <div class="col-xs-12 users-table">
-        <h4>All Users</h4>
+        <h4 class='has-error'>All Users</h4>
         <div class="table-responsive">
             <table class="table ">
                 <thead>
                     <tr>
+                        <th> </th>
                         <th>Username</th>
                         <th>Privileges</th>
+                        <th>Date Created</th>
                         <th>Delete</th>
-                        <th>Edit</th>
-                        <th>Act.Date</th>
                     </tr>
                 </thead>
                 <tbody>
                    <tr ng-repeat="info in admin.userInfo">
-                       <td>{{info.username}}</td>
-                       <td>{{info.role}}</td>
-                       <td><span class="delete-user">x</span></td>
+                       <td>{{ $index + 1 }}</td>
+                       <td>{{ info.username }}</td>
+                       <td>
+                           <span ng-repeat='role in info.role'>{{ role.title }} </span>
+                       </td>
+                       <td>{{ info.dateCreated }}</td>
+                       <td><span class="delete-user" ng-click='admin.deleteUser(info._id)'>x</span></td>
                     </tr>
                 </tbody>
             </table>
-        </div>
-
-        <div class="pagination-smart">
-            <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="#">
-                        <</a>
-                </li>
-                <li class="page-item page-item-page active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item page-item-page"><a class="page-link" href="#">2</a></li>
-                <li class="page-item page-item-page"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">></a></li>
-            </ul>
         </div>
     </div>
 
     <div class="add-user col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
         <h4>Add New User</h4>
-        <form>
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" id="lastname" placeholder="Username">
+        <form name='newUserForm' novalidate>
+            <div class="form-group"
+                ng-class='{ "has-error": newUserForm.username.$dirty && newUserForm.username.$invalid  }'>
+                <label for="username"
+                        class='control-label'>
+                        Username: 
+                </label>
+                <input ng-model='admin.newUser.username'
+                        type="text"
+                        name='username'
+                        class="form-control"
+                        id="username"
+                        placeholder="Username"
+                        ng-minlength="1"
+                        ng-maxlength="30"
+                        required>
+                <span class='help-block has-error'
+                        ng-show='newUserForm.username.$dirty && newUserForm.username.$invalid'>
+                        Username is required</span>
             </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Password">
+            <div class="form-group"
+                    ng-class='{ "has-error": newUserForm.password.$dirty && newUserForm.password.$invalid  }'>
+                <label for="password"
+                        class='control-label'>
+                        Password:
+                </label>
+                <input ng-model='admin.newUser.password'
+                        type="password"
+                        name='password'
+                        class="form-control"
+                        id="password"
+                        placeholder="Password"
+                        ng-minlength="1"
+                        ng-maxlength="30"
+                        required>
+                <span class='help-block has-error'
+                        ng-show='newUserForm.password.$dirty && newUserForm.password.$invalid'>
+                        Password is required</span>
             </div>
                 <div class="checkboxes">
                 <p>Additional Privileges</p>
-                <input type="checkbox" id="facilitators">
+                <input ng-model='admin.permissions.facilitator'
+                        type="checkbox"
+                        id="facilitators">
                 <label for="facilitators">Facilitators</label>
-                <span class="newline"><input type="checkbox" id="voters">
+                <span class="newline">
+                <input ng-model='admin.permissions.voter'
+                        type="checkbox"
+                        id="voters">
                 <label for="voters">Voters</label></span>
                 </div>
-            <button class="btn btn-success create-user">Create User</button>
+            <button class="btn btn-success create-user"
+                    ng-click='admin.submit(newUserForm.$valid)'>Create User</button>
         </form>
     </div>
 </div>

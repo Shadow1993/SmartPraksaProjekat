@@ -54,7 +54,7 @@
                 .catch(HandlingService.ReturnError);
         }
 
-        function getDecisions() {
+        function getResolutions() {
             return $http({
                 method: 'GET',
                 url: api.decisions
@@ -62,7 +62,7 @@
                 .then(HandlingService.ReturnData)
                 .catch(HandlingService.ReturnError);
         }
-        function getDecision(id) {
+        function getResolution(id) {
             return $http({
                 method: 'GET',
                 url: api.decisions + '/' + id
@@ -70,7 +70,7 @@
                 .then(HandlingService.ReturnData)
                 .catch(HandlingService.ReturnError);
         }
-        function createDecision(data) {
+        function createResolution(data) {
             return $http({
                 method: 'POST',
                 url: api.decisions,
@@ -79,7 +79,7 @@
                 .then(HandlingService.ReturnSuccess)
                 .catch(HandlingService.ReturnError);
         }
-        function editDecision(data) {
+        function editResolution(data) {
             return $http({
                 method: 'PUT',
                 url: api.decisions,
@@ -88,7 +88,7 @@
                 .then(HandlingService.ReturnSuccess)
                 .catch(HandlingService.ReturnError);
         }
-        function deleteDecision(id) {
+        function deleteResolution(id) {
             return $http({
                 method: 'DELETE',
                 url: api.decisions + '/' + id
@@ -103,32 +103,38 @@
                     {
                         username: 'Ana',
                         password: 'Contributovic',
-                        role: ['Viewer']
+                        role: ['Viewer'],
+                        dateCreated: Date.now()
                     },
                     {
                         username: 'Aleksandar',
                         password: 'CEOvic',
-                        role: ['Viewer', 'Voter']
+                        role: ['Viewer', 'Voter'],
+                        dateCreated: Date.now()
                     },
                     {
                         username: 'Marija',
                         password: 'Marketin',
-                        role: ['Viewer', 'Facilitator']
+                        role: ['Viewer', 'Facilitator'],
+                        dateCreated: Date.now()
                     },
                     {
                         username: 'Sandra',
                         password: 'Sale Serifovic',
-                        role: ['Viewer, Voter', 'Facilitator']
+                        role: ['Viewer, Voter', 'Facilitator'],
+                        dateCreated: Date.now()
                     },
                     {
                         username: 'Sanja',
                         password: 'HRtkovic',
-                        role: ['Viewer', 'Facilitator', 'Voter']
+                        role: ['Viewer', 'Facilitator', 'Voter'],
+                        dateCreated: Date.now()
                     },
                     {
                         username: 'Nikola',
                         password: 'Systemadministratoric',
-                        role: ['Viewer', 'Administrator']
+                        role: ['Viewer', 'Administrator'],
+                        dateCreated: Date.now()
                     }
                 ],
                 decisions: [
@@ -201,7 +207,7 @@
                 }
             } else if (what === 'decisions') {
                 for (var j in someData.decisions) {
-                    createDecision(someData.decisions[j]);
+                    createResolution(someData.decisions[j]);
                 }
             } else {
                 return 'You can only populate, "users" or "decisions"';
@@ -214,11 +220,11 @@
             createUser: createUser,
             editUser: editUser,
             deleteUser: deleteUser,
-            getDecisions: getDecisions,
-            getDecision: getDecision,
-            createDecision: createDecision,
-            editDecision: editDecision,
-            deleteDecision: deleteDecision,
+            getResolutions: getResolutions,
+            getResolution: getResolution,
+            createResolution: createResolution,
+            editResolution: editResolution,
+            deleteResolution: deleteResolution,
             populate: populate
         };
     }
