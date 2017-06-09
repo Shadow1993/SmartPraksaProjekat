@@ -27,7 +27,7 @@ module.exports.getAllComments = function (req, res) {
 module.exports.createComment = function (req, res) {
     console.log(req.body);
     CommentModel.create({
-        text: req.body.submitedBy,
+        text: req.body.text,
         submitedBy: req.body.submitedBy,
         submitedDate: req.body.submitedDate
     }, function (err, commentDb) {

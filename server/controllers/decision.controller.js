@@ -16,7 +16,7 @@ module.exports.getAllDecisions = function (req, res) {
         .exec(function (err, decisionDb) {
             if (err) {
                 console.log(err);
-                res.send('ERRORCHINA');
+                res.send(err);
             } else {
                 console.log(decisionDb);
                 res.send(decisionDb);
@@ -71,6 +71,7 @@ module.exports.createDecision = function (req, res) {
 };
 
 module.exports.restarDecision = function (req, res) {
+    //$pull for comments and votes
     console.log(req.body);
     DecisionModel.findByIdAndUpdate({ _id: req.body.id }, {
         $set: {
@@ -79,9 +80,7 @@ module.exports.restarDecision = function (req, res) {
             type: req.body.type,
             steps: req.body.steps,
             startingDate: req.body.startingDate,
-            expirationDate: req.body.expirationDate,
-            comments: [],
-            votes: []
+            expirationDate: req.body.expirationDate
         }
     }, function(err, decisionDb) {
         if (err) {
