@@ -5,7 +5,6 @@ var express = require('express'),
     VoteController = require('../controllers/vote.controller');
 
 router
-    .post('/', VoteController.createVote)
-    .get('/', VoteController.getAllVotes);
+    .post('/', VoteController.createVote);
 
 module.exports = router;
