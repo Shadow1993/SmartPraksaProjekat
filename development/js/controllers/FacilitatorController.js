@@ -102,5 +102,6 @@
 
             return '';
         }
+        $scope.dick = '';
     }
 }());

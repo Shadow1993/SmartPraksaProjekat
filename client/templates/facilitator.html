@@ -69,27 +69,45 @@
         <div class="col-xs-12 col-sm-8 col-md-6">
             <h4>Add New Decision</h4>
             <form name="decisionForm" novalidate>
-                <div class="form-group">
+                <div class="form-group" ng-class="{'has-error':decisionForm.decision_title.$invalid &&
+                                                                decisionForm.decision_title.$dirty}">
                     <label for="decision_title">Decision Title</label>
-                    <input type="text" required="" placeholder="Title (required)" class="form-control" id="decision_title">
+                    <input name="decision_title" 
+                    type="text" ng-model="dick" 
+                    placeholder="Title (required)" 
+                    class="form-control" 
+                    id="decision_title" 
+                    required 
+                    ng-minlength="4" ng-maxlength="15">
+                <span class="help-block has-error">
+                <span ng-show="decisionForm.decision_title.$error.required">
+                    Title is required.
+                </span>
+                <span ng-show="decisionForm.decision_title.$error.minlenght">
+                    Title must have at least 4 characters in length.
+                </span>
+                <span ng-show="decisionForm.decision_title.$error.maxlength">
+                    Title length cannot exceed maximum of 15 characters.
+                </span>
+                </span>
                 </div>
                 <div class="form-group">
-                    <label for="dec_type">Decision Type</label>
+                    <label for="dec_type" class="control-lable">Decision Type</label>
                     <select class="form-control" id="dec_type">
                         <option value="simple_majority" selected>Simple Majority</option>
                         <option value="super_majority">Super Majority</option>
                         <option value="unanimous">Unanimous</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="dec_question">Decision Content</label>
-                    <textarea class="form-control" id="dec_question" rows="4" placeholder="Changing the world, one word at a time... (required)" ></textarea>
+                <div class="form-group" ng-class="{'has-error':decisionForm.decision_content.$invalid}">
+                    <label for="decision_content">Decision Content</label>
+                    <textarea name="decision_content" class="form-control" id="decision_content" rows="4" placeholder="Changing the world, one word at a time... (required)" ng-minlength="4" ng-maxlength="12"></textarea>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6">
                         <p class="input-group">
-                            <input type="text" class="form-control" 
+                            <input name="datePicker" type="text" class="form-control" 
                             uib-datepicker-popup="{{format}}" 
                             ng-model="dt" 
                             is-open="popup1.opened" 
