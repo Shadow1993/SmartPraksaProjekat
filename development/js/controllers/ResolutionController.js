@@ -13,7 +13,7 @@
             .then(function (res) {
                 console.log($stateParams.id);
                 vm.resoultionInfo = res;
-            })
+            });
 
     }
 }());
