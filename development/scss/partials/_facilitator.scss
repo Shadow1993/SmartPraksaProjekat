@@ -48,7 +48,16 @@ h4 {
 
 
 /*=============================
-    Angular Datepicker
+    Title error style
 ===============================*/
 
+.custom-error-message{
+    height:14px;
+    width:100%;
+}
 
+.has-error .control-label,
+.has-error .help-block,
+.has-error .form-control-feedback{
+    color:lightblue;
+}

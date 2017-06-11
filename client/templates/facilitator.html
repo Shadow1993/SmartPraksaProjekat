@@ -79,8 +79,8 @@
                     id="decision_title" 
                     required 
                     ng-minlength="4" ng-maxlength="15">
-                <span class="help-block has-error">
-                <span ng-show="decisionForm.decision_title.$error.required">
+                <div class="custom-error-message help-block has-error">
+                <span ng-show="decisionForm.decision_title.$error.required && decisionForm.decision_title.$dirty">
                     Title is required.
                 </span>
                 <span ng-show="decisionForm.decision_title.$error.minlenght">
@@ -89,7 +89,7 @@
                 <span ng-show="decisionForm.decision_title.$error.maxlength">
                     Title length cannot exceed maximum of 15 characters.
                 </span>
-                </span>
+                </div>
                 </div>
                 <div class="form-group">
                     <label for="dec_type" class="control-lable">Decision Type</label>
