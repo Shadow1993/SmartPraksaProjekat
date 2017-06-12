@@ -34,7 +34,7 @@ module.exports.getUserByID = function (req, res) {
                 console.log(userDb);
                 res.send(userDb);
             }
-        })
+        });
 };
 
 module.exports.deleteUserById = function (req, res) {
