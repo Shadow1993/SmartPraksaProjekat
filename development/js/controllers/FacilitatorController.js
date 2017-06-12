@@ -138,22 +138,28 @@
 
             return '';
         }
-        $scope.data = 0;
         $scope.options = [{
             name: 'Simple Majority',
-            value: 0
+            value: 'Simple Majority'
         }, {
             name: 'Super Majority',
-            value: 1
+            value: 'Super Majority'
         }, {
             name: 'Unanimous',
-            value: 2
+            value: 'Unanimous'
         }];
-        $scope.textArea = '';
         $scope.datePick = '';
+        $scope.decisionData = {
+            title: '',
+            description: '',
+            steps: Number,
+            startingDate: Date.now(),
+            expirationDate: Date
+        };
         $scope.toastrSubmit = function (working) {
             if (working) {
                 toastr.success('Form is valid! Kudos to you Sir/Madam!');
+                ResolutionService.createResolution()
             } else {
                 toastr.error('Drats! You did not fill in the form data correctly.');
             }
