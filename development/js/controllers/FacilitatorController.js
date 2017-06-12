@@ -169,7 +169,7 @@
             });
 
         $scope.decisionStatus = function (startingDate, expirationDate) {
-            if (Date.parse(expirationDate) - Date.parse(startingDate) >= 0) {
+            if (Date.parse(expirationDate) - Date.now() >= 0) {
                 return 'Pending';
             } else {
                 return 'Expired';
