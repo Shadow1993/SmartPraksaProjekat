@@ -21,7 +21,7 @@ module.exports.createVote = function (req, res) {
         } else {
             console.log(voteDb);
             DecisionModel.update(
-                { _id: 'req.body.id' },
+                { _id: req.body.id },
                 {
                     $push: {
                         votes: voteDb._id
