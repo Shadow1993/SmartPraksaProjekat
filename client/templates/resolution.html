@@ -7,7 +7,7 @@
                 <li class="breadcrumb-item">You are <strong>Voter/Viewer/Admin</strong></li>
             </ol>
         </div>
-        <h4 class="title-listing resolution">Active Resoulution</h4>
+        <h4 class="title-listing resolution">{{ resolution.resoultionInfo.active == true ? 'Active' : 'Archived' }} Resoulution</h4>
         
         <div class="decisions resolution">
             <div class="cards col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2" style="background: #ecf0f1;"> 
@@ -33,7 +33,7 @@
                     {{ resolution.resoultionInfo.description }}
                 </div>
                 <div class="card-block">
-                    <div class="btn-group" data-toggle="buttons">
+                    <div class="btn-group  {{ resolution.resoultionInfo.active == true ? '' : 'hide' }}" data-toggle="buttons">
                         <label class="btn btn-success">
                             <input type="radio" autocomplete="off"> Yes
                         </label>
@@ -41,28 +41,42 @@
                             <input type="radio" autocomplete="off"> No
                         </label>
                     </div>
-                    <div class="vote">
-                        <a href="#" class="btn btn-primary {{ resolution.resoultionInfo.active == true ? '123' : 'disabled' }}" ng-class="home">Vote</a>
+                    <div class="vote  {{ resolution.resoultionInfo.active == true ? '' : 'hide' }}">
+                        <a href="#" class="btn btn-primary {{ resolution.resoultionInfo.active == true ? '' : 'disabled' }}" ng-class="">Vote</a>
                     </div>
                 </div>
-                <p class="collapse-results">
-                    <button class="btn btn-secondary pull-right" type="button" data-toggle="collapse" data-target="#simple-majority" aria-expanded="false" aria-controls="simple-majority">
+                
+                <div ng-if="resolution.resoultionInfo.active == true">
+                    <a class="btn btn-secondary pull-left" role="button" data-toggle="collapse" href="#simple-majority" aria-expanded="false" aria-controls="simple-majority">
                         See Results
-                    </button>
-                </p>
-                <div class="collapse" id="simple-majority">
-                    <div class="card card-block">
-                        <div class="progress">
-                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="60" style="width: 60%" aria-valuemin="100">Yes &nbsp; <span>60%</span></div>
+                    </a>
+                   
+                    <div class="collapse" id="simple-majority">
+                        <div class="card card-block">
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" aria-valuenow="60" style="width: 60%" aria-valuemin="100">Yes &nbsp; <span>60%</span></div>
+                            </div>
+                            
+                            <div class="progress">
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">No &nbsp; <span>40%</span></div>
+                            </div>
                         </div>
-                        
-                        <div class="progress">
-                            <div class="progress-bar bg-danger" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">No &nbsp; <span>40%</span></div>
-                        </div>
+                    </div>
+                </div>
+                <div ng-if="resolution.resoultionInfo.active == false" class="card card-block card-archived">
+                    <div class="progress">
+                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="60" style="width: 60%" aria-valuemin="100">Yes &nbsp; <span>60%</span></div>
+                    </div>
+                            
+                    <div class="progress">
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">No &nbsp; <span>40%</span></div>
                     </div>
                 </div>
                 <div class="col-xs-12">
-                    <span class="resolution-back btn btn-warning" ui-sref="main.resolutions">Go Back</span>
+                    <span class=" resolution-back btn btn-warning" ui-sref="main.resolutions">Go Back</span>
+                    <div  ng-if="resolution.resoultionInfo.active == false">
+                        <span class="pull-left resolution-back btn btn-info"  ui-sref="main.resolutions"> Reactivate</span>
+                    </div>
                 </div>
             </div><!-- .card -->
 
