@@ -18,10 +18,11 @@ module.exports.createVote = function (req, res) {
     }, function (err, voteDb) {
         if (err) {
             console.log(err);
+            res.send(err.message);
         } else {
             console.log(voteDb);
             DecisionModel.update(
-                { _id: 'req.body.id' },
+                { _id: req.body.id },
                 {
                     $push: {
                         votes: voteDb._id
@@ -33,7 +34,7 @@ module.exports.createVote = function (req, res) {
                         console.log(decisionDb);
                         if (voteDb.type == 'Against' || voteDb.type == 'Reserved') {
                             CommentModel.create({
-                                commentText: req.body.commentText,
+                                text: req.body.commentText,
                                 submitedBy: req.body.submitedBy,
                                 submitedDate: req.body.submitedDate
                             }, function (err, commentDb) {
