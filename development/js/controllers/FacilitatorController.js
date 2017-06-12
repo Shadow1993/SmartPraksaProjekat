@@ -3,9 +3,9 @@
 
     var app = angular.module('app');
 
-    app.controller('FacilitatorController', ['$scope', 'ResolutionService', '$state', '$uibModal', FacilitatorController]);
+    app.controller('FacilitatorController', ['$scope', 'ResolutionService', FacilitatorController]);
 
-    function FacilitatorController($scope, ResolutionService, $state, $uibModal) {
+    function FacilitatorController($scope, ResolutionService) {
         var vm = this;
         vm.test = 'test';
 
