@@ -92,16 +92,30 @@
                 </div>
                 </div>
                 <div class="form-group">
-                    <label for="dec_type" class="control-lable">Decision Type</label>
-                    <select class="form-control" id="dec_type">
-                        <option value="simple_majority" selected>Simple Majority</option>
-                        <option value="super_majority">Super Majority</option>
-                        <option value="unanimous">Unanimous</option>
+                    <label for="decType" class="control-lable">Decision Type</label>
+                    <select class="form-control" id="decType" 
+                    ng-options="option.name for option in options" 
+                    ng-model="data"
+                    ng-init="data = options[0]">
                     </select>
                 </div>
-                <div class="form-group" ng-class="{'has-error':decisionForm.decision_content.$invalid}">
+                <div class="form-group has-error">
                     <label for="decision_content">Decision Content</label>
-                    <textarea name="decision_content" class="form-control" id="decision_content" rows="4" placeholder="Changing the world, one word at a time... (required)" ng-minlength="4" ng-maxlength="12"></textarea>
+                    <textarea ng-minlength="50" 
+                    ng-maxlength="500" 
+                    name="decision_content" 
+                    class="form-control"
+                    ng-model="textArea"
+                    id="decision_content" rows="4" 
+                    placeholder="Changing the world, one word at a time... (required)"></textarea>
+                    <div class="custom-error-message help-block has-error">
+                    <span ng-show="decisionForm.decision_content.$error.minlength">
+                        Decision content has to be at least 50 characters long.
+                    </span>
+                    <span ng-show="decisionForm.decision_content.$error.maxlength">
+                        Decision content has to be less than 500 characters long.
+                    </span>
+                    </div>
                 </div>
 
                 <div class="row">

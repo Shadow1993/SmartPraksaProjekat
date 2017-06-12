@@ -135,8 +135,20 @@
 
             return '';
         }
+        $scope.data = 0;
+        $scope.options = [{
+            name: 'Simple Majority',
+            value: 0
+        }, {
+            name: 'Super Majority',
+            value: 1
+        }, {
+            name: 'Unanimous',
+            value: 2
+        }];
+        $scope.textArea = '';
         $scope.datePick = '';
-        $scope.toastrSubmit = function(working) {
+        $scope.toastrSubmit = function (working) {
             if (working) {
                 toastr.success('Form is valid! Kudos to you Sir/Madam!');
             } else {
