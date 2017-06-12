@@ -90,11 +90,11 @@ module.exports.createUser = function (req, res, next) {
         }
     }, function (err, roleDb) {
         if (err) {
-            console.log(err);
+            console.log(err.message);
             res.send({message: 'error in role type'});
         } 
         if (!roleDb[0]) {
-            res.send({message: 'error in role typea'});
+            res.send({message: 'error in role type'});
         } else {
             UserModel.create({
                 username: req.body.username,

@@ -8,7 +8,6 @@ router
     .get('/', DecisionController.getAllDecisions)
     .get('/:id', DecisionController.getDecisionById)
     .post('/', DecisionController.createDecision)
-    .delete('/:id', DecisionController.deleteDecisionById)
-    .put('/', DecisionController.restarDecision);
+    .put('/', DecisionController.restartDecision);
 
 module.exports = router;
