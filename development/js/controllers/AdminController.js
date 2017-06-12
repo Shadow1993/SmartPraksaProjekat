@@ -3,11 +3,61 @@
 
     var app = angular.module('app');
 
-    app.controller('AdminController', ['$state' , 'UserService', AdminController]);
+    app.controller('AdminController', ['$state', 'UserService', '$uibModal', AdminController]);
 
-    function AdminController($state, UserService) {
+    function AdminController($state, UserService, $uibModal) {
         var vm = this;
         vm.test = 'test';
+
+        vm.addUser = function () {
+            vm.modalAddUser = $uibModal.open({
+                templateUrl: '../templates/adminuser.html',
+                controller: 'AdminUserController',
+                controllerAs: 'admin',
+                resolve: {
+                    user: function() {
+                        return false;
+                    }
+                }
+            })
+                .result
+                .then(function () {
+                    $state.reload();
+                })
+                .catch(function (res) {
+                    if (!(res === 'cancel' || res === 'escape key press' || res === 'backdrop click')) {
+                        throw res;
+                    }
+                });
+        };
+
+        vm.editUser = function (user) {
+            vm.modalEditUser = $uibModal.open({
+                templateUrl: '../templates/adminuser.html',
+                controller: 'AdminUserController',
+                controllerAs: 'admin',
+                resolve: {
+                    user: function() {
+                        return user;
+                    }
+                }
+            })
+                .result
+                .then(function () {
+                    $state.reload();
+                })
+                .catch(function (res) {
+                    if (!(res === 'cancel' || res === 'escape key press' || res === 'backdrop click')) {
+                        throw res;
+                    }
+                });
+
+        };
+
+        vm.convertDate = function (date) {
+            var convertedDate = new Date(date);
+            return convertedDate.toUTCString();
+        };
 
         function SuccessCall(res) {
             vm.userInfo = res;
@@ -19,32 +69,6 @@
         vm.deleteUser = function (user) {
             UserService.deleteUser(user);
             $state.reload();
-        };
-        vm.newUser = {
-            username: null,
-            password: null,
-            role: ['Viewer'],
-            dateCreated: null
-        };
-        vm.permissions = {
-            facilitator: null,
-            voter: null
-        };
-        vm.submit = function(valid) {
-            if (valid) {
-                if (vm.permissions.facilitator) {
-                    vm.newUser.role.push('Facilitator');
-                }
-                if (vm.permissions.voter) {
-                    vm.newUser.role.push('Voter');
-                }
-                vm.newUser.dateCreated = Date.now();
-                console.log(vm.newUser);
-                UserService.createUser(vm.newUser);
-                $state.reload();
-            } else {
-                toastr.error('Please check the errors on the form and resubmit it again.');
-            }
         };
         UserService.getUsers()
             .then(SuccessCall)

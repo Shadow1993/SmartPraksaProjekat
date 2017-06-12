@@ -1,0 +1,35 @@
+<div class="add-user col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
+    <h4>Add New User</h4>
+    <form name='newUserForm' ng-submit='admin.submit(newUserForm.$valid)' novalidate>
+        <div class="form-group" ng-class='{ "has-error": newUserForm.username.$dirty && newUserForm.username.$invalid  }'>
+            <label for="username" class='control-label'>
+                        Username: 
+                </label>
+            <input ng-model='admin.newUser.username' type="text" name='username' class="form-control" id="username" placeholder="Username"
+                ng-minlength="1" ng-maxlength="30" required>
+            <span class='help-block has-error' ng-show='newUserForm.username.$dirty && newUserForm.username.$invalid'>
+                        Username is required</span>
+        </div>
+        <div class="form-group" ng-class='{ "has-error": newUserForm.password.$dirty && newUserForm.password.$invalid  }'>
+            <label for="password" class='control-label'>
+                        Password:
+                </label>
+            <input ng-model='admin.newUser.password' type="password" name='password' class="form-control" id="password" placeholder="Password"
+                ng-minlength="1" ng-maxlength="30" required>
+            <span class='help-block has-error' ng-show='newUserForm.password.$dirty && newUserForm.password.$invalid'>
+                        Password is required</span>
+        </div>
+        <div class="checkboxes">
+            <p>Additional Privileges</p>
+            <input ng-model='admin.permissions.facilitator' type="checkbox" id="facilitators">
+            <label for="facilitators">Facilitators</label>
+            <span class="newline">
+                <input ng-model='admin.permissions.voter'
+                        type="checkbox"
+                        id="voters">
+                <label for="voters">Voters</label></span>
+        </div>
+        <input type='submit' class="btn btn-success create-user" value='{{admin.submitText}}' />
+        <input type='button' ng-click='admin.cancelModal()' class="btn btn-success create-user" value='Cancel' />
+    </form>
+</div>
