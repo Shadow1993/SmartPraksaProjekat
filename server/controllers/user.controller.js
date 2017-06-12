@@ -71,6 +71,7 @@ module.exports.updateUser = function (req, res) {
                     console.log(err);
                 } else {
                     console.log(userDb);
+                    res.send(userDb);
                 }
             });
         }
