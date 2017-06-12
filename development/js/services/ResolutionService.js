@@ -42,21 +42,12 @@
                 .then(HandlingService.ReturnSuccess)
                 .catch(HandlingService.ReturnError);
         }
-        function deleteResolution(id) {
-            return $http({
-                method: 'DELETE',
-                url: api + '/' + id
-            })
-                .then(HandlingService.ReturnSuccess)
-                .catch(HandlingService.ReturnError);
-        }
 
         return {
             getResolutions: getResolutions,
             getResolution: getResolution,
             createResolution: createResolution,
             editResolution: editResolution,
-            deleteResolution: deleteResolution
         };
     }
 }());
