@@ -27,7 +27,7 @@ Projekat na Smart Praksi
 
 |    Method     |      URL      |     Params    | Body | Description  |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
-| GET  | '/comments' | <ul><li>id : String</li></ul> | <ul></ul> | Gets all comments for ID specified (ID of Decision) |
+| GET  | '/comments/:id' | <ul><li>id : String</li></ul> | <ul></ul> | Gets all comments for ID specified (ID of Decision) |
 | POST | '/comments' | <ul></ul> | <ul><li>id : String</li><li>test : String</li><li>submitedBy : String</li><li>submitedDate : Date</li></ul> | Creates a new comment on ID specified (ID of Decision; submittedBy is ID of User) |
 
 ## **_Votes :_**
