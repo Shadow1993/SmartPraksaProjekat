@@ -3,9 +3,9 @@
 
     var app = angular.module('app');
 
-    app.controller('FacilitatorController', ['$scope', 'ResolutionService', '$state', FacilitatorController]);
+    app.controller('FacilitatorController', ['$scope', 'ResolutionService', '$state', '$uibModal', FacilitatorController]);
 
-    function FacilitatorController($scope, ResolutionService, $state) {
+    function FacilitatorController($scope, ResolutionService, $state, $uibModal) {
         var vm = this;
         vm.test = 'test';
 
@@ -169,16 +169,12 @@
             });
 
         $scope.decisionStatus = function (startingDate, expirationDate) {
-            if (Date.parse(expirationDate) - Date.parse(startingDate) >= 0) {
+            if (Date.parse(expirationDate) - Date.now() >= 0) {
                 return 'Pending';
             } else {
                 return 'Expired';
             }
 
-        }
-        $scope.deleteDecision = function(decision) {
-            ResolutionService.deleteResolution(decision);
-            $state.reload();
         }
 
     }

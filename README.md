@@ -11,7 +11,6 @@ Projekat na Smart Praksi
 | GET  | '/decisions/:id'  | <ul><li>id : String</li></ul> | <ul></ul> | Gets everything for a single decision |
 | POST | '/decisions' | <ul></ul> | <ul><li>title : String</li><li>description : String</li><li>type : String</li><li>steps : Number</li><li>startingDate : Date</li><li>expirationDate : Date</li></ul> | Creates a new decision |
 | PUT | '/decisions' | <ul></ul> | <ul><li>id : String</li><li>title : String</li><li>description : String</li><li>type : String</li><li>steps : Number</li><li>startingDate : Date</li><li>expirationDate : Date</li></ul> | Restart a single decision |
-| DELETE | '/decisions/:id' | <ul><li>id : String</li></ul> | <ul></ul> | Deletes a single decision |
 
 ## **_Users :_**
 
