@@ -3,9 +3,9 @@
 
     var app = angular.module('app');
 
-    app.controller('FacilitatorController', ['$scope', FacilitatorController]);
+    app.controller('FacilitatorController', ['$scope', 'ResolutionService', '$state', FacilitatorController]);
 
-    function FacilitatorController($scope) {
+    function FacilitatorController($scope, ResolutionService, $state) {
         var vm = this;
         vm.test = 'test';
 
@@ -158,5 +158,28 @@
                 toastr.error('Drats! You did not fill in the form data correctly.');
             }
         };
+        ResolutionService.getResolutions()
+            .then(function (res) {
+                console.log(res);
+                $scope.resolutions = res;
+            })
+            .catch(function (res) {
+                console.log(res);
+                toastr.error();
+            });
+
+        $scope.decisionStatus = function (startingDate, expirationDate) {
+            if (Date.parse(expirationDate) - Date.parse(startingDate) >= 0) {
+                return 'Pending';
+            } else {
+                return 'Expired';
+            }
+
+        }
+        $scope.deleteDecision = function(decision) {
+            ResolutionService.deleteResolution(decision);
+            $state.reload();
+        }
+
     }
 }());

@@ -16,8 +16,8 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Decision Majority</th>
-                        <th>Question</th>
+                        <th>Title</th>
+                        <th>Type</th>
                         <th>Date Created</th>
                         <th>Expiration Date</th>
                         <th>Status</th>
@@ -26,35 +26,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Simple Majority</td>
-                        <td>Does Cleveland have chance to win 2017 NBA finals?</td>
-                        <td>06.06.2017.</td>
-                        <td>23.06.2017.</td>
-                        <td>Active</td>
-                        <td><button class="btn btn-warning disabled">Reactivate</button></td>
-                        <td><span class="delete-decision">x</span></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Super Majority</td>
-                        <td>Does Cleveland have chance to win 2017 NBA finals?</td>
-                        <td>06.06.2017.</td>
-                        <td>23.06.2017.</td>
-                        <td>Active</td>
-                        <td><button class="btn btn-warning disabled">Reactivate</button></td>
-                        <td><span class="delete-decision">x</span></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Unanimous</td>
-                        <td>Does Cleveland have chance to win 2017 NBA finals?</td>
-                        <td>06.06.2017.</td>
-                        <td>23.06.2017.</td>
-                        <td>Active</td>
-                        <td><button class="btn btn-warning disabled">Reactivate</button></td>
-                        <td><span class="delete-decision">x</span></td>
+                    <tr ng-repeat="resolution in resolutions">
+                        <td>{{$index+1}}</td>
+                        <td>{{resolution.title}}</td>
+                        <td>{{resolution.type}}</td>
+                        <td>{{resolution.startingDate}}</td>
+                        <td>{{resolution.expirationDate}}</td>
+                        <td>{{decisionStatus(resolution.startingDate, resolution.expirationDate)}}</td>
+                        <td><button class="btn btn-warning disabled" ng-click="">Reactivate</button></td>
+                        <td><span class="delete-decision" ng-click="deleteDecision(resolution._id)">x</span></td>
                     </tr>
                 </tbody>
             </table>
