@@ -3,9 +3,9 @@
 
     var app = angular.module('app');
 
-    app.controller('FacilitatorController', ['$scope', 'ResolutionService', '$state', FacilitatorController]);
+    app.controller('FacilitatorController', ['$scope', 'ResolutionService', '$state', '$uibModal', FacilitatorController]);
 
-    function FacilitatorController($scope, ResolutionService, $state) {
+    function FacilitatorController($scope, ResolutionService, $state, $uibModal) {
         var vm = this;
         vm.test = 'test';
 
@@ -175,10 +175,6 @@
                 return 'Expired';
             }
 
-        }
-        $scope.deleteDecision = function(decision) {
-            ResolutionService.deleteResolution(decision);
-            $state.reload();
         }
 
     }
