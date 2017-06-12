@@ -6,15 +6,16 @@
 * CREATE DECISION ('/decisions', POST) => body = title, description, type, steps, startingDate, expirationDate
 * RESTART DECISION ('/decisions', PUT) => body = id, title, description, type, steps, startingDate, expirationDate
 */
+
 var DecisionModel = require('../models/decision.model');
 
 module.exports.getAllDecisions = function (req, res) {
-    DecisionModel.find({})
+    DecisionModel.find({active: ['Active', 'Expired']})
         .populate(['comments', 'votes'])
         .exec(function (err, decisionDb) {
             if (err) {
                 console.log(err.message);
-                res.send({message: 'error while retreiving all decisions from database'});
+                res.send({ message: 'error while retreiving all decisions from database' });
             } else {
                 console.log(decisionDb);
                 res.send(decisionDb);
@@ -27,7 +28,7 @@ module.exports.getDecisionById = function (req, res) {
     DecisionModel.findById({ _id: req.params.id }, function (err, decisionDb) {
         if (err) {
             console.log(err.message);
-            res.send({message: 'error while retreiving decision from database'});
+            res.send({ message: 'error while retreiving decision from database' });
         } else {
             console.log(decisionDb);
             res.send(decisionDb);
@@ -56,24 +57,34 @@ module.exports.createDecision = function (req, res) {
 };
 
 module.exports.restartDecision = function (req, res) {
-    //$pull for comments and votes
     console.log(req.body);
-    DecisionModel.findByIdAndUpdate({ _id: req.body.id }, {
-        $set: {
-            title: req.body.title,
-            description: req.body.description,
-            type: req.body.type,
-            steps: req.body.steps,
-            startingDate: req.body.startingDate,
-            expirationDate: req.body.expirationDate
-        }
-    }, {$pull: {comments: '59364b899fdfd011c440fcbc'}}, function(err, decisionDb) {
+    /*
+    DecisionModel.findOneAndUpdate({_id: req.body.id}, {$set: {active: 'Deactive'}}, function(err, decisionDb) {
         if (err) {
             console.log(err);
             res.send(err);
         } else {
             console.log(decisionDb);
-            res.send(decisionDb);
+            var timeRemaining = decisionDb.expirationDate - decisionDb.startingDate;
+            console.log(timeRemaining);
+            DecisionModel.create({
+                title: 'decisionDb.title + + + ',
+                description: decisionDb.description,
+                type: decisionDb.type,
+                steps: decisionDb.steps,
+                startingDate: Date.now(),
+                expirationDate: decisionDb.startingDate + timeRemaining,
+                active: 'Active'
+            }, function(err, decisionRestartedDb) {
+                if (err) {
+                    console.log(err);
+                    res.send(decisionRestartedDb);
+                } else {
+                    console.log(decisionRestartedDb);
+                    res.send(decisionRestartedDb);
+                }
+            });
         }
     });
+    */
 };
