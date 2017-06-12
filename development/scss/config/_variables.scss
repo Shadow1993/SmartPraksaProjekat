@@ -13,3 +13,9 @@ $loginCol: #ae713d;
 $fastDuration: .1s;
 $mediumDuration: .3s;
 $slowDuration: .6s;
+
+// Utilities
+
+.hover-over{
+    &:hover{cursor:pointer;}
+}

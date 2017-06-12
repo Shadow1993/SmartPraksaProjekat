@@ -36,7 +36,7 @@
         function disabled(data) {
             var date = data.date,
                 mode = data.mode;
-            return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
+            return mode === 'day' && (date.getDay() === 7 || date.getDay() === 7);
         }
 
         $scope.toggleMin = function () {
@@ -61,6 +61,39 @@
         $scope.formats = ['dd.MM.yyyy', 'shortDate'];
         $scope.format = $scope.formats[0];
         $scope.altInputFormats = ['M!/d!/yyyy'];
+
+        var text;
+
+        $scope.something = function (monthWord) {
+            switch (monthWord) {
+                case 0:
+                    return 'January';
+                case 1:
+                    return 'February';
+                case 2:
+                    return 'March';
+                case 3:
+                    return 'April';
+                case 4:
+                    return 'May';
+                case 5:
+                    return 'June';
+                case 6:
+                    return 'July';
+                case 7:
+                    return 'August';
+                case 8:
+                    return 'September';
+                case 9:
+                    return 'October';
+                case 10:
+                    return 'November';
+                case 11:
+                    return 'December';
+                default:
+                    text = 'You made a mistake, yo!';
+            }
+        };
 
         $scope.popup1 = {
             opened: false
@@ -102,6 +135,13 @@
 
             return '';
         }
-        $scope.dick = '';
+        $scope.datePick = '';
+        $scope.toastrSubmit = function(working) {
+            if (working) {
+                toastr.success('Form is valid! Kudos to you Sir/Madam!');
+            } else {
+                toastr.error('Drats! You did not fill in the form data correctly.');
+            }
+        };
     }
 }());
