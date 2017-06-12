@@ -9,7 +9,6 @@ var decisionSchema = new Schema({
     title: {
         type: String,
         required: 'Title field is required!',
-        unique: true,
         trim: true
     },
     description: {
@@ -25,7 +24,8 @@ var decisionSchema = new Schema({
     steps: {
         type: Number,
         min: 60,
-        max: 90
+        max: 90,
+        default: 60
     },
     startingDate: {
         type: Date,
@@ -36,8 +36,9 @@ var decisionSchema = new Schema({
         required: 'Expiration date field is required!'
     },
     active: {
-        type: Boolean,
-        default: true
+        type: String,
+        enum: ['Active', 'Expired', 'Deactive'],
+        default: 'Active'
     },
     comments: {
         type: [{
