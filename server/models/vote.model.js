@@ -10,7 +10,7 @@ var voteSchema = new Schema({
         type: String,
         required: true,
         enum: ['Against', 'Reserved', 'For'],
-        default: 'Agreed'
+        default: 'Against'
     },
     submitedDate: {
         type: Date,
