@@ -215,6 +215,10 @@ h4 {
     }
 }
 
+
+/*=============================================
+    Smaller Screens
+===============================================*/
     @media screen and (max-width: 400px){
         #decisions {
             .vote {
@@ -245,5 +249,112 @@ h4 {
                 }
             }
         }
+        
+    }
+
+    @media screen and (min-width: 401px) and (max-width: 800px){
+        .decisions {
+            width: 100%;
+            overflow-x: scroll;
+            .table-decisions {
+                tr {
+                    th, td {
+                        font-size: 12px;
+                        min-width: 140px;
+                        &:first-of-type {
+                            min-width: 50px;
+                        }
+                        &:nth-of-type(2) {
+                            min-width: 240px;
+                        }
+                        &:last-of-type {
+                            min-width: 120px;
+                            span {
+                                position: relative;
+
+                                right: 5px;
+                                float: right;
+                            }
+                        }
+                    }
+                }
+            }
+            .voting-type {
+                font-size: 11px;
+            }
+            .expiration-date {
+                font-size: 11px;
+                position: relative;
+                top: 2px;
+            }
+            .decision-text {
+                font-size: 15px;
+            }
+        } 
+    }
+
+    @media screen and (max-width: 400px){
+        .decisions {
+            width: 100%;
+            overflow-x: scroll;
+            .table-decisions {
+                tr {
+                    th, td {
+                        font-size: 11px;
+                        min-width: 110px;
+                        &:first-of-type {
+                            min-width: 40px;
+                        }
+                        &:nth-of-type(2) {
+                            min-width: 200px;
+                        } 
+                        &:nth-of-type(6) {
+                            min-width: 120px;
+                        }
+                        &:last-of-type {
+                            min-width: 150px;
+                            span {
+                                position: relative;
+
+                                right: 5px;
+                                float: right;
+                            }
+                        }
+                    }
+                }
+            }
+            .resolution-back {
+                font-size: 12px !important;
+                display: block;
+                width: 100% !important;
+                &:last-of-type {
+                    width: 100%;
+                    margin-left: -4px;
+                }
+            }
+            .voting-type, .expiration-date {
+                display: block;
+                width: 100% !important;
+                text-align: center;
+            }
+            .voting-type {
+                margin-bottom: -15px;
+            }
+            .expiration-date {
+                font-size: 11.5px;
+                position: relative;
+                top: 2px;
+            }
+            .decision-text {
+                font-size: 14px;
+            }
+            .decision-ractivate {
+                font-size: 12px !important;
+                letter-spacing: .5px;
+            }
+        } 
+    }   
+
+    @media screen and (max-width: 320px ){
         
     }

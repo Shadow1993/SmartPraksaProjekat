@@ -1,5 +1,5 @@
 <div class="add-user col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
-    <h4>Add New User</h4>
+    <h4>{{admin.submitText}}</h4>
     <form name='newUserForm' ng-submit='admin.submit(newUserForm.$valid)' novalidate>
         <div class="form-group" ng-class='{ "has-error": newUserForm.username.$dirty && newUserForm.username.$invalid  }'>
             <label for="username" class='control-label'>
