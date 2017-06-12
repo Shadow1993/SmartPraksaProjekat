@@ -6,7 +6,6 @@
 * CREATE DECISION ('/decisions', POST) => body = title, description, type, steps, startingDate, expirationDate
 * RESTART DECISION ('/decisions', PUT) => body = id, title, description, type, steps, startingDate, expirationDate
 */
-
 var DecisionModel = require('../models/decision.model');
 
 module.exports.getAllDecisions = function (req, res) {
@@ -68,7 +67,7 @@ module.exports.restartDecision = function (req, res) {
             startingDate: req.body.startingDate,
             expirationDate: req.body.expirationDate
         }
-    }, {$pull: {comments}}, function(err, decisionDb) {
+    }, {$pull: {comments: '59364b899fdfd011c440fcbc'}}, function(err, decisionDb) {
         if (err) {
             console.log(err);
             res.send(err);
