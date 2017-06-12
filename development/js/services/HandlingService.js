@@ -12,7 +12,7 @@
             return response.data;
         }
         function ReturnSuccess() {
-            return $q.resolve();
+            return $q.resolve('Success');
         }
 
         return {
