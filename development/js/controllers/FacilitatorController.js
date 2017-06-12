@@ -62,6 +62,9 @@
         $scope.format = $scope.formats[0];
         $scope.altInputFormats = ['M!/d!/yyyy'];
 
+
+        // Change numeric month to word
+
         var text;
 
         $scope.something = function (monthWord) {
