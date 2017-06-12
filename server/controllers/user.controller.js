@@ -34,12 +34,12 @@ module.exports.getUserByID = function (req, res) {
                 console.log(userDb);
                 res.send(userDb);
             }
-        })
+        });
 };
 
 module.exports.deleteUserById = function (req, res) {
     console.log(req.params);
-    UserModel.findOneAndRemove({ _id: req.params.id }, function (err, userDb) {
+    UserModel.findByIdAndUpdate(req.params.id, {$set: {isActive: false}},  function (err, userDb) {
         if (err) {
             console.log(err);
             res.send(err);
@@ -71,6 +71,7 @@ module.exports.updateUser = function (req, res) {
                     console.log(err);
                 } else {
                     console.log(userDb);
+                    res.send(userDb);
                 }
             });
         }
@@ -85,9 +86,13 @@ module.exports.createUser = function (req, res, next) {
         }
     }, function (err, roleDb) {
         if (err) {
-            return next(err);
+            console.log(err);
+            res.send({status: 405, message: 'error in role type'});
+        } 
+        if (!roleDb[0]) {
+            console.log('this is roledb: ' + roleDb);
+            res.send({status: 405, message: 'error in role type'});
         } else {
-            console.log(roleDb);
             UserModel.create({
                 username: req.body.username,
                 password: req.body.password,
@@ -95,7 +100,10 @@ module.exports.createUser = function (req, res, next) {
                 role: roleDb
             }, function (err, userDb) {
                 if (err) {
-                    return next(err);
+                    res.send({status: 500, message: 'error while writing in db'});
+                }
+                if (!userDb) {
+                    res.send({status: 500, message: 'error in username'});
                 } else {
                     console.log(userDb);
                     res.send(userDb);
