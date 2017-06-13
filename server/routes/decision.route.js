@@ -7,7 +7,6 @@ var express = require('express'),
 router
     .get('/', DecisionController.getAllDecisions)
     .get('/:id', DecisionController.getDecisionById)
-    .post('/', DecisionController.createDecision)
-    .put('/', DecisionController.restartDecision);
+    .post('/', DecisionController.createDecision);
 
 module.exports = router;

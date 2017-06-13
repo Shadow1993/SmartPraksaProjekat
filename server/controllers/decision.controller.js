@@ -55,36 +55,3 @@ module.exports.createDecision = function (req, res) {
         }
     });
 };
-
-module.exports.restartDecision = function (req, res) {
-    console.log(req.body);
-    /*
-    DecisionModel.findOneAndUpdate({_id: req.body.id}, {$set: {active: 'Deactive'}}, function(err, decisionDb) {
-        if (err) {
-            console.log(err);
-            res.send(err);
-        } else {
-            console.log(decisionDb);
-            var timeRemaining = decisionDb.expirationDate - decisionDb.startingDate;
-            console.log(timeRemaining);
-            DecisionModel.create({
-                title: 'decisionDb.title + + + ',
-                description: decisionDb.description,
-                type: decisionDb.type,
-                steps: decisionDb.steps,
-                startingDate: Date.now(),
-                expirationDate: decisionDb.startingDate + timeRemaining,
-                active: 'Active'
-            }, function(err, decisionRestartedDb) {
-                if (err) {
-                    console.log(err);
-                    res.send(decisionRestartedDb);
-                } else {
-                    console.log(decisionRestartedDb);
-                    res.send(decisionRestartedDb);
-                }
-            });
-        }
-    });
-    */
-};
