@@ -19,7 +19,7 @@
                     <th>Expiration Date</th>
                     <th>Results</th>
                 </tr>
-                <tr ng-repeat="active_decisions in resolutions.resoultionsInfo | filter: { active: true }">
+                <tr ng-repeat="active_decisions in resolutions.resoultionsInfo | filter: { active: 'Active' }">
                     <td>{{ $index+1 }}</td>
                     <td ui-sref="main.resolution({ id: active_decisions._id })"><span>{{ active_decisions.description }}</span></td>
                     <td>{{ active_decisions.type }}</td>
@@ -64,7 +64,7 @@
                     <th>Results</th>
                     <th>Reactivate</th>
                 </tr>
-                <tr ng-repeat="archived_decisions in resolutions.resoultionsInfo | filter: { active: false }">
+                <tr ng-repeat="archived_decisions in resolutions.resoultionsInfo | filter: { active: 'Expired' }">
                     <td>{{ $index+1 }}</td>
                     <td ui-sref="main.resolution({ id: archived_decisions._id })"><span>{{ archived_decisions.description }}</span></td>
                     <td>{{ archived_decisions.type }}</td>
