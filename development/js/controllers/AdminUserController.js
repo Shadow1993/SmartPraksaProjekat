@@ -17,8 +17,6 @@
         $rootScope.$on('$stateChangeStart',
             function () {
                 vm.cancelModal();
-                // transitionTo() promise will be rejected with
-                // a 'transition prevented' error
             });
 
         vm.cancelModal = function () {
