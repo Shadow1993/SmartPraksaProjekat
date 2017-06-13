@@ -3,7 +3,11 @@
 
     var app = angular.module('app');
 
-    app.controller('ResolutionController', ['$scope', '$interval', 'ResolutionService', '$stateParams', ResolutionController]);
+    app.controller('ResolutionController', ['$scope',
+                                            '$interval',
+                                            'ResolutionService',
+                                            '$stateParams',
+                                            ResolutionController]);
 
     function ResolutionController($scope, $interval, ResolutionService, $stateParams) {
         var vm = this;
@@ -49,6 +53,9 @@
                     $scope.$apply($scope.updateClock);
                 }, 1000);
                 $scope.updateClock();
+                if ($scope.timeTillEvent.daysLeft <= 0 && $scope.timeTillEvent.hoursLeft && $scope.timeTillEvent.minutesLeft && $scope.timeTillEvent.secondsLeft) {
+                    return console.log('Prebaci ga u arhivu!');
+                }
             }
             );
 
