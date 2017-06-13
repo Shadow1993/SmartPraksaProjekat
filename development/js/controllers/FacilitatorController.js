@@ -3,21 +3,23 @@
 
     var app = angular.module('app');
 
-    app.controller('FacilitatorController', ['$scope', 'ResolutionService', '$uibModal', FacilitatorController]);
+    app.controller('FacilitatorController', ['ResolutionService', '$uibModal', '$state', FacilitatorController]);
 
-    function FacilitatorController($scope, ResolutionService, $uibModal) {
+    function FacilitatorController(ResolutionService, $uibModal, $state) {
+
+        var vm = this;
 
         ResolutionService.getResolutions()
             .then(function (res) {
                 console.log(res);
-                $scope.resolutions = res;
+                vm.resolutions = res;
             })
             .catch(function (res) {
                 console.log(res);
                 toastr.error();
             });
 
-        $scope.decisionStatus = function (startingDate, expirationDate) {
+        vm.decisionStatus = function (startingDate, expirationDate) {
             if (Date.parse(expirationDate) - Date.now() >= 0) {
                 return 'Pending';
             } else {
@@ -26,11 +28,20 @@
 
         };
         // Modal window
-        $scope.addDecision = function () {
-            $scope.modalAddDecision = $uibModal.open({
+        vm.addDecision = function () {
+            vm.modalAddDecision = $uibModal.open({
                 templateUrl: '../templates/facilitatorForm.html',
-                controller: 'FacilitatorFormController'
-            });
+                controller: 'FacilitatorFormController',
+                controllerAs: 'ffc'
+            }).result
+                .then(function () {
+                    $state.reload();
+                })
+                .catch(function (res) {
+                    if (!(res === 'cancel' || res === 'escape key press' || res === 'backdrop click')) {
+                        throw res;
+                    }
+                });
         };
     }
 }());

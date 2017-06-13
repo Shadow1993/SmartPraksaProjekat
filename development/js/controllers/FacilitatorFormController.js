@@ -3,30 +3,31 @@
 
     var app = angular.module('app');
 
-    app.controller('FacilitatorFormController', ['$scope',
-        'ResolutionService',
+    app.controller('FacilitatorFormController', ['ResolutionService',
         '$rootScope',
         '$uibModalInstance',
         FacilitatorFormController]);
 
-    function FacilitatorFormController($scope, ResolutionService, $rootScope, $uibModalInstance) {
+    function FacilitatorFormController(ResolutionService, $rootScope, $uibModalInstance) {
 
-        $scope.today = function () {
-            $scope.dt = new Date();
+        var vm = this;
+
+        vm.today = function () {
+            vm.dt = new Date();
         };
-        $scope.today();
+        vm.today();
 
-        $scope.clear = function () {
-            $scope.dt = null;
+        vm.clear = function () {
+            vm.dt = null;
         };
 
-        $scope.inlineOptions = {
+        vm.inlineOptions = {
             customClass: getDayClass,
             minDate: new Date(),
             showWeeks: true
         };
 
-        $scope.dateOptions = {
+        vm.dateOptions = {
             dateDisabled: disabled,
             formatYear: 'yy',
             maxDate: new Date(2020, 5, 22),
@@ -41,34 +42,34 @@
             return mode === 'day' && (date.getDay() === 7 || date.getDay() === 7);
         }
 
-        $scope.toggleMin = function () {
-            $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
-            $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
+        vm.toggleMin = function () {
+            vm.inlineOptions.minDate = vm.inlineOptions.minDate ? null : new Date();
+            vm.dateOptions.minDate = vm.inlineOptions.minDate;
         };
 
-        $scope.toggleMin();
+        vm.toggleMin();
 
-        $scope.open1 = function () {
-            $scope.popup1.opened = true;
+        vm.open1 = function () {
+            vm.popup1.opened = true;
         };
 
-        $scope.open2 = function () {
-            $scope.popup2.opened = true;
+        vm.open2 = function () {
+            vm.popup2.opened = true;
         };
 
-        $scope.setDate = function (year, month, day) {
-            $scope.dt = new Date(year, month, day);
+        vm.setDate = function (year, month, day) {
+            vm.dt = new Date(year, month, day);
         };
 
-        $scope.formats = ['dd.MM.yyyy', 'shortDate'];
-        $scope.format = $scope.formats[0];
-        $scope.altInputFormats = ['M!/d!/yyyy'];
+        vm.formats = ['dd.MM.yyyy', 'shortDate'];
+        vm.format = vm.formats[0];
+        vm.altInputFormats = ['M!/d!/yyyy'];
 
         // Change numeric month to word
 
         var text;
 
-        $scope.something = function (monthWord) {
+        vm.something = function (monthWord) {
             switch (monthWord) {
                 case 0:
                     return 'January';
@@ -99,11 +100,11 @@
             }
         };
 
-        $scope.popup1 = {
+        vm.popup1 = {
             opened: false
         };
 
-        $scope.popup2 = {
+        vm.popup2 = {
             opened: false
         };
 
@@ -111,7 +112,7 @@
         tomorrow.setDate(tomorrow.getDate() + 1);
         var afterTomorrow = new Date();
         afterTomorrow.setDate(tomorrow.getDate() + 1);
-        $scope.events = [
+        vm.events = [
             {
                 date: tomorrow,
                 status: 'full'
@@ -128,53 +129,47 @@
             if (mode === 'day') {
                 var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
 
-                for (var i = 0; i < $scope.events.length; i++) {
-                    var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
+                for (var i = 0; i < vm.events.length; i++) {
+                    var currentDay = new Date(vm.events[i].date).setHours(0, 0, 0, 0);
 
                     if (dayToCheck === currentDay) {
-                        return $scope.events[i].status;
+                        return vm.events[i].status;
                     }
                 }
             }
 
             return '';
         }
-        $scope.options = [
+        vm.options = [
             'Simple Majority',
             'Super Majority',
             'Unanimous'
         ];
-        $scope.datePick = '';
-        $scope.decisionData = {
+        vm.datePick = '';
+        vm.decisionData = {
             title: '',
             description: '',
             startingDate: Date.now(),
-            expirationDate: $scope.dt
+            expirationDate: vm.dt
         };
-        $scope.toastrSubmit = function (working) {
+        vm.formSubmit = function (working) {
             if (working) {
                 toastr.success('Form is valid! Kudos to You Sir/Madam!');
-                console.log($scope.decisionData);
-                ResolutionService.createResolution($scope.decisionData);
+                ResolutionService.createResolution(vm.decisionData);
+                $uibModalInstance.close('complete');
             } else {
                 toastr.error('Drats! You did not fill in the form data correctly.');
             }
         };
+        // Close Modal
 
-        // Make decision
-
-        $scope.makeDecision = function () {
-            ResolutionService.createResolution($scope.decisionData);
-            console.log();
-        };
-
-        $scope.closeModal = function () {
+        vm.closeModal = function () {
             $uibModalInstance.dismiss('cancel');
         };
 
         $rootScope.$on('$stateChangeStart',
             function () {
-                $scope.closeModal();
+                vm.closeModal();
             });
 
     }
