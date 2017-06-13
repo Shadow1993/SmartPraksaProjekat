@@ -62,7 +62,6 @@
         $scope.format = $scope.formats[0];
         $scope.altInputFormats = ['M!/d!/yyyy'];
 
-
         // Change numeric month to word
 
         var text;
@@ -159,7 +158,7 @@
         $scope.toastrSubmit = function (working) {
             if (working) {
                 toastr.success('Form is valid! Kudos to you Sir/Madam!');
-                ResolutionService.createResolution()
+                ResolutionService.createResolution();
             } else {
                 toastr.error('Drats! You did not fill in the form data correctly.');
             }
