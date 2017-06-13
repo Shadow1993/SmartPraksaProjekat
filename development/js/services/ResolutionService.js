@@ -47,7 +47,7 @@
             getResolutions: getResolutions,
             getResolution: getResolution,
             createResolution: createResolution,
-            editResolution: editResolution,
+            editResolution: editResolution
         };
     }
 }());
