@@ -7,7 +7,7 @@
                 <li class="breadcrumb-item">You are <strong>Voter/Viewer/Admin</strong></li>
             </ol>
         </div>
-        <h4 class="title-listing resolution">{{ resolution.resoultionInfo.active == true ? 'Active' : 'Archived' }} Resoulution</h4>
+        <h4 class="title-listing resolution">{{ resolution.resoultionInfo.active == 'Active' ? 'Active' : 'Expired' }} Resoulution</h4>
         
         <div class="decisions resolution">
             <div class="cards col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2" style="background: #ecf0f1;"> 
@@ -16,15 +16,16 @@
                         <span>Type: {{ resolution.resoultionInfo.type }}</span>
                     </div> 
                     <div class="expiration-date text-right">
-                        <div ng-show="resolution.resoultionInfo.active === false">
+                        <div ng-show="resolution.resoultionInfo.active === 'Expired'">
                             Time is expired!
                             
                         </div>
-                        <div ng-show="resolution.resoultionInfo.active === true">
-                            <span><strong>{{ resolution.resoultionInfo.expirationDate | date: "dd" }}</strong> <span>days</span>,
-                            <span><strong>{{ resolution.resoultionInfo.expirationDate | date: "hh" }}</strong> hours</span>, 
-                            <span><strong>{{ resolution.resoultionInfo.expirationDate | date: "mm" }}</strong> minutes</span>,
-                            <span><strong>{{ resolution.resoultionInfo.expirationDate | date: "ss" }}</strong> seconds</span>
+
+                        <div ng-show="resolution.resoultionInfo.active === 'Active'">
+                            <span><strong>{{ timeTillEvent.daysLeft }}</strong> <span>days</span>,
+                            <span><strong>{{ timeTillEvent.hoursLeft }}</strong> hours</span>, 
+                            <span><strong>{{ timeTillEvent.minutesLeft }}</strong> minutes</span>,
+                            <span><strong>{{ timeTillEvent.secondsLeft }}</strong> seconds</span>
                         </div>
                         
                         
@@ -34,7 +35,7 @@
                     {{ resolution.resoultionInfo.description }}
                 </div>
                 <div class="card-block">
-                    <div class="btn-group  {{ resolution.resoultionInfo.active == true ? '' : 'hide' }}" data-toggle="buttons">
+                    <div class="btn-group  {{ resolution.resoultionInfo.active == 'Active' ? '' : 'hide' }}" data-toggle="buttons">
                         <label class="btn btn-success">
                             <input type="radio" autocomplete="off"> Yes
                         </label>
@@ -42,12 +43,13 @@
                             <input type="radio" autocomplete="off"> No
                         </label>
                     </div>
-                    <div class="vote  {{ resolution.resoultionInfo.active == true ? '' : 'hide' }}">
-                        <a href="#" class="btn btn-primary {{ resolution.resoultionInfo.active == true ? '' : 'disabled' }}" ng-class="">Vote</a>
+                    <div class="vote  {{ resolution.resoultionInfo.active == 'Active' ? '' : 'hide' }}">
+                        <a href="#" class="btn btn-primary {{ resolution.resoultionInfo.active == 'Active' ? '' : 'disabled' }}" ng-class="">Vote</a>
+
                     </div>
                 </div>
                 
-                <div ng-if="resolution.resoultionInfo.active == true">
+                <div ng-if="resolution.resoultionInfo.active == 'Active'">
                     <a class="btn btn-secondary pull-left" role="button" data-toggle="collapse" href="#simple-majority" aria-expanded="false" aria-controls="simple-majority">
                         See Results
                     </a>
@@ -64,7 +66,7 @@
                         </div>
                     </div>
                 </div>
-                <div ng-if="resolution.resoultionInfo.active == false" class="card card-block card-archived">
+                <div ng-if="resolution.resoultionInfo.active == 'Expired'" class="card card-block card-archived">
                     <div class="progress">
                         <div class="progress-bar bg-success" role="progressbar" aria-valuenow="60" style="width: 60%" aria-valuemin="100">Yes &nbsp; <span>60%</span></div>
                     </div>
@@ -75,7 +77,7 @@
                 </div>
                 <div class="col-xs-12">
                     <span class=" resolution-back btn btn-warning" ui-sref="main.resolutions">Go Back</span>
-                    <div  ng-if="resolution.resoultionInfo.active == false">
+                    <div  ng-if="resolution.resoultionInfo.active == 'Expired'">
                         <span class="pull-left resolution-back resolution-reactivate btn btn-info"  ui-sref="main.resolutions">Reactivate</span>
                     </div>
                 </div>
