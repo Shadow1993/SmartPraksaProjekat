@@ -48,7 +48,7 @@ h4 {
 
 
 /*=============================
-    Title error style
+    Error style
 ===============================*/
 
 .custom-error-message{
@@ -60,4 +60,14 @@ h4 {
 .has-error .help-block,
 .has-error .form-control-feedback{
     color:lightblue;
+}
+
+/*=============================
+    Title style
+===============================*/
+
+.modal-dialog {
+    label{
+        color:red;
+    }
 }

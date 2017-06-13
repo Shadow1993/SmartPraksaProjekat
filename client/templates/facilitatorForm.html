@@ -1,0 +1,51 @@
+<div class="col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
+    <form name="decisionForm" ng-submit='toastrSubmit(decisionForm.$valid)' novalidate>
+        <div class="form-group" ng-class="{'has-error':decisionForm.decision_title.$invalid &&
+                                                                decisionForm.decision_title.$dirty}">
+            <label for="decision_title">Decision Title</label>
+            <input name="decision_title" type="text" ng-model="decisionData.title" placeholder="Title (required)" class="form-control"
+                id="decision_title" required ng-minlength="4" ng-maxlength="15">
+            <div class="custom-error-message help-block has-error">
+                <span ng-show="decisionForm.decision_title.$error.required && decisionForm.decision_title.$dirty">
+                    Title is required.
+                </span>
+                <span ng-show="decisionForm.decision_title.$error.minlenght">
+                    Title must have at least 4 characters in length.
+                </span>
+                <span ng-show="decisionForm.decision_title.$error.maxlength">
+                    Title length cannot exceed maximum of 15 characters.
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="decType" class="control-lable title-color">Decision Type</label>
+            <select class='form-control' ng-init='decisionData.type = options[0]' ng-model='decisionData.type' ng-options='option.value for option in options'></select>
+        </div>
+        <div class="form-group has-error">
+            <label for="decision_content">Decision Content</label>
+            <textarea ng-minlength="50" ng-maxlength="500" name="decision_content" class="form-control" ng-model="decisionData.description"
+                id="decision_content" rows="4" placeholder="Changing the world, one word at a time... (required)"></textarea>
+            <div class="custom-error-message help-block has-error">
+                <span ng-show="decisionForm.decision_content.$error.minlength">
+                        Decision content has to be at least 50 characters long.
+                    </span>
+                <span ng-show="decisionForm.decision_content.$error.maxlength">
+                        Decision content has to be less than 500 characters long.
+                    </span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <p class="input-group">
+                    <span name="datePicker" uib-datepicker-popup="{{format}}" ng-model="dt" is-open="popup1.opened" datepicker-options="dateOptions"
+                        ng-required="true" close-text="Close" alt-input-formats="altInputFormats" alt-input-formats="altInputFormats"></span>
+                    <span class='form-control'>{{dt.getDate() + ' ' + something(dt.getMonth()) + ' ' + dt.getFullYear()}}</span>
+                    <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+             </span>
+                </p>
+                <button class="btn btn-success create-decision" type="submit">Create Decision</button>
+            </div>
+    </form>
+    </div>
