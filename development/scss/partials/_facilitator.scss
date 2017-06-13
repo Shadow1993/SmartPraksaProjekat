@@ -63,11 +63,22 @@ h4 {
 }
 
 /*=============================
-    Title style
+    Modal Title Style
 ===============================*/
 
 .modal-dialog {
     label{
         color:red;
+    }
+}
+
+/*=============================
+    Modal Form Buttons
+===============================*/
+
+.form-buttons {
+    display:inline-flex;
+    .btn{
+        margin-left: 8px;
     }
 }

@@ -3,8 +3,13 @@
 
     var app = angular.module('app');
 
-    app.controller('FacilitatorFormController', ['$scope', 'ResolutionService', FacilitatorFormController]);
-    function FacilitatorFormController($scope, ResolutionService) {
+    app.controller('FacilitatorFormController', ['$scope',
+        'ResolutionService',
+        '$rootScope',
+        '$uibModalInstance',
+        FacilitatorFormController]);
+
+    function FacilitatorFormController($scope, ResolutionService, $rootScope, $uibModalInstance) {
 
         $scope.today = function () {
             $scope.dt = new Date();
@@ -134,28 +139,43 @@
 
             return '';
         }
-        $scope.options = [{
-            value: 'Simple Majority'
-        },{
-            value: 'Super Majority'
-        },{
-            value: 'Unanimous'
-        }];
+        $scope.options = [
+            'Simple Majority',
+            'Super Majority',
+            'Unanimous'
+        ];
         $scope.datePick = '';
         $scope.decisionData = {
             title: '',
             description: '',
-            steps: 0,
             startingDate: Date.now(),
-            expirationDate: 0
+            expirationDate: $scope.dt
         };
         $scope.toastrSubmit = function (working) {
             if (working) {
                 toastr.success('Form is valid! Kudos to You Sir/Madam!');
-                ResolutionService.createResolution();
+                console.log($scope.decisionData);
+                ResolutionService.createResolution($scope.decisionData);
             } else {
                 toastr.error('Drats! You did not fill in the form data correctly.');
             }
         };
+
+        // Make decision
+
+        $scope.makeDecision = function () {
+            ResolutionService.createResolution($scope.decisionData);
+            console.log();
+        };
+
+        $scope.closeModal = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+        $rootScope.$on('$stateChangeStart',
+            function () {
+                $scope.closeModal();
+            });
+
     }
 }());
