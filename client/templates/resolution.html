@@ -16,12 +16,11 @@
                         <span>Type: {{ resolution.resoultionInfo.type }}</span>
                     </div> 
                     <div class="expiration-date text-right">
-                        <div ng-show="resolution.resoultionInfo.active === 'Expired'">
+                        <div ng-show="resolution.resoultionInfo.active === 'Expired' || timeTillEvent.daysLeft <= 0 && timeTillEvent.hoursLeft <= 0 && timeTillEvent.minutesLeft <= 0  && timeTillEvent.secondsLeft <= 0">
                             Time is expired!
-                            
                         </div>
 
-                        <div ng-show="resolution.resoultionInfo.active === 'Active'">
+                        <div ng-show="resolution.resoultionInfo.active === 'Active'  && timeTillEvent.hoursLeft > 0 && timeTillEvent.minutesLeft > 0 && timeTillEvent.secondsLeft > 0">
                             <span><strong>{{ timeTillEvent.daysLeft }}</strong> <span>days</span>,
                             <span><strong>{{ timeTillEvent.hoursLeft }}</strong> hours</span>, 
                             <span><strong>{{ timeTillEvent.minutesLeft }}</strong> minutes</span>,
