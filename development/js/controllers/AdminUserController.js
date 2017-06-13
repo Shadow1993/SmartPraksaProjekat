@@ -3,11 +3,23 @@
 
     var app = angular.module('app');
 
-    app.controller('AdminUserController', ['UserService', '$uibModalInstance', 'user', AdminUserController]);
+    app.controller('AdminUserController', ['UserService',
+                                            '$uibModalInstance',
+                                            '$rootScope',
+                                            'user',
+                                            AdminUserController
+                                            ]);
 
-    function AdminUserController(UserService, $uibModalInstance, user) {
+    function AdminUserController(UserService, $uibModalInstance, $rootScope, user) {
         var vm = this;
         vm.test = 'test';
+
+        $rootScope.$on('$stateChangeStart',
+            function () {
+                vm.cancelModal();
+                // transitionTo() promise will be rejected with
+                // a 'transition prevented' error
+            });
 
         vm.cancelModal = function () {
             $uibModalInstance.dismiss('cancel');
