@@ -23,11 +23,6 @@
         /*============================
             Countdown for decisions
         ==============================*/
-<<<<<<< HEAD
-=======
-
-        $scope.nesto = '';
->>>>>>> ba37bb6459f38998f1e0b9fea80425ffea3e502b
         $scope.myDate = ResolutionService.getResolution($stateParams.id).then(
             function (response) {
                 response = vm.resoultionInfo.expirationDate;
@@ -61,11 +56,6 @@
                     $scope.timeTillEvent.secondsLeft) {
                     return console.log('Prebaci ga u arhivu!');
                 }
-<<<<<<< HEAD
             });
-=======
-            }
-            );
->>>>>>> ba37bb6459f38998f1e0b9fea80425ffea3e502b
     }
 }());

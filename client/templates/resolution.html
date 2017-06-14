@@ -35,14 +35,25 @@
                 </div>
                 <div class="card-block">
                     <div class="btn-group  {{ resolution.resoultionInfo.active == 'Active' ? '' : 'hide' }}" data-toggle="buttons">
-                        <label class="btn btn-success">
-                            <input type="radio" autocomplete="off"> Yes
-                        </label>
-                        <label class="btn btn-danger">
-                            <input type="radio" autocomplete="off"> No
-                        </label>
+                        <form name="voteForm" id="voteForm" >
+                            <label class="btn btn-success">
+                                <input type="radio" ng-model="myVote" value="for" autocomplete="off"> For
+                            </label>
+                            <label class="btn btn-danger">
+                                <input type="radio" ng-model="myVote" value="against" autocomplete="off"> Against
+                            </label>
+                            <label class="btn btn-warning">
+                                <input type="radio" ng-model="myVote" value="reserved" autocomplete="off"> Reserved
+                            </label>
+                            <div ng-switch="myVote">
+                                <div class="form-group" ng-switch-when="against">
+                                    <label for="comment">Comment:</label>
+                                    <textarea class="form-control" rows="5" id="vote-comment"></textarea>
+                                </div>
+                            </div>
+                        </form>    
                     </div>
-                    <div class="vote  {{ resolution.resoultionInfo.active == 'Active' ? '' : 'hide' }}">
+                    <div class="vote {{ resolution.resoultionInfo.active == 'Active' ? '' : 'hide' }}">
                         <a href="#" class="btn btn-primary {{ resolution.resoultionInfo.active == 'Active' ? '' : 'disabled' }}" ng-class="">Vote</a>
 
                     </div>
