@@ -12,13 +12,20 @@
 
         var vm = this;
 
+        vm.decisionData = {
+            title: '',
+            description: '',
+            startingDate: Date.now(),
+            expirationDate: null
+        };
+
         vm.today = function () {
-            vm.dt = new Date();
+            vm.decisionData.expirationDate = new Date();
         };
         vm.today();
 
         vm.clear = function () {
-            vm.dt = null;
+            vm.decisionData.expirationDate = null;
         };
 
         vm.inlineOptions = {
@@ -58,7 +65,7 @@
         };
 
         vm.setDate = function (year, month, day) {
-            vm.dt = new Date(year, month, day);
+            vm.decisionData.expirationDate = new Date(year, month, day);
         };
 
         vm.formats = ['dd.MM.yyyy', 'shortDate'];
@@ -146,17 +153,17 @@
             'Unanimous'
         ];
         vm.datePick = '';
-        vm.decisionData = {
-            title: '',
-            description: '',
-            startingDate: Date.now(),
-            expirationDate: vm.dt
-        };
         vm.formSubmit = function (working) {
             if (working) {
                 toastr.success('Form is valid! Kudos to You Sir/Madam!');
-                ResolutionService.createResolution(vm.decisionData);
-                $uibModalInstance.close('complete');
+                console.log(vm.decisionData);
+                ResolutionService.createResolution(vm.decisionData)
+                    .then(function() {
+                        $uibModalInstance.close('complete');
+                    })
+                    .catch(function(res) {
+                        throw res;
+                    });
             } else {
                 toastr.error('Drats! You did not fill in the form data correctly.');
             }

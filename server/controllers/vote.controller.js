@@ -3,7 +3,6 @@ var VoteModel = require('../models/vote.model'),
     CommentModel = require('../models/comment.model'),
     DecisionModel = require('../models/decision.model');
 
-
 /*
 * CREATE VOTE ('/votes', POST) => body = type, submitedDate, submitedBy, commentText, id - decision id
 * EDIT VOTE ('/votes', PUT) => body =  type, submitedDate, submitedBy, commentText, id - vote id
@@ -34,7 +33,7 @@ module.exports.createVote = function (req, res) {
                         console.log(err);
                     } else {
                         console.log(decisionDb);
-                        if (voteDb.type == 'Against' || voteDb.type == 'Reserved') {
+                        if (voteDb.type === 'Against' || voteDb.type === 'Reserved') {
                             CommentModel.create({
                                 text: req.body.commentText,
                                 submitedBy: req.body.submitedBy,
@@ -82,7 +81,7 @@ module.exports.editVote = function (req, res) {
                 res.send(err);
             } else {
                 console.log(voteDb);
-                if (req.body.role == 'Against' || req.body.role == 'Reserved') {
+                if (req.body.role === 'Against' || req.body.role === 'Reserved') {
                     CommentModel.create({
                         text: req.body.commentText,
                         submitedBy: req.body.submitedBy,

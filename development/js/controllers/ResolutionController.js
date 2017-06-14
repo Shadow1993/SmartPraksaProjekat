@@ -4,10 +4,10 @@
     var app = angular.module('app');
 
     app.controller('ResolutionController', ['$scope',
-                                            '$interval',
-                                            'ResolutionService',
-                                            '$stateParams',
-                                            ResolutionController]);
+        '$interval',
+        'ResolutionService',
+        '$stateParams',
+        ResolutionController]);
 
     function ResolutionController($scope, $interval, ResolutionService, $stateParams) {
         var vm = this;
@@ -23,6 +23,10 @@
         /*============================
             Countdown for decisions
         ==============================*/
+<<<<<<< HEAD
+=======
+
+>>>>>>> bcaf139632b73d656488d9bd337eee7845ad3440
         $scope.myDate = ResolutionService.getResolution($stateParams.id).then(
             function (response) {
                 response = vm.resoultionInfo.expirationDate;
