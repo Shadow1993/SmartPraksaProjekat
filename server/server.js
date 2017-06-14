@@ -7,8 +7,11 @@ var cors = require('cors'),
     favicon = require('serve-favicon'),
     path = require('path'),
     app = express(),
+    expressSession = require('express-session'),
+    passport = require('passport'),
     serverConfig = require('./config/server.config');
 require('./config/mongoose.config')(serverConfig);
+require('./config/passport.config')(passport);
 
 var userRouter = require('./routes/user.route');
 var decisionRouter = require('./routes/decision.route');
@@ -25,10 +28,15 @@ app.use(favicon((path.normalize(__dirname + serverConfig.PUBLIC + '/favicon.ico'
 //Body Parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 //Express
 app.use(express.static(path.normalize(__dirname + serverConfig.PUBLIC)));
+app.use(expressSession({
+    secret: 'keyboard cat'
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
+require('./routes/auth.route')(app, passport);
 app.use('/users', userRouter);
 app.use('/decisions', decisionRouter);
 app.use('/comments', commentRouter);
