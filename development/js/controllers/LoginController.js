@@ -9,15 +9,18 @@
         var vm = this;
         vm.test = 'test';
 
-        vm.authorize = function() {
-            console.log(vm.user);
-            AuthorizeService.authorize(vm.user)
-                .then(function(res) {
-                    console.log(res);
-                })
-                .catch(function(res) {
-                    throw res;
-                });
+        vm.authorize = function(valid) {
+            if (valid) {
+                AuthorizeService.authorize(vm.user)
+                    .then(function() {
+                        toastr.success('Logged in..');
+                    })
+                    .catch(function(res) {
+                        throw res;
+                    });
+            } else {
+                toastr.error('Error logging in..');
+            }
         };
 
         vm.user = {
