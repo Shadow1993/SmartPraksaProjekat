@@ -37,6 +37,17 @@ userSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.password);
 };
 
+userSchema.methods.getRole = function() {
+    Role.find({_id: this.role}, function(err, roleDb) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('asaaaa' + roleDb);
+            return roleDb;
+        }
+    });
+};
+
 userSchema.pre('save', function(next) {
     this.password = this.generateHash(this.password);
     next();
