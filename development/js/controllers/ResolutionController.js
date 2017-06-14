@@ -20,11 +20,14 @@
                 return res;
             });
 
-
-
         /*============================
             Countdown for decisions
         ==============================*/
+<<<<<<< HEAD
+=======
+
+        $scope.nesto = '';
+>>>>>>> ba37bb6459f38998f1e0b9fea80425ffea3e502b
         $scope.myDate = ResolutionService.getResolution($stateParams.id).then(
             function (response) {
                 response = vm.resoultionInfo.expirationDate;
@@ -34,7 +37,7 @@
             function (response) {
                 $scope.eventDay = {
                     date: new Date(response)
-                }
+                };
                 $scope.timeTillEvent = {};
 
                 $scope.updateClock = function () {
@@ -52,9 +55,17 @@
                     $scope.$apply($scope.updateClock);
                 }, 1000);
                 $scope.updateClock();
-                if ($scope.timeTillEvent.daysLeft <= 0 && $scope.timeTillEvent.hoursLeft && $scope.timeTillEvent.minutesLeft && $scope.timeTillEvent.secondsLeft) {
+                if ($scope.timeTillEvent.daysLeft <= 0 &&
+                    $scope.timeTillEvent.hoursLeft &&
+                    $scope.timeTillEvent.minutesLeft &&
+                    $scope.timeTillEvent.secondsLeft) {
                     return console.log('Prebaci ga u arhivu!');
                 }
+<<<<<<< HEAD
             });
+=======
+            }
+            );
+>>>>>>> ba37bb6459f38998f1e0b9fea80425ffea3e502b
     }
 }());
