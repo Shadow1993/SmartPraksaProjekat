@@ -17,17 +17,14 @@
             .then(function (res) {
                 console.log($stateParams.id);
                 vm.resoultionInfo = res;
-                return res;
             });
 
         /*============================
             Countdown for decisions
         ==============================*/
-
         $scope.myDate = ResolutionService.getResolution($stateParams.id).then(
             function (response) {
                 response = vm.resoultionInfo.expirationDate;
-                return response;
             }
         ).then(
             function (response) {
@@ -55,8 +52,15 @@
                     $scope.timeTillEvent.hoursLeft &&
                     $scope.timeTillEvent.minutesLeft &&
                     $scope.timeTillEvent.secondsLeft) {
-                    return console.log('Prebaci ga u arhivu!');
                 }
             });
+
+        /*=============================
+            Vote Form
+        ===============================*/
+        vm.voteSubmit = function () {
+            $scope.voteFor = $scope.myVote;
+            console.log($scope.myVote + $scope.voterComment);
+        };
     }
 }());
