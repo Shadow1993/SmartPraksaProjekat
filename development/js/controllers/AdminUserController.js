@@ -44,8 +44,13 @@
                         vm.newUser.role.push('Voter');
                     }
                     vm.newUser.dateCreated = Date.now();
-                    UserService.createUser(vm.newUser);
-                    $uibModalInstance.close('completed');
+                    UserService.createUser(vm.newUser)
+                        .then(function() {
+                            $uibModalInstance.close('completed');
+                        })
+                        .catch(function(res) {
+                            throw res;
+                        });
                 } else {
                     toastr.error('Please check the errors on the form and resubmit it again.');
                 }
