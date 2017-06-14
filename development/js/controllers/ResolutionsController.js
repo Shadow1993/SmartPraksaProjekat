@@ -3,9 +3,11 @@
 
     var app = angular.module('app');
 
-    app.controller('ResolutionsController', ['ResolutionService', ResolutionsController]);
+    app.controller('ResolutionsController', ['$scope',
+                                             'ResolutionService',
+                                             ResolutionsController]);
 
-    function ResolutionsController(ResolutionService) {
+    function ResolutionsController($scope, ResolutionService) {
         var vm = this;
         vm.test = 'test';
 
@@ -14,5 +16,6 @@
                 console.log(res);
                 vm.resoultionsInfo = res;
             });
+
     }
 }());

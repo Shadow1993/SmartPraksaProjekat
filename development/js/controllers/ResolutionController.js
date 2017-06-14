@@ -25,7 +25,6 @@
         /*============================
             Countdown for decisions
         ==============================*/
-        $scope.nesto = '';
         $scope.myDate = ResolutionService.getResolution($stateParams.id).then(
             function (response) {
                 response = vm.resoultionInfo.expirationDate;
@@ -46,7 +45,7 @@
                         hoursLeft: parseInt($scope.seconds % 86400 / 3600),
                         minutesLeft: parseInt($scope.seconds % 86400 % 3600 / 60),
                         secondsLeft: parseInt($scope.seconds % 86400 % 3600 % 60)
-                    }
+                    };
                 };
 
                 setInterval(function () {
@@ -56,10 +55,6 @@
                 if ($scope.timeTillEvent.daysLeft <= 0 && $scope.timeTillEvent.hoursLeft && $scope.timeTillEvent.minutesLeft && $scope.timeTillEvent.secondsLeft) {
                     return console.log('Prebaci ga u arhivu!');
                 }
-            }
-            );
-
-
-
+            });
     }
 }());

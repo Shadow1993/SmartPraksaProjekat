@@ -38,6 +38,12 @@
                     </td>
                 </tr>
             </table>
+            <pagination 
+                ng-model="currentPage"
+                total-items="app.length"
+                max-size="maxSize"  
+                boundary-links="true">
+            </pagination>
             <!--<div class="pagination-smart">
                 <ul class="pagination">
                     <li class="page-item">
@@ -86,6 +92,12 @@
                     </td>
                 </tr>
             </table>
+            <pagination 
+                ng-model="currentPage"
+                total-items="app.length"
+                max-size="maxSize"  
+                boundary-links="true">
+            </pagination>
             <!--<div class="pagination-smart">
                 <ul class="pagination">
                     <li class="page-item">
