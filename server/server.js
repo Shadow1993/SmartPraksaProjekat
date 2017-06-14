@@ -18,6 +18,9 @@ var decisionRouter = require('./routes/decision.route');
 var commentRouter = require('./routes/comment.route');
 var voteRouter = require('./routes/vote.route');
 
+//expiration date set automaticly to be expired
+//reactivate decision
+//
 /*-~- Server Setup -~-*/
 //Cross-origin
 app.use(cors());
