@@ -38,9 +38,9 @@
         <div class="row">
             <div class="col-md-6">
                 <p class="input-group">
-                    <span name="datePicker" uib-datepicker-popup="{{ffc.format}}" ng-model="ffc.dt" is-open="ffc.popup1.opened" datepicker-options="ffc.dateOptions"
+                    <span name="datePicker" uib-datepicker-popup="{{ffc.format}}" ng-model="ffc.decisionData.expirationDate" is-open="ffc.popup1.opened" datepicker-options="ffc.dateOptions"
                         ng-required="true" close-text="Close" alt-input-formats="altInputFormats" alt-input-formats="altInputFormats"></span>
-                    <span class='form-control'>{{ffc.dt.getDate() + ' ' + ffc.something(ffc.dt.getMonth()) + ' ' + ffc.dt.getFullYear()}}</span>
+                    <span class='form-control'>{{ffc.decisionData.expirationDate.getDate() + ' ' + ffc.something(ffc.decisionData.expirationDate.getMonth()) + ' ' + ffc.decisionData.expirationDate.getFullYear()}}</span>
                     <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="ffc.open1()"><i class="glyphicon glyphicon-calendar"></i></button>
              </span>
