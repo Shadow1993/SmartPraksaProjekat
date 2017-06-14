@@ -17,8 +17,7 @@ module.exports.createVote = function (req, res) {
             console.log(err);
             res.send(err);
         } else {
-            if (decisionDb.checkIfVoted('593e7d8d8922b130f45c6856')) {
-                console.log('u have already voted');
+            if (decisionDb.checkIfVoted(req.body.submitedBy)) {
                 res.send('u have already voted');
             } else {
                 VoteModel.create({
@@ -75,9 +74,6 @@ module.exports.createVote = function (req, res) {
             }
         }
     });
-
-
-
 };
 
 module.exports.editVote = function (req, res) {
