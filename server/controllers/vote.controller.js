@@ -51,7 +51,10 @@ module.exports.createVote = function (req, res) {
                                                 console.log(err);
                                             } else {
                                                 console.log(commentDb);
-                                                VoteModel.update({ _id: voteDb._id }, { $set: { comments: commentDb._id } },
+                                                VoteModel.update({ _id: voteDb._id }, {
+                                                    $set:
+                                                    { comments: commentDb._id }
+                                                },
                                                     function (err, voteDb2) {
                                                         if (err) {
                                                             console.log(err);

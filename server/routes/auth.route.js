@@ -1,5 +1,7 @@
 'use strict';
 
+var RoleModel = require('../models/role.model');
+
 module.exports = function (app, passport) {
     app.post('/login', function (req, res, next) {
         passport.authenticate('local-login', function (err, user, info) {
@@ -7,7 +9,14 @@ module.exports = function (app, passport) {
             if (!user) { res.send({ status: 401, message: 'wrong username or password' }); }
             req.logIn(user, function (err) {
                 if (err) { return next(err); }
-                return res.send(req.user);
+                RoleModel.find({_id: req.user.role}, function(err, roleDb) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log(roleDb)
+                        return res.send({user: req.user, role: roleDb});
+                    }
+                });
             });
         })(req, res, next);
     })

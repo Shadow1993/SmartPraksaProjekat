@@ -84,7 +84,7 @@ module.exports.updateUser = function (req, res) {
     });
 };
 
-module.exports.createUser = function (req, res, next) {
+module.exports.createUser = function (req, res) {
     console.log(req.body);
     RoleModel.find({
         title: {
@@ -94,7 +94,7 @@ module.exports.createUser = function (req, res, next) {
         if (err) {
             console.log(err.message);
             res.send({message: 'error in role type'});
-        } 
+        }
         if (!roleDb[0]) {
             res.send({message: 'error in role type'});
         } else {
