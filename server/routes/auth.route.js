@@ -15,5 +15,5 @@ module.exports = function (app, passport) {
         console.log(req.user);
         req.logout();
         res.redirect('/');
-    })
+    });
 };
