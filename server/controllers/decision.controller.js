@@ -17,7 +17,7 @@ module.exports.getAllDecisions = function (req, res) {
                 console.log(err.message);
                 res.send({ message: 'error while retreiving all decisions from database' });
             } else {
-                //console.log(decisionDb);
+                console.log(decisionDb);
                 for (var i = 0; i < decisionDb.length; i++) {
                     console.log(decisionDb[i]);
                     decisionDb[i].checkIfExpired();

@@ -7,6 +7,6 @@ var express = require('express'),
 
 router
     .get('/:id', AuthController.isLoggedIn, CommentController.getAllComments)
-    .post('/', CommentController.createComment);
+    .post('/', AuthController.isLoggedIn, CommentController.createComment);
 
 module.exports = router;

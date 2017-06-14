@@ -3,8 +3,8 @@
 module.exports.isLoggedIn = function (req, res, next) {
     console.log(req.user);
     if (req.user) {
-        res.send('u ar ok');
+        next();
     } else {
-        res.send('u are not ok');
+        res.redirect('/');
     }
 };

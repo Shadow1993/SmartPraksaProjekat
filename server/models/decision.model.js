@@ -53,16 +53,19 @@ var decisionSchema = new Schema({
         }]
     }
 });
-decisionSchema.methods.checkIfExpired = function() {
+
+decisionSchema.methods.checkIfExpired = function () {
     if (this.expirationDate.getTime() == this.startingDate.getTime()) {
         this.active = 'Expired';
     }
 };
-decisionSchema.methods.checkIfVoted = function(userId) {
+
+decisionSchema.methods.checkIfVoted = function (userId) {
     if (this.votes.indexOf(userId) > -1) {
         return true;
     } else {
         return false;
     }
-}; 
+};
+
 module.exports = mongoose.model('Decision', decisionSchema);
