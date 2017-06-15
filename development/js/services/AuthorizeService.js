@@ -58,15 +58,9 @@
 
         function deauthorize() {
             window.sessionStorage.clear();
-            LogoutFunc();
+            $http.get('/logout');
             toastr.info('Logged out');
             $state.go('login');
-        }
-        function LogoutFunc() {
-            return $http({
-                method: 'GET',
-                url: '/logout'
-            });
         }
 
         function isAuthorized() {

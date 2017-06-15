@@ -29,8 +29,8 @@
         ==============================*/
         $scope.myDate = ResolutionService.getResolution($stateParams.id).then(
             function (response) {
-               response = vm.resoultionInfo.expirationDate;
-               return response;
+                response = vm.resoultionInfo.expirationDate;
+                return response;
             }
         ).then(
             function (response) {
@@ -57,9 +57,9 @@
                 $scope.updateClock();
             });
 
-    /*=============================
-            Vote Form
-    ===============================*/
+        /*=============================
+                Vote Form
+        ===============================*/
         vm.newVote = {
             type: null,
             submitedDate: Date.now(),
@@ -72,26 +72,26 @@
             console.log($scope.myVote + ', ' + vm.voterComment);
             console.log('Id: ' + $scope.decisionId);
 
-            vm.newVote.type         = $scope.myVote;
-            vm.newVote.submitedBy   = '593a43ccdd987208fc8126c7';
-            vm.newVote.commentText  = vm.voterComment;
-            vm.newVote.id           = $scope.decisionId;
+            vm.newVote.type = $scope.myVote;
+            vm.newVote.submitedBy = '593a43ccdd987208fc8126c7';
+            vm.newVote.commentText = vm.voterComment;
+            vm.newVote.id = $scope.decisionId;
 
             console.log(vm.newVote);
 
             VoteService.createVote(vm.newVote)
-            .then(function(res) {
-                console.log(res);
-            }).catch(function(res) {
-                throw res;
-            });
+                .then(function (res) {
+                    console.log(res);
+                }).catch(function (res) {
+                    throw res;
+                });
         };
     }
 
     /*=============================
            Directive
     ===============================*/
-    app.directive('minimumWordsValidation', function(){
+    app.directive('minimumWordsValidation', function () {
         ' use strict';
         return {
             require: 'ngModel',
@@ -101,17 +101,17 @@
 
                 scope.$watch(function () {
                     return ngModelCtrl.$modelValue;
-                }, 
-                function (newValue) {
-                    var str = newValue && newValue.replace('\n', '');
-                    // Dont split when string is empty, else count becomes 1
-                    var wordCount = str ? str.split(' ').length : 0;
-                    // Set count variable
-                    scope.$parent[wordCountName] = wordCount;
-                    // Update validity
-                    var min = attrs.minimumWordsValidation;
-                    ngModelCtrl.$setValidity('minimumWords', wordCount >= min);
-                });
+                },
+                    function (newValue) {
+                        var str = newValue && newValue.replace('\n', '');
+                        // Dont split when string is empty, else count becomes 1
+                        var wordCount = str ? str.split(' ').length : 0;
+                        // Set count variable
+                        scope.$parent[wordCountName] = wordCount;
+                        // Update validity
+                        var min = attrs.minimumWordsValidation;
+                        ngModelCtrl.$setValidity('minimumWords', wordCount >= min);
+                    });
             }
         };
     });
