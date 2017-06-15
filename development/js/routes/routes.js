@@ -94,7 +94,7 @@
             .state(states.decision);
 
         // Default Redirect
-        $urlRouterProvider.otherwise('/test');
+        $urlRouterProvider.otherwise('/login');
 
     }
 }());

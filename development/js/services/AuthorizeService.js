@@ -1,9 +1,9 @@
-(function() {
+(function () {
     'use strict';
 
     var app = angular.module('app');
-    app.factory('AuthorizeService', ['$http', 'HandlingService', AuthorizeService]);
-    function AuthorizeService($http, HandlingService) {
+    app.factory('AuthorizeService', ['$http', 'HandlingService', '$state', AuthorizeService]);
+    function AuthorizeService($http, HandlingService, $state) {
 
         var api = '/login';
 
@@ -15,7 +15,7 @@
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                transformRequest: function(obj) {
+                transformRequest: function (obj) {
                     var str = [];
                     for (var p in obj) {
                         str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]));
@@ -28,7 +28,6 @@
         }
 
         function LoginFunction(response) {
-            console.log(response);
             var data = response.data;
 
             for (var i in data.role) {
@@ -52,7 +51,15 @@
 
             window.sessionStorage.setItem('userid', data.user._id);
 
-            // HandlingService.ReturnSuccess();
+            $state.go('main.resolutions');
+
+            HandlingService.ReturnSuccess();
+        }
+
+        function deauthorize() {
+            window.sessionStorage.clear();
+            toastr.info('Logged out');
+            $state.go('login');
         }
 
         function isAuthorized() {
@@ -65,7 +72,8 @@
 
         return {
             isAuthorized: isAuthorized,
-            authorize: authorize
+            authorize: authorize,
+            deauthorize: deauthorize
         };
     }
 }());
