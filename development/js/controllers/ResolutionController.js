@@ -6,16 +6,21 @@
     app.controller('ResolutionController', ['$scope',
         '$interval',
         'ResolutionService',
+        'VoteService',
         '$stateParams',
         ResolutionController]);
 
-    function ResolutionController($scope, $interval, ResolutionService, $stateParams) {
+    function ResolutionController($scope, $interval, ResolutionService, VoteService, $stateParams) {
         var vm = this;
         vm.test = 'test';
+        vm.voterComment = '';
+
+        $scope.decisionId = '';
 
         ResolutionService.getResolution($stateParams.id)
             .then(function (res) {
                 console.log($stateParams.id);
+                $scope.decisionId = $stateParams.id;
                 vm.resoultionInfo = res;
             });
 
@@ -24,10 +29,12 @@
         ==============================*/
         $scope.myDate = ResolutionService.getResolution($stateParams.id).then(
             function (response) {
-                response = vm.resoultionInfo.expirationDate;
+               response = vm.resoultionInfo.expirationDate;
+               return response;
             }
         ).then(
             function (response) {
+                console.log(response);
                 $scope.eventDay = {
                     date: new Date(response)
                 };
@@ -48,19 +55,65 @@
                     $scope.$apply($scope.updateClock);
                 }, 1000);
                 $scope.updateClock();
-                if ($scope.timeTillEvent.daysLeft <= 0 &&
-                    $scope.timeTillEvent.hoursLeft &&
-                    $scope.timeTillEvent.minutesLeft &&
-                    $scope.timeTillEvent.secondsLeft) {
-                }
             });
 
-        /*=============================
+    /*=============================
             Vote Form
-        ===============================*/
+    ===============================*/
+        vm.newVote = {
+            type: null,
+            submitedDate: Date.now(),
+            submitedBy: null,
+            commentText: 'Test',
+            id: null
+        };
+
         vm.voteSubmit = function () {
-            $scope.voteFor = $scope.myVote;
-            console.log($scope.myVote + $scope.voterComment);
+            console.log($scope.myVote + ', ' + vm.voterComment);
+            console.log('Id: ' + $scope.decisionId);
+
+            vm.newVote.type         = $scope.myVote;
+            vm.newVote.submitedBy   = '593a43ccdd987208fc8126c7';
+            vm.newVote.commentText  = vm.voterComment;
+            vm.newVote.id           = $scope.decisionId;
+
+            console.log(vm.newVote);
+
+            VoteService.createVote(vm.newVote)
+            .then(function(res) {
+                console.log(res);
+            }).catch(function(res) {
+                throw res;
+            });
         };
     }
+
+    /*=============================
+           Directive
+    ===============================*/
+    app.directive('minimumWordsValidation', function(){
+        ' use strict';
+        return {
+            require: 'ngModel',
+            link: function (scope, element, attrs, ngModelCtrl) {
+                // Figure out name of count variable we will set on parent scope
+                var wordCountName = attrs.ngModel.replace('.', '_') + '_words_count';
+
+                scope.$watch(function () {
+                    return ngModelCtrl.$modelValue;
+                }, 
+                function (newValue) {
+                    var str = newValue && newValue.replace('\n', '');
+                    // Dont split when string is empty, else count becomes 1
+                    var wordCount = str ? str.split(' ').length : 0;
+                    // Set count variable
+                    scope.$parent[wordCountName] = wordCount;
+                    // Update validity
+                    var min = attrs.minimumWordsValidation;
+                    ngModelCtrl.$setValidity('minimumWords', wordCount >= min);
+                });
+            }
+        };
+    });
+
 }());

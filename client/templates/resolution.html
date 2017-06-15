@@ -1,6 +1,6 @@
 <!-- =============================
         Decisions for voting
-    ================================== -->
+================================== -->
 <div class="container">
     <div class="col-xs-12 clearfix">
         <ol class="breadcrumb">
@@ -38,22 +38,37 @@
                 <div class="btn-group  {{ resolution.resoultionInfo.active == 'Active' ? '' : 'hide' }}">
                     <form name="voteForm" ng-submit="resolution.voteSubmit()">
                         <label>
-                            <input type="radio" name="myVote" ng-model="myVote" value="for" autocomplete="off" required="required"> For
+                            <input type="radio" name="myVote" ng-model="myVote" value="For" autocomplete="off" required="!myVote"> For
                         </label>
                         <label>
-                            <input type="radio" name="myVote"  ng-model="myVote" value="against" autocomplete="off"> Against
+                            <input type="radio" name="myVote"  ng-model="myVote" value="Against" autocomplete="off" required="!myVote"> Against
                         </label>
                         <label>
-                            <input type="radio" name="myVote"  ng-model="myVote" value="reserved" autocomplete="off"> Reserved
+                            <input type="radio" name="myVote"  ng-model="myVote" value="Reserved" autocomplete="off" required="!myVote"> Reserved
                         </label>
 
-                       
-                            <div class="form-group" ng-show="myVote === 'against' || myVote === 'reserved'">
-                                <textarea col="40" rows="5" name="voterComment" ng-model="voterComment" ng-minlength="5" class="form-control" required ></textarea>
-                                <h7 ng-if="!voteForm.voterComment.$valid">Minimum number of characters is 5 and you have to type 5 words minimum.</h7>
+                        <div ng-if="myVote === 'Against' || myVote === 'Reserved'" class="col-xs-12">
+                            <div class="form-group">
+                                <textarea id="myText" cols="30" rows="10" class="form-control"
+                                    ng-model="resolution.voterComment" 
+                                    minimum-words-validation="5" 
+                                    name="comment"
+                                    minlength="20"
+                                    required
+                                ></textarea>
+                                <div ng-show="!voteForm.comment.$valid && voteForm.comment.$dirty">
+                                    <p ng-if="voteForm.comment.$error.minlength" class="message">You must insert 20 letters minimum!</p>
+                                    <p ng-show="voteForm.comment.$error.minimumWords" class="message">You must insert 5 words minimum!</p>
+                                </div>
+                            </div>                    
+                        </div>
+
+                        <div ng-if="myVote === 'for'">
+                            <div class="form-group" ng-hide="myVote === 'for'">
+                                <textarea col="40" rows="5" class="form-control"></textarea>
                             </div>
-                                              
-                       
+                        </div>
+
                         <div class="vote {{ resolution.resoultionInfo.active == 'Active' ? '' : 'hide' }}">
                             <input type="submit" class="btn btn-primary {{ resolution.resoultionInfo.active == 'Active' ? '' : 'disabled' }}" ng-disabled="voteForm.$invalid || voteForm.$touched"
                                 value="Vote" />
@@ -74,22 +89,29 @@
                 <div class="collapse" id="simple-majority">
                     <div class="card card-block">
                         <div class="progress">
-                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="60" style="width: 60%" aria-valuemin="100">Yes &nbsp; <span>60%</span></div>
+                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="60" style="width: 50%" aria-valuemin="0">Yes &nbsp; <span>50%</span></div>
                         </div>
 
                         <div class="progress">
                             <div class="progress-bar bg-danger" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">No &nbsp; <span>40%</span></div>
+                        </div>
+
+                        <div class="progress">
+                            <div class="progress-bar-warning" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">No &nbsp; <span>10%</span></div>
                         </div>
                     </div>
                 </div>
             </div>
             <div ng-if="resolution.resoultionInfo.active == 'Expired'" class="card card-block card-archived">
                 <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="60" style="width: 60%" aria-valuemin="100">Yes &nbsp; <span>60%</span></div>
+                    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="50" style="width: 50%" aria-valuemin="100">Yes &nbsp; <span>50%</span></div>
                 </div>
 
                 <div class="progress">
                     <div class="progress-bar bg-danger" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">No &nbsp; <span>40%</span></div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar-warning" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">No &nbsp; <span>10%</span></div>
                 </div>
             </div>
             <div class="col-xs-12">
