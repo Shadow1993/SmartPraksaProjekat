@@ -1,7 +1,8 @@
 body{
-    background-image: url("/images/login-background.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
+    // background-image: url("/images/login-background.jpg");
+    // background-size: cover;
+    // background-repeat: no-repeat;
+    background-color: darken($loginCol, 10%);
 }
 
 
