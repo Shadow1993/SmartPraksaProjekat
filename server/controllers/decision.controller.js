@@ -7,12 +7,12 @@
 * RESTART DECISION ('/decisions', PUT) => body = id, title, description, type, steps, startingDate, expirationDate
 */
 
-// + ruta za gojka
 //return counted votes with get all decisions route - dodati polje u modelu! ...
 //check if expired date and disallow voting
 //validacija za vote za komentar
 //za restartovanje decisiona: sacuvati prethodni i napraviti novi sa istim parametrima (drugaciji starting expiration date, type of voting is optional parameter)
 //validacija za steps is not working , iskombinovati default vrednost i proveru za vrednosti izmedju 60 i 90 i zabrana (x != % 10)
+
 var DecisionModel = require('../models/decision.model');
 
 module.exports.getAllDecisions = function (req, res) {

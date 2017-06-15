@@ -22,8 +22,11 @@ var decisionSchema = new Schema({
         default: 'Simple Majority'
     },
     steps: {
-        type: Number
-        
+        type: Number,
+        validate: {
+            validator: validateSteps,
+            message: 'steps field must be one of the following: 60, 70, 80, 90.'
+        }
     },
     startingDate: {
         type: Date,
