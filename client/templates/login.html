@@ -1,6 +1,6 @@
 <div id="wrapper">
     <div class="form-input">
-        <form ng-submit='login.authorize()'>
+        <form name='loginForm' ng-submit='login.authorize(loginForm.$valid)' novalidate>
             <input ng-model='login.user.username' type="text" placeholder="Username" class="login"  required>
 
             <input ng-model='login.user.password' type="password" placeholder="Password" class="login"  required>
