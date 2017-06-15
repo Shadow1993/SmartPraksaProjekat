@@ -7,6 +7,10 @@
 * RESTART DECISION ('/decisions', PUT) => body = id, title, description, type, steps, startingDate, expirationDate
 */
 
+//return counted votes with get all decisions route
+//check if expired date and disallow voting
+//validacija za vote za komentar
+//ruta za gojka
 var DecisionModel = require('../models/decision.model');
 
 module.exports.getAllDecisions = function (req, res) {
@@ -17,7 +21,7 @@ module.exports.getAllDecisions = function (req, res) {
                 console.log(err.message);
                 res.send({ message: 'error while retreiving all decisions from database' });
             } else {
-                console.log(decisionDb);
+                console.log(req.session);
                 for (var i = 0; i < decisionDb.length; i++) {
                     console.log(decisionDb[i]);
                     decisionDb[i].checkIfExpired();
