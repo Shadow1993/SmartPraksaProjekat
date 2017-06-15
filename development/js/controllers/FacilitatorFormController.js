@@ -68,9 +68,9 @@
             vm.decisionData.expirationDate = new Date(year, month, day);
         };
 
-        vm.formats = ['dd.MM.yyyy', 'shortDate'];
+        vm.formats = ['dd.MM.yyyy hh:mm:ss', 'shortDate'];
         vm.format = vm.formats[0];
-        vm.altInputFormats = ['M!/d!/yyyy'];
+        vm.altInputFormats = ['M!/d!/yyyy/'];
 
         // Change numeric month to word
 
