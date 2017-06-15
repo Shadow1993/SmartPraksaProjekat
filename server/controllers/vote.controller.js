@@ -8,7 +8,8 @@ var VoteModel = require('../models/vote.model'),
 * EDIT VOTE ('/votes', PUT) => body =  type, submitedDate, submitedBy, commentText, id - vote id
 */
 
-//USER ne moze dva puta da glasa na istom decisionu - provera toga
+// + USER ne moze dva puta da glasa na istom decisionu - provera toga
+// USER ne moze da glasa ako je glasanje isteklo!
 
 module.exports.createVote = function (req, res) {
     console.log(req.body);

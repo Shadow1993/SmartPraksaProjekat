@@ -35,6 +35,7 @@ module.exports = function (app, passport) {
                 RoleModel.find({ _id: req.user.role }, function (err, roleDb) {
                     if (err) {
                         console.log(err);
+                        res.send(err);
                     } else {
                         console.log(roleDb)
                         return res.send({ user: req.user, role: roleDb });

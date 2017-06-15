@@ -59,6 +59,10 @@ function validateSteps(step) {
     return step % 10 === 10 ? true : false;
 };
 
+decisionSchema.methods.restart = function () {
+    this.active = 'Deactive';
+}
+
 decisionSchema.methods.checkIfExpired = function () {
     if (this.expirationDate.getTime() == this.startingDate.getTime()) {
         this.active = 'Expired';
@@ -67,10 +71,13 @@ decisionSchema.methods.checkIfExpired = function () {
 
 decisionSchema.methods.checkIfVoted = function (userId) {
     if (this.votes.indexOf(userId) > -1) {
+        console.log('y have woted');
         return true;
     } else {
+        console.log('n have woted');
         return false;
     }
+    //cant work because votes field isnt being populated
 };
 
 module.exports = mongoose.model('Decision', decisionSchema);
