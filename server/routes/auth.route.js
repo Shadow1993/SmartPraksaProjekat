@@ -9,12 +9,17 @@ module.exports = function (app, passport) {
             if (!user) { res.send({ status: 401, message: 'wrong username or password' }); }
             req.logIn(user, function (err) {
                 if (err) { return next(err); }
-                RoleModel.find({_id: req.user.role}, function(err, roleDb) {
+                console.log('*******************auth.route***********************');
+                console.log('*******************req.user***********************');
+                console.log(req.session);
+                console.log('*******************req.session***********************');
+                console.log(req.user);
+                RoleModel.find({ _id: req.user.role }, function (err, roleDb) {
                     if (err) {
                         console.log(err);
                     } else {
                         console.log(roleDb)
-                        return res.send({user: req.user, role: roleDb});
+                        return res.send({ user: req.user, role: roleDb });
                     }
                 });
             });
@@ -24,5 +29,19 @@ module.exports = function (app, passport) {
             console.log(req.user);
             req.logout();
             res.redirect('/');
+        })
+        .get('/checkLogin', function (req, res) {
+            if (req.user) {
+                RoleModel.find({ _id: req.user.role }, function (err, roleDb) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log(roleDb)
+                        return res.send({ user: req.user, role: roleDb });
+                    }
+                });
+            } else {
+                res.send({ message: 'there is no user logged in atm!' });
+            }
         });
 };

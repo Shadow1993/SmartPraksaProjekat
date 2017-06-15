@@ -21,4 +21,6 @@ var commentSchema = new Schema({
     }
 });
 
+//validacija komentara za vote i 
+
 module.exports = mongoose.model('Comment', commentSchema);

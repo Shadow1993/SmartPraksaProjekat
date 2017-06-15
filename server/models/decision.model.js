@@ -23,9 +23,10 @@ var decisionSchema = new Schema({
     },
     steps: {
         type: Number,
-        min: 60,
-        max: 90,
-        default: 60
+        validate: {
+            validator: validateSteps,
+            message: 'steps field must be one of the following: 60, 70, 80, 90.'
+        }
     },
     startingDate: {
         type: Date,
@@ -53,6 +54,10 @@ var decisionSchema = new Schema({
         }]
     }
 });
+
+function validateSteps(step) {
+    return step % 10 === 10 ? true : false;
+};
 
 decisionSchema.methods.checkIfExpired = function () {
     if (this.expirationDate.getTime() == this.startingDate.getTime()) {
