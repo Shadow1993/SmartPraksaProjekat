@@ -23,10 +23,14 @@ var decisionSchema = new Schema({
     },
     steps: {
         type: Number,
+        min: 60,
+        max: 90,
+        default: 60,
         validate: {
             validator: validateSteps,
             message: 'steps field must be one of the following: 60, 70, 80, 90.'
-        }
+        },
+        required: true
     },
     startingDate: {
         type: Date,
@@ -56,28 +60,13 @@ var decisionSchema = new Schema({
 });
 
 function validateSteps(step) {
-    return step % 10 === 10 ? true : false;
+    return step % 10 === 0 ? true : false;
 };
-
-decisionSchema.methods.restart = function () {
-    this.active = 'Deactive';
-}
 
 decisionSchema.methods.checkIfExpired = function () {
-    if (this.expirationDate.getTime() == this.startingDate.getTime()) {
+    if (Date.now() > this.expirationDate.getTime()) {
         this.active = 'Expired';
     }
-};
-
-decisionSchema.methods.checkIfVoted = function (userId) {
-    if (this.votes.indexOf(userId) > -1) {
-        console.log('y have woted');
-        return true;
-    } else {
-        console.log('n have woted');
-        return false;
-    }
-    //cant work because votes field isnt being populated
 };
 
 module.exports = mongoose.model('Decision', decisionSchema);

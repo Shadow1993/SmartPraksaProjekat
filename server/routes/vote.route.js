@@ -7,7 +7,7 @@ var express = require('express'),
     VoteController = require('../controllers/vote.controller');
 
 router
-    .post('/', AuthController.isLoggedIn,  VoteController.createVote)
+    .post('/',   VoteController.createVote)
     .put('/', AuthController.isLoggedIn,  VoteController.editVote);
 
 module.exports = router;

@@ -10,7 +10,6 @@ var UserModel = require('../models/user.model'),
 * CREATE USER ('/users', POST) => body = username, password, role, dateCreated
 */
 
-//filtriranje is active
 module.exports.getAllUsers = function (req, res) {
     UserModel.find({isActive: true})
         .populate('role')
@@ -25,7 +24,6 @@ module.exports.getAllUsers = function (req, res) {
         });
 };
 
-//filtriranje is active
 module.exports.getUserByID = function (req, res) {
     console.log(req.params);
     UserModel.findOne({ _id: req.params.id, isActive: true })

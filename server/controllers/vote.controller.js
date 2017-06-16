@@ -8,9 +8,6 @@ var VoteModel = require('../models/vote.model'),
 * EDIT VOTE ('/votes', PUT) => body =  type, submitedDate, submitedBy, commentText, id - vote id
 */
 
-// + USER ne moze dva puta da glasa na istom decisionu - provera toga
-// USER ne moze da glasa ako je glasanje isteklo!
-
 module.exports.createVote = function (req, res) {
     console.log(req.body);
     DecisionModel.findOne({ _id: req.body.id }, function (err, decisionDb) {
@@ -18,64 +15,64 @@ module.exports.createVote = function (req, res) {
             console.log(err);
             res.send(err);
         } else {
-            if (decisionDb.checkIfVoted(req.body.submitedBy)) {
-                res.send('u have already voted');
-            } else {
-                VoteModel.create({
-                    type: req.body.type,
-                    submitedDate: req.body.submitedDate,
-                    submitedBy: req.body.submitedBy
-                }, function (err, voteDb) {
-                    if (err) {
-                        console.log(err);
-                        res.send(err.message);
-                    } else {
-                        console.log(voteDb);
-                        DecisionModel.update(
-                            { _id: req.body.id },
-                            {
-                                $push: {
-                                    votes: voteDb._id
-                                }
-                            }, function (err, decisionDb) {
-                                if (err) {
-                                    console.log(err);
-                                } else {
-                                    console.log(decisionDb);
-                                    if (voteDb.type === 'Against' || voteDb.type === 'Reserved') {
-                                        CommentModel.create({
-                                            text: req.body.commentText,
-                                            submitedBy: req.body.submitedBy,
-                                            submitedDate: req.body.submitedDate
-                                        }, function (err, commentDb) {
-                                            if (err) {
-                                                console.log(err);
-                                            } else {
-                                                console.log(commentDb);
-                                                VoteModel.update({ _id: voteDb._id }, {
-                                                    $set:
-                                                    { comments: commentDb._id }
-                                                },
-                                                    function (err, voteDb2) {
-                                                        if (err) {
-                                                            console.log(err);
-                                                        } else {
-                                                            console.log(voteDb2);
-                                                            res.send(voteDb2);
-                                                        }
-                                                    });
-                                            }
-                                        });
-                                    } else {
-                                        console.log(voteDb);
-                                        res.send(voteDb);
+            VoteModel.create({
+                type: req.body.type,
+                submitedDate: req.body.submitedDate,
+                submitedBy: req.body.submitedBy
+            }, function (err, voteDb) {
+                if (err) {
+                    console.log(err);
+                    res.send(err.message);
+                } else {
+                    console.log(voteDb);
+                    DecisionModel.update(
+                        { _id: req.body.id },
+                        {
+                            $push: {
+                                votes: voteDb._id
+                            }
+                        }, function (err, decisionDb) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                console.log(decisionDb);
+                                if (voteDb.type === 'Against' || voteDb.type === 'Reserved') {
+                                    console.log('HI IM YOUR BODY TEXT COMMENT' + req.body.commentText);
+                                    if (req.body.commentText.match(/(\w+)/g).length < 5 && req.body.commentText.length < 20) {
+                                        console.log('less than 5 words and less than 20 characters');
                                     }
+                                    CommentModel.create({
+                                        text: req.body.commentText,
+                                        submitedBy: req.body.submitedBy,
+                                        submitedDate: req.body.submitedDate
+                                    }, function (err, commentDb) {
+                                        if (err) {
+                                            console.log(err);
+                                        } else {
+                                            console.log(commentDb);
+                                            VoteModel.update({ _id: voteDb._id }, {
+                                                $set:
+                                                { comments: commentDb._id }
+                                            },
+                                                function (err, voteDb2) {
+                                                    if (err) {
+                                                        console.log(err);
+                                                    } else {
+                                                        console.log(voteDb2);
+                                                        res.send(voteDb2);
+                                                    }
+                                                });
+                                        }
+                                    });
+                                } else {
+                                    console.log(voteDb);
+                                    res.send(voteDb);
                                 }
                             }
-                        );
-                    }
-                });
-            }
+                        }
+                    );
+                }
+            });
         }
     });
 };

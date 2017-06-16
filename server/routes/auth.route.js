@@ -9,11 +9,6 @@ module.exports = function (app, passport) {
             if (!user) { res.send({ status: 401, message: 'wrong username or password' }); }
             req.logIn(user, function (err) {
                 if (err) { return next(err); }
-                console.log('*******************auth.route***********************');
-                console.log('*******************req.user***********************');
-                console.log(req.session);
-                console.log('*******************req.session***********************');
-                console.log(req.user);
                 RoleModel.find({ _id: req.user.role }, function (err, roleDb) {
                     if (err) {
                         console.log(err);

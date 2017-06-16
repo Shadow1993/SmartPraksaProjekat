@@ -7,12 +7,6 @@
 * RESTART DECISION ('/decisions', PUT) => body = id, title, description, type, steps, startingDate, expirationDate
 */
 
-//return counted votes with get all decisions route - dodati polje u modelu! ...
-//check if expired date and disallow voting
-//validacija za vote za komentar
-//za restartovanje decisiona: sacuvati prethodni i napraviti novi sa istim parametrima (drugaciji starting expiration date, type of voting is optional parameter)
-//validacija za steps is not working , iskombinovati default vrednost i proveru za vrednosti izmedju 60 i 90 i zabrana (x != % 10)
-
 var DecisionModel = require('../models/decision.model');
 
 module.exports.getAllDecisions = function (req, res) {
@@ -25,10 +19,16 @@ module.exports.getAllDecisions = function (req, res) {
             } else {
                 console.log(req.session);
                 for (var i = 0; i < decisionDb.length; i++) {
-                    console.log(decisionDb[i]);
-                    decisionDb[i].checkIfExpired();
+                    if (decisionDb[i].expirationDate.getTime() < Date.now()) {
+                        DecisionModel.findOneAndUpdate({_id: decisionDb[i]._id}, {$set: {active: 'Expired'}}, function(err, data){
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                console.log(data);
+                            }
+                        });
+                    }
                 }
-                console.log(decisionDb);
                 res.send(decisionDb);
             }
         });
@@ -36,14 +36,32 @@ module.exports.getAllDecisions = function (req, res) {
 
 module.exports.getDecisionById = function (req, res) {
     console.log(req.params);
-    DecisionModel.findById({ _id: req.params.id }, function (err, decisionDb) {
-        if (err) {
-            console.log(err.message);
-            res.send({ message: 'error while retreiving decision from database' });
-        } else {
-            console.log(decisionDb);
-            res.send(decisionDb);
-        }
+    DecisionModel.findById({ _id: req.params.id })
+        .populate(['comments', 'votes'])
+        .exec(function (err, decisionDb) {
+            if (err) {
+                console.log(err.message);
+                res.send({ message: 'error while retreiving decision from database' });
+            } else {
+                console.log(decisionDb);
+                var countedVotes = {
+                    for: 0,
+                    reserved: 0,
+                    against: 0
+                };
+                for (var i = 0; i < decisionDb.votes.length; i++) {
+                    console.log(decisionDb.votes[i]);
+                    if (decisionDb.votes[i].type === 'For') {
+                        countedVotes.for++;
+                    } else if (decisionDb.votes[i].type === 'Against') {
+                        countedVotes.against++;
+                    } else if (decisionDb.votes[i].type === 'Reserved') {
+                        countedVotes.reserved++;
+                    }
+                }
+                console.log(countedVotes);
+                res.send({decision: decisionDb, countedVotes: countedVotes});
+            }
     });
 };
 
@@ -69,7 +87,6 @@ module.exports.createDecision = function (req, res) {
 
 module.exports.restartDecision = function (req, res) {
     console.log(req.body);
-    //create new
     DecisionModel.create({
         title: req.body.title,
         description: req.body.description,
@@ -83,16 +100,14 @@ module.exports.restartDecision = function (req, res) {
             res.send(err);
         } else {
             console.log(decisionDb);
-            DecisionModel.findOneAndUpdate({_id: req.body.id}, {$set: {active: 'Deactive'}}, function(err, decisionDbRestarted) {
+            DecisionModel.findOneAndUpdate({_id: req.body.id}, {$set: {active: 'Deactive'}}, function(err, decisionDb) {
                 if (err) {
                     console.log(err);
                     res.send(err);
                 } else {
-                    decisionDbRestarted.restart();
                     res.send(decisionDb);
                 }
             });
         }
     });
-    //keep old in database, just change active filed to Deactive
 };
