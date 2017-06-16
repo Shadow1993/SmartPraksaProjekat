@@ -5,12 +5,17 @@
     app.factory('AuthorizeService', ['$http', 'HandlingService', '$state', AuthorizeService]);
     function AuthorizeService($http, HandlingService, $state) {
 
-        var api = '/login';
+        var api = {
+            login: '/login',
+            info: '/checkLogin'
+        };
+
+        $http.get(api.info).then(function(res) {console.log(res);});
 
         function authorize(data) {
             return $http({
                 method: 'POST',
-                url: api,
+                url: api.login,
                 data: data,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -28,28 +33,7 @@
         }
 
         function LoginFunction(response) {
-            var data = response.data;
-
-            for (var i in data.role) {
-                switch (data.role[i].title) {
-                    case 'Viewer':
-                        window.sessionStorage.setItem('user.role.viewer', true);
-                        break;
-                    case 'Voter':
-                        window.sessionStorage.setItem('user.role.voter', true);
-                        break;
-                    case 'Facilitator':
-                        window.sessionStorage.setItem('user.role.facilitator', true);
-                        break;
-                    case 'Administrator':
-                        window.sessionStorage.setItem('user.role.administrator', true);
-                        break;
-                    default:
-                        window.sessionStorage.clear();
-                }
-            }
-
-            window.sessionStorage.setItem('userid', data.user._id);
+            console.log(response);
 
             $state.go('main.resolutions');
 
@@ -57,7 +41,6 @@
         }
 
         function deauthorize() {
-            window.sessionStorage.clear();
             $http.get('/logout');
             toastr.info('Logged out');
             $state.go('login');
