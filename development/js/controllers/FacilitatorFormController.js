@@ -6,10 +6,9 @@
     app.controller('FacilitatorFormController', ['ResolutionService',
         '$rootScope',
         '$uibModalInstance',
-        '$scope',
         FacilitatorFormController]);
 
-    function FacilitatorFormController(ResolutionService, $rootScope, $uibModalInstance, $scope) {
+    function FacilitatorFormController(ResolutionService, $rootScope, $uibModalInstance) {
 
         var vm = this;
 
@@ -158,14 +157,14 @@
             if (working) {
                 toastr.success('Form is valid! Kudos to You Sir/Madam!');
                 console.log(vm.decisionData);
-                // console.log($scope.mytime);
-                // ResolutionService.createResolution(vm.decisionData)
-                //     .then(function () {
-                //         $uibModalInstance.close('complete');
-                //     })
-                //     .catch(function (res) {
-                //         throw res;
-                //     });
+                console.log(vm.mytime);
+                ResolutionService.createResolution(vm.decisionData)
+                    .then(function () {
+                        $uibModalInstance.close('complete');
+                    })
+                    .catch(function (res) {
+                        throw res;
+                    });
             } else {
                 toastr.error('Drats! You did not fill in the form data correctly.');
             }
@@ -176,29 +175,29 @@
             $uibModalInstance.dismiss('cancel');
         };
 
-        $scope.mytime = new Date();
+        vm.mytime = new Date();
 
         vm.hstep = 1;
         vm.mstep = 15;
 
         vm.ismeridian = true;
-        $scope.toggleMode = function () {
-            $scope.ismeridian = !$scope.ismeridian;
+        vm.toggleMode = function () {
+            vm.ismeridian = !vm.ismeridian;
         };
 
-        $scope.update = function () {
+        vm.update = function () {
             var d = new Date();
             d.setHours(14);
             d.setMinutes(0);
-            $scope.mytime = d;
+            vm.mytime = d;
         };
 
-        $scope.changed = function () {
-            console.log('Time changed to: ' + $scope.mytime);
+        vm.changed = function () {
+            console.log('Time changed to: ' + vm.mytime);
         };
 
-        $scope.clear = function () {
-            $scope.mytime = null;
+        vm.clear = function () {
+            vm.mytime = null;
         };
 
         $rootScope.$on('$stateChangeStart',
