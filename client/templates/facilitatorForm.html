@@ -43,6 +43,7 @@
                     <span class='form-control'>{{ffc.decisionData.expirationDate.getDate() + ' ' + ffc.something(ffc.decisionData.expirationDate.getMonth()) + ' ' + ffc.decisionData.expirationDate.getFullYear()}}</span>
                     <span class="input-group-btn">
                 <button type="button" class="btn btn-default" ng-click="ffc.open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                <div uib-timepicker ng-model="ffc.decisionData.expirationDate" hour-step="ffc.hstep" minute-step="ffc.mstep" show-meridian="ffc.ismeridian"></div>
              </span>
                 </p>
                 <div class="form-buttons">
@@ -50,5 +51,6 @@
                 <input class="btn btn-warning close-decision" type="button" ng-click="ffc.closeModal()" value="Cancel">
                 </div>
             </div>
+        </div>
     </form>
     </div>

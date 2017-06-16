@@ -157,11 +157,12 @@
             if (working) {
                 toastr.success('Form is valid! Kudos to You Sir/Madam!');
                 console.log(vm.decisionData);
+                console.log(vm.mytime);
                 ResolutionService.createResolution(vm.decisionData)
-                    .then(function() {
+                    .then(function () {
                         $uibModalInstance.close('complete');
                     })
-                    .catch(function(res) {
+                    .catch(function (res) {
                         throw res;
                     });
             } else {
@@ -172,6 +173,31 @@
 
         vm.closeModal = function () {
             $uibModalInstance.dismiss('cancel');
+        };
+
+        vm.mytime = new Date();
+
+        vm.hstep = 1;
+        vm.mstep = 15;
+
+        vm.ismeridian = true;
+        vm.toggleMode = function () {
+            vm.ismeridian = !vm.ismeridian;
+        };
+
+        vm.update = function () {
+            var d = new Date();
+            d.setHours(14);
+            d.setMinutes(0);
+            vm.mytime = d;
+        };
+
+        vm.changed = function () {
+            console.log('Time changed to: ' + vm.mytime);
+        };
+
+        vm.clear = function () {
+            vm.mytime = null;
         };
 
         $rootScope.$on('$stateChangeStart',

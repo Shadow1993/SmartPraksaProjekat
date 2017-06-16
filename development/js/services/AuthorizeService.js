@@ -5,12 +5,24 @@
     app.factory('AuthorizeService', ['$http', 'HandlingService', '$state', AuthorizeService]);
     function AuthorizeService($http, HandlingService, $state) {
 
-        var api = '/login';
+        var api = {
+            login: '/login',
+            info: '/checkLogin'
+        };
+
+        var user = {
+            username: '',
+            role: []
+        };
+
+        var auth = null;
+
+        checkAuthorization();
 
         function authorize(data) {
             return $http({
                 method: 'POST',
-                url: api,
+                url: api.login,
                 data: data,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -27,54 +39,57 @@
                 .catch(HandlingService.ReturnError);
         }
 
-        function LoginFunction(response) {
-            var data = response.data;
-
-            for (var i in data.role) {
-                switch (data.role[i].title) {
-                    case 'Viewer':
-                        window.sessionStorage.setItem('user.role.viewer', true);
-                        break;
-                    case 'Voter':
-                        window.sessionStorage.setItem('user.role.voter', true);
-                        break;
-                    case 'Facilitator':
-                        window.sessionStorage.setItem('user.role.facilitator', true);
-                        break;
-                    case 'Administrator':
-                        window.sessionStorage.setItem('user.role.administrator', true);
-                        break;
-                    default:
-                        window.sessionStorage.clear();
-                }
-            }
-
-            window.sessionStorage.setItem('userid', data.user._id);
-
+        function LoginFunction() {
+            checkAuthorization();
             $state.go('main.resolutions');
 
             HandlingService.ReturnSuccess();
         }
 
         function deauthorize() {
-            window.sessionStorage.clear();
             $http.get('/logout');
+            user = {
+                username: '',
+                role: []
+            };
             toastr.info('Logged out');
             $state.go('login');
         }
 
+        function checkAuthorization() {
+            return $http.get(api.info)
+                .then(checkAuth)
+                .catch(HandlingService.ReturnError);
+        }
+
         function isAuthorized() {
-            if (window.sessionStorage.getItem('userid')) {
-                return true;
+            return auth;
+        }
+        function checkAuth(res) {
+            if (res.data.user) {
+                setUser(res);
+                auth = true;
             } else {
-                return false;
+                auth = false;
+            }
+        }
+        function setUser(res) {
+            user.username = res.data.user.username;
+            for (var i in res.data.role) {
+                user.role.push(res.data.role[i].title);
             }
         }
 
+        function getUser() {
+            return user;
+        }
+
         return {
+            checkAuthorization: checkAuthorization,
             isAuthorized: isAuthorized,
             authorize: authorize,
-            deauthorize: deauthorize
+            deauthorize: deauthorize,
+            getUser: getUser
         };
     }
 }());

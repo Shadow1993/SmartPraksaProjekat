@@ -44,23 +44,33 @@ h4 {
             font-size: 14px;
         }
     }
+    .table-archived-decisions {
+        margin-bottom: -40px;
+    }
     .table-decisions {  
-        background: #ae713d;
+        background: #ecf0f1;
         max-width: 100%;
         overflow-x: scroll;
         vertical-align: middle;
         tr {
-            color: #fff;
+            color: #000;
             vertical-align: middle;
             span {
-                color: #fff;
+                color: #000;
                 max-width: 300px;
             }
             td, th {
                 word-wrap: break-word; 
                 vertical-align: middle;
+                &:nth-of-type(2) {
+                    max-width: 80px;
+                    text-align: center;
+                }
+                &:nth-of-type(3){
+                    min-width: 400px;
+                }
                 &:last-of-type {
-                    min-width: 150px;
+                   //min-width: 150px;
                     span {
                         position: relative;
 
@@ -248,6 +258,24 @@ h4 {
             opacity: .8;
         }
     }  
+}
+/*Pagination*/
+.pagination {
+    display: flex;
+    justify-content: center;
+    li {
+        &.disabled {
+           a {
+                background-color: #fff;
+                color: #000;
+           }
+        }
+        a {
+            background-color: #fff;
+            color: #000;
+            border: 1px solid #fff;
+        }
+    }
 }
 .archived-decisions {
     margin-bottom: 140px;
