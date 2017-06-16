@@ -10,7 +10,14 @@
             info: '/checkLogin'
         };
 
-        $http.get(api.info).then(function(res) {console.log(res);});
+        var user = {
+            username: '',
+            role: []
+        };
+
+        var auth = null;
+
+        checkAuthorization();
 
         function authorize(data) {
             return $http({
@@ -32,9 +39,8 @@
                 .catch(HandlingService.ReturnError);
         }
 
-        function LoginFunction(response) {
-            console.log(response);
-
+        function LoginFunction() {
+            checkAuthorization();
             $state.go('main.resolutions');
 
             HandlingService.ReturnSuccess();
@@ -42,22 +48,48 @@
 
         function deauthorize() {
             $http.get('/logout');
+            user = {
+                username: '',
+                role: []
+            };
             toastr.info('Logged out');
             $state.go('login');
         }
 
+        function checkAuthorization() {
+            return $http.get(api.info)
+                .then(checkAuth)
+                .catch(HandlingService.ReturnError);
+        }
+
         function isAuthorized() {
-            if (window.sessionStorage.getItem('userid')) {
-                return true;
+            return auth;
+        }
+        function checkAuth(res) {
+            if (res.data.user) {
+                setUser(res);
+                auth = true;
             } else {
-                return false;
+                auth = false;
+            }
+        }
+        function setUser(res) {
+            user.username = res.data.user.username;
+            for (var i in res.data.role) {
+                user.role.push(res.data.role[i].title);
             }
         }
 
+        function getUser() {
+            return user;
+        }
+
         return {
+            checkAuthorization: checkAuthorization,
             isAuthorized: isAuthorized,
             authorize: authorize,
-            deauthorize: deauthorize
+            deauthorize: deauthorize,
+            getUser: getUser
         };
     }
 }());
