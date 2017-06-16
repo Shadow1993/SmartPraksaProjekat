@@ -19,7 +19,7 @@
                     <th>Expiration Date</th>
                     <th>Results</th>
                 </tr>
-                <tr ng-repeat="active_decisions in resolutions.resoultionsInfo | filter: { active: 'Active' }">
+                <tr ng-repeat="active_decisions in resolutions.resoultionsInfo | filter: { active: 'Active' } | startFrom:1 | limitTo: 3">
                     <td>{{ $index+1 }}</td>
                     <td ui-sref="main.resolution({ id: active_decisions._id })"><span>{{ active_decisions.description }}</span></td>
                     <td>{{ active_decisions.type }}</td>
@@ -41,6 +41,11 @@
                     </td>
                 </tr>
             </table>
+            <pagination
+                total-items="10"
+                ng-model="currentPage"
+                items-per-page="pageSize"
+            ></pagination>
             <!--<div class="pagination-smart">
                 <ul class="pagination">
                     <li class="page-item">
