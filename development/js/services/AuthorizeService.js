@@ -5,20 +5,23 @@
     app.factory('AuthorizeService', ['$http', 'HandlingService', '$state', AuthorizeService]);
     function AuthorizeService($http, HandlingService, $state) {
 
+        //API URL's
         var api = {
             login: '/login',
             info: '/checkLogin'
         };
 
+        //Storing Logged in User
         var user = {
             id: '',
             username: '',
             role: []
         };
 
+        //User Authentication Storing
         var auth = null;
 
-        checkAuthorization();
+        checkAuthentication();
 
         function authorize(data) {
             return $http({
@@ -41,24 +44,26 @@
         }
 
         function LoginFunction() {
-            checkAuthorization();
+            checkAuthentication();
             $state.go('main.resolutions');
 
             HandlingService.ReturnSuccess();
         }
 
         function deauthorize() {
-            $http.get('/logout');
-            user = {
-                id: '',
-                username: '',
-                role: []
-            };
-            toastr.info('Logged out');
-            $state.go('login');
+            return $http.get('/logout')
+                .then(function () {
+                    user = {
+                        id: '',
+                        username: '',
+                        role: []
+                    };
+                    toastr.info('Logged out');
+                    return $state.go('login');
+                });
         }
 
-        function checkAuthorization() {
+        function checkAuthentication() {
             return $http.get(api.info)
                 .then(checkAuth)
                 .catch(HandlingService.ReturnError);
@@ -88,7 +93,7 @@
         }
 
         return {
-            checkAuthorization: checkAuthorization,
+            checkAuthentication: checkAuthentication,
             isAuthorized: isAuthorized,
             authorize: authorize,
             deauthorize: deauthorize,

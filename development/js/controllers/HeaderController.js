@@ -10,7 +10,7 @@
         vm.test = 'test';
         vm.myRole = '';
 
-        AuthorizeService.checkAuthorization()
+        AuthorizeService.checkAuthentication()
             .then(function () {
                 vm.user = AuthorizeService.getUser();
                 vm.permission = function (role) {
