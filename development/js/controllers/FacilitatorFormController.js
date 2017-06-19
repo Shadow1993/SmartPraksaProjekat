@@ -12,6 +12,15 @@
 
         var vm = this;
 
+        //  <<Input object>>
+
+        vm.decisionData = {
+            title: '',
+            description: '',
+            startingDate: Date.now(),
+            expirationDate: null
+        };
+
         // <<Date-picker>>
 
         vm.today = function () {
@@ -210,15 +219,6 @@
             'Super Majority',
             'Unanimous'
         ];
-
-        //  <<Input object>>
-
-        vm.decisionData = {
-            title: '',
-            description: '',
-            startingDate: Date.now(),
-            expirationDate: null
-        };
 
     }
 }());
