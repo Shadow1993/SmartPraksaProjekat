@@ -61,7 +61,7 @@ var decisionSchema = new Schema({
 
 function validateSteps(step) {
     return step % 10 === 0 ? true : false;
-};
+}
 
 decisionSchema.methods.checkIfExpired = function () {
     if (Date.now() > this.expirationDate.getTime()) {

@@ -16,7 +16,7 @@ module.exports.getAllComments = function (req, res) {
         .exec(function (err, decisionDb) {
             if (err) {
                 console.log(err.message);
-                res.send({message: 'error while retreiving all comments from database'});
+                res.send({ message: 'error while retreiving all comments from database' });
             } else {
                 console.log(decisionDb.comments);
                 res.send(decisionDb.comments);
@@ -33,7 +33,7 @@ module.exports.createComment = function (req, res) {
     }, function (err, commentDb) {
         if (err) {
             console.log(err.message);
-            res.send({message: 'error while creating new comment'});
+            res.send({ message: 'error while creating new comment' });
         } else {
             console.log(commentDb);
             DecisionModel.update(
@@ -45,7 +45,7 @@ module.exports.createComment = function (req, res) {
                 }, function (err, decisionDb) {
                     if (err) {
                         console.log(err.message);
-                        res.send({message: 'error while saving comment into decision'});
+                        res.send({ message: 'error while saving comment into decision' });
                     } else {
                         console.log(decisionDb);
                         res.send(decisionDb);
