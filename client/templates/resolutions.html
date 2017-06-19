@@ -2,11 +2,7 @@
         Decisions for voting
     ================================== -->
     <div class="container">
-        <div class="col-xs-12 clearfix">   
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">You are <strong>Voter/Viewer/Admin</strong></li>
-            </ol>
-        </div>
+        
         <h4 class="title-listing">Active Listing</h4>
         
         <div class="clearfix decisions">
@@ -21,7 +17,7 @@
                     <!--<th>Results</th>-->
                 </tr>
                 <tr ng-repeat="active_decision in activeDecisions.slice(((currentPageActive-1) * itemsPerPage), (currentPageActive)*itemsPerPage)">
-                    <td>{{ $index+1 }}</td>
+                    <td>{{ (currentPageActive-1)*maxSize + $index+1 }}</td>
                     <td ui-sref="main.resolution({ id: active_decision._id })">{{ active_decision.title }}</td>
                     <td><span>{{ active_decision.description }}</span></td>
                     <td>{{ active_decision.type }}</td>
@@ -67,7 +63,7 @@
                     <th>Reactivate</th>
                 </tr>
                 <tr ng-repeat="archived_decision in archivedDecisions">
-                    <td>{{ $index+1 }}</td>
+                    <td>{{ (currentPageActive-1)*maxSize + $index+1  }}</td>
                     <td ui-sref="main.resolution({ id: archived_decision._id })">{{ archived_decision.title }}</td>
                     <td><span>{{ archived_decision.description }}</span></td>
                     <td>{{ archived_decision.type }}</td>
