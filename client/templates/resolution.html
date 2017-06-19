@@ -2,11 +2,6 @@
         Decisions for voting
 ================================== -->
 <div class="container">
-    <div class="col-xs-12 clearfix">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">You are <strong>Voter/Viewer/Admin</strong></li>
-        </ol>
-    </div>
     <h4 class="title-listing resolution">{{ resolution.resoultionInfo.active == 'Active' ? 'Active' : 'Expired' }}      Resoulution
     </h4>
 
@@ -14,7 +9,7 @@
         <div class="cards col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-8  col-lg-offset-2">
             <div class="clearfix alert-success">
                 <div class="voting-type">
-                    <span>Type: {{ resolution.resoultionInfo.type }}</span>
+                    <span>Type: {{ resolution.resoultionInfo.decision.type }}</span>
                 </div>
                 <div class="expiration-date text-right">
                     <div ng-show="resolution.resoultionInfo.active === 'Expired' || seconds <= 0">
@@ -32,10 +27,10 @@
                 </div>
             </div>
             <div class="decision-text">
-                {{ resolution.resoultionInfo.description }}
+                {{ resolution.resoultionInfo.decision.description }}
             </div>
             <div class="card-block">
-                <div class="btn-group  {{ resolution.resoultionInfo.active == 'Active' ? '' : 'hide' }}">
+                <div class="btn-group  {{ resolution.resoultionInfo.decision.active == 'Active' ? '' : 'hide' }}">
                     <form name="voteForm" ng-submit="resolution.voteSubmit()">
                         <label>
                             <input type="radio" name="myVote" ng-model="myVote" value="For" autocomplete="off" required="!myVote"> For
@@ -69,8 +64,8 @@
                             </div>
                         </div>
 
-                        <div class="vote {{ resolution.resoultionInfo.active == 'Active' ? '' : 'hide' }}">
-                            <input type="submit" class="btn btn-primary {{ resolution.resoultionInfo.active == 'Active' ? '' : 'disabled' }}" ng-disabled="voteForm.$invalid || voteForm.$touched"
+                        <div class="vote {{ resolution.resoultionInfo.decision.active == 'Active' ? '' : 'hide' }}">
+                            <input type="submit" class="btn btn-primary {{ resolution.resoultionInfo.decision.active == 'Active' ? '' : 'disabled' }}" ng-disabled="voteForm.$invalid || voteForm.$touched"
                                 value="Vote" />
                         </div>
                     </form>
@@ -80,7 +75,7 @@
 
             </div>
 
-            <div ng-if="resolution.resoultionInfo.active == 'Active'">
+            <div ng-if="resolution.resoultionInfo.decision.active == 'Active'">
                 <a class="btn btn-secondary pull-left" role="button" data-toggle="collapse" href="#simple-majority" aria-expanded="false"
                     aria-controls="simple-majority">
                         See Results
@@ -122,13 +117,46 @@
             </div>
             <div class="col-xs-12">
                 <span class=" resolution-back btn btn-warning" ui-sref="main.resolutions">Go Back</span>
-                <div ng-if="resolution.resoultionInfo.active == 'Expired'">
+                <div ng-if="resolution.resoultionInfo.decision.active == 'Expired'">
                     <span class="pull-left resolution-back resolution-reactivate btn btn-info" ui-sref="main.resolutions">Reactivate</span>
                 </div>
             </div>
         </div>
         <!-- .card -->
-
-    </div>
     <!-- #decisions -->
 </div>
+   <div class="comments">
+        <div class="col-xs-12 col-md-8 col-md-offset-2">
+            <form name="createNewCommentForm" ng-submit="resolution.commentSubmit()">
+                <div>
+                    <h5 class="write-comment">Write comment</h5>
+                    <div class="form-group">
+                        <textarea id="createNewComment" cols="30" rows="7" class="form-control"
+                            ng-model="resolution.commentAny"
+                            name="commentAny"
+                        ></textarea>
+                    </div>          
+                    <div class="form-group">
+                        <button class="btn btn-primary" type="submit">Send</button>
+                    </div>          
+                </div>
+            </form>
+
+            <div class="comments-table">
+                <div class="media">
+                    <div class="media-left">
+                        <a href="#">
+                        <img class="media-object" src="https://www.gravatar.com/avatar/HASH" alt="gravatar">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <span>Author: Admin</span>&nbsp;
+                        <span>- &nbsp; 23.01.2017.</span>
+                        <p>By default, images are presented at 80px by 80px if no size parameter is supplied. You may request a specific image size, which will be dynamically delivered from Gravatar by using the s= or size.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>

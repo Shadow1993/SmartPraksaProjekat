@@ -6,30 +6,40 @@
     app.controller('ResolutionController', ['$scope',
         '$interval',
         'ResolutionService',
+        'CommentService',
+        'AuthorizeService',
         'VoteService',
         '$stateParams',
         ResolutionController]);
 
-    function ResolutionController($scope, $interval, ResolutionService, VoteService, $stateParams) {
+    function ResolutionController($scope, $interval, ResolutionService, CommentService,
+                                    AuthorizeService, VoteService, $stateParams) {
         var vm = this;
         vm.test = 'test';
         vm.voterComment = '';
-
+        vm.commentAny = '';
         $scope.decisionId = '';
+
+        console.log(AuthorizeService.getUser());
 
         ResolutionService.getResolution($stateParams.id)
             .then(function (res) {
                 console.log($stateParams.id);
                 $scope.decisionId = $stateParams.id;
                 vm.resoultionInfo = res;
+                console.log(res);
             });
 
+        /*CommentService.getComments($stateParams.id)
+            .then( function(res){
+                console.log(res);
+            });*/
         /*============================
             Countdown for decisions
         ==============================*/
         $scope.myDate = ResolutionService.getResolution($stateParams.id).then(
             function (response) {
-                response = vm.resoultionInfo.expirationDate;
+                response = vm.resoultionInfo.decision.expirationDate;
                 return response;
             }
         ).then(
@@ -64,7 +74,7 @@
             type: null,
             submitedDate: Date.now(),
             submitedBy: null,
-            commentText: 'Test',
+            commentText: '',
             id: null
         };
 
@@ -85,6 +95,32 @@
                 }).catch(function (res) {
                     throw res;
                 });
+        };
+
+        /*=============================
+            New Comment Form
+        ===============================*/
+        vm.newCommentAny = {
+            id: null,
+            text: '',
+            submitedBy: '',
+            submitedDate: Date.now()
+        };
+
+        vm.commentSubmit = function() {
+            console.log('Sending comment...');
+            vm.newCommentAny.id = '123';
+            vm.newCommentAny.text = vm.commentAny;
+            vm.newCommentAny.submitedBy = 'Neko';
+
+            console.log(vm.newCommentAny);
+
+           /* CommentService.createComment(vm.newCommentAny)
+                .then(function(res) {
+                    console.log(res);
+                }).catch(function (res) {
+                    throw res;
+                });*/
         };
     }
 

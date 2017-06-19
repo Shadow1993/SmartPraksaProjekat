@@ -34,7 +34,7 @@ h4 {
 }
 .decisions {
     &.resolution {
-        margin-bottom: 700px;
+        margin-bottom: 600px;
         margin-top: 70px;
         .resolution-back {
             width: 120px;
@@ -112,6 +112,7 @@ h4 {
     .decision-text {
         margin: 50px 5px;
         margin-bottom: 70px;
+        padding: 1% 5%;
         color: #34495e;
         text-align: center;
         font-size: 17px;
@@ -257,8 +258,30 @@ h4 {
         &:hover {
             opacity: .8;
         }
-    }  
+    } 
 }
+.comments {
+    h5 {
+        color: #fff;
+    }
+    p {
+        color: #fff;
+        font-size: 12.5px;
+        line-height: 23px;
+        margin-top: 8px;
+    }
+    span {
+        font-size: 11px;
+        color: #ccc;
+    }
+    .comments-table {
+        margin-top: 120px;
+        margin-bottom: 200px;
+    }
+    margin-top: 50px;
+    background-color: #fff;  
+    margin-bottom: 70px;
+} 
 /*Pagination*/
 .pagination {
     display: flex;
@@ -389,6 +412,7 @@ h4 {
             .table-decisions {
                 tr {
                     th, td {
+                        color: rgba(0, 0, 0, .8);
                         font-size: 11px;
                         min-width: 110px;
                         &:first-of-type {
