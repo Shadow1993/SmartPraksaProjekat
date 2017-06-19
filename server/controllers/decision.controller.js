@@ -36,6 +36,7 @@ module.exports.getAllDecisions = function (req, res) {
 
 module.exports.getDecisionById = function (req, res) {
     console.log(req.params);
+    console.log('heeereeeee' + req.user);
     DecisionModel.findById({ _id: req.params.id })
         .populate(['comments', 'votes'])
         .exec(function (err, decisionDb) {
@@ -58,6 +59,19 @@ module.exports.getDecisionById = function (req, res) {
                     } else if (decisionDb.votes[i].type === 'Reserved') {
                         countedVotes.reserved++;
                     }
+                }
+                if (decisionDb.expirationDate.getTime() < Date.now()) {
+                    if (decisionDb.type === 'Simple Majority') {
+                        
+                    } else if (decisionDb.type === 'Unanimous') {
+
+                    } else if (decisionDb.type === 'Super Majority') {
+
+                    }
+                /*
+                provera da li je decision expired
+                ako jeste count votes i setovati polje status na passed ili rejected
+                */
                 }
                 console.log(countedVotes);
                 res.send({decision: decisionDb, countedVotes: countedVotes});
