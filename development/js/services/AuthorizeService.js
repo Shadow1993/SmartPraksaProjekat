@@ -11,6 +11,7 @@
         };
 
         var user = {
+            id: '',
             username: '',
             role: []
         };
@@ -49,6 +50,7 @@
         function deauthorize() {
             $http.get('/logout');
             user = {
+                id: '',
                 username: '',
                 role: []
             };
@@ -74,6 +76,7 @@
             }
         }
         function setUser(res) {
+            user.id = res.data.user._id;
             user.username = res.data.user.username;
             for (var i in res.data.role) {
                 user.role.push(res.data.role[i].title);
