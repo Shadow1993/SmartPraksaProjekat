@@ -12,12 +12,7 @@
 
         var vm = this;
 
-        vm.decisionData = {
-            title: '',
-            description: '',
-            startingDate: Date.now(),
-            expirationDate: null
-        };
+        // <<Date-picker>>
 
         vm.today = function () {
             vm.decisionData.expirationDate = new Date();
@@ -42,7 +37,8 @@
             startingDay: 1
         };
 
-        // Disable weekend selection
+        // <<Enable weekend selection>>
+
         function disabled(data) {
             var date = data.date,
                 mode = data.mode;
@@ -72,7 +68,7 @@
         vm.format = vm.formats[0];
         vm.altInputFormats = ['M!/d!/yyyy/'];
 
-        // Change numeric month to word
+        // <<Switch numeric month to word>>
 
         var text;
 
@@ -147,33 +143,8 @@
 
             return '';
         }
-        vm.options = [
-            'Simple Majority',
-            'Super Majority',
-            'Unanimous'
-        ];
-        vm.datePick = '';
-        vm.formSubmit = function (working) {
-            if (working) {
-                toastr.success('Form is valid! Kudos to You Sir/Madam!');
-                console.log(vm.decisionData);
-                console.log(vm.mytime);
-                ResolutionService.createResolution(vm.decisionData)
-                    .then(function () {
-                        $uibModalInstance.close('complete');
-                    })
-                    .catch(function (res) {
-                        throw res;
-                    });
-            } else {
-                toastr.error('Drats! You did not fill in the form data correctly.');
-            }
-        };
-        // Close Modal
 
-        vm.closeModal = function () {
-            $uibModalInstance.dismiss('cancel');
-        };
+        // <<Timepicker>>
 
         vm.mytime = new Date();
 
@@ -200,10 +171,54 @@
             vm.mytime = null;
         };
 
+        // <<Form submit>>
+
+        vm.formSubmit = function (working) {
+            if (working) {
+                toastr.success('Form is valid! Kudos to You Sir/Madam!');
+                console.log(vm.decisionData);
+                console.log(vm.mytime);
+                ResolutionService.createResolution(vm.decisionData)
+                    .then(function () {
+                        $uibModalInstance.close('complete');
+                    })
+                    .catch(function (res) {
+                        throw res;
+                    });
+            } else {
+                toastr.error('Drats! You did not fill in the form data correctly.');
+            }
+        };
+
+        // <<Close Modal>>
+
+        vm.closeModal = function () {
+            $uibModalInstance.dismiss('cancel');
+        };
+
+        // <<Modal bug fix>>
+
         $rootScope.$on('$stateChangeStart',
             function () {
                 vm.closeModal();
             });
+
+        // <<Voting options>>
+
+        vm.options = [
+            'Simple Majority',
+            'Super Majority',
+            'Unanimous'
+        ];
+
+        //  <<Input object>>
+
+        vm.decisionData = {
+            title: '',
+            description: '',
+            startingDate: Date.now(),
+            expirationDate: null
+        };
 
     }
 }());
