@@ -14,7 +14,7 @@
     app.run(['$rootScope', 'AuthorizeService', '$state', runFunc]);
     function runFunc($rootScope, AuthorizeService, $state) {
         //Execute when changing states
-        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState) {
+        $rootScope.$on('$stateChangeStart', function (event, toState) {
             //Check with service if user is logged in
             AuthorizeService.checkAuthentication()
                 .then(Authenticated);
@@ -44,7 +44,8 @@
                     }
                 }
                 event.preventDefault();
-                $state.go(fromState);
+                $state.go('main.resolutions');
+                // $state.go(fromState); //<-- Bugged
                 //Pop-up message if user doesn't have required permissions
                 toastr.warning('[UnAuthorized] You don\'t have permission to access this page');
                 console.warn('[UnAuthorized] You don\'t have permission to access this page');
