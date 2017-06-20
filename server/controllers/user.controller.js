@@ -5,7 +5,6 @@ var UserModel = require('../models/user.model'),
 var bcrypt = require('bcryptjs');
 /*
 * GET USERS ('/users', GET) => params = {}
-* GET USER ('/users/:id', GET) => params = id
 * DELETE USER ('/users/:id', DELETE) => params = id
 * UPDATE USER ('/users', PUT) => body = id, username, password, role
 * CREATE USER ('/users', POST) => body = username, password, role, dateCreated
@@ -13,18 +12,6 @@ var bcrypt = require('bcryptjs');
 
 module.exports.getAllUsers = function (req, res, next) {
     UserModel.find({isActive: true})
-        .populate('role')
-        .exec(function (err, userDb) {
-            if (err) {
-                return next(err.message);
-            } else {
-                res.send(userDb);
-            }
-        });
-};
-
-module.exports.getUserByID = function (req, res, next) {
-    UserModel.findOne({ _id: req.params.id, isActive: true })
         .populate('role')
         .exec(function (err, userDb) {
             if (err) {
@@ -46,7 +33,6 @@ module.exports.deleteUserById = function (req, res, next) {
 };
 
 module.exports.updateUser = function (req, res, next) {
-    console.log(req.body);
     RoleModel.find({
         title: {
             $in: req.body.role
@@ -71,10 +57,6 @@ module.exports.updateUser = function (req, res, next) {
             });
         }
     });
-};
-
-var generateHash = function(password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 
 module.exports.createUser = function (req, res, next) {
@@ -106,4 +88,8 @@ module.exports.createUser = function (req, res, next) {
             });
         }
     });
+};
+
+var generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
