@@ -107,6 +107,10 @@
         /*=============================
                 Vote Form
         ===============================*/
+        // Check if user leave vote
+        console.log('User');
+        console.log($scope.userId);
+
         vm.newVote = {
             type: null,
             submitedDate: Date.now(),
