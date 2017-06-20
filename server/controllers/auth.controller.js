@@ -14,6 +14,6 @@ module.exports.isAdmin = function (req, res, next) {
     if (req.user.role.indexOf('Administrator') > -1) {
         return next();
     } else {
-        res.send('You are not authorized');
+        res.send({message: 'You are not authorized'});
     }
 };

@@ -46,6 +46,7 @@ module.exports.deleteUserById = function (req, res, next) {
 };
 
 module.exports.updateUser = function (req, res, next) {
+    console.log(req.body);
     RoleModel.find({
         title: {
             $in: req.body.role
