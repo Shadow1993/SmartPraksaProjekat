@@ -6,18 +6,16 @@ module.exports.isLoggedIn = function (req, res, next) {
     if (req.user) {
         next();
     } else {
-        res.redirect('/login');
+        res.send('Please login to continue');
     }
 };
 
 module.exports.isAdmin = function (req, res, next) {
-    RoleModel.findOne({ _id: req.user.role}, function(err, roleDb) {
-        if (err) {
-            res.send(err);
-        } else if (roleDb.title === 'Administrator') {
-            next();
-        } else {
-            res.send('you are not authorized');
-        }
-    });
+    if (req.user.role.indexOf('Administrator') > -1) {
+        next();
+    } else {
+        res.send('you are not authorized');
+    }
 };
+//decide if decision is passed or rejected
+//user cant vote 2 times
