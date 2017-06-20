@@ -9,51 +9,62 @@
         var vm = this;
         vm.test = 'test';
 
+        function reloadState() {
+            $state.reload();
+        }
+
+        function errorInModal(res) {
+            //Ignore generic messages, and only throw out errors, not including specified ones
+            if (!(res === 'cancel' || res === 'escape key press' || res === 'backdrop click')) {
+                throw res;
+            }
+        }
+
         vm.addUser = function () {
+            //Modal Window
             vm.modalAddUser = $uibModal.open({
                 templateUrl: '../templates/adminuser.html',
                 controller: 'AdminUserController',
                 controllerAs: 'admin',
                 resolve: {
-                    user: function() {
+                    user: function () {
                         return false;
                     }
                 }
             })
                 .result
-                .then(function () {
-                    $state.reload();
-                })
-                .catch(function (res) {
-                    if (!(res === 'cancel' || res === 'escape key press' || res === 'backdrop click')) {
-                        throw res;
-                    }
-                });
+                .then(reloadState)
+                .catch(errorInModal);
         };
 
         vm.editUser = function (user) {
+            //Modal Window
             vm.modalEditUser = $uibModal.open({
                 templateUrl: '../templates/adminuser.html',
                 controller: 'AdminUserController',
                 controllerAs: 'admin',
                 resolve: {
-                    user: function() {
+                    user: function () {
                         return user;
+                    },
+                    role: function ($q) {
+                        for (var i in user.role) {
+                            if (user.role[i].title === 'Administrator') {
+                                toastr.error('You cannot change an administrator role');
+                                return $q.reject('unauthorized');
+                            }
+                        }
+                        return;
                     }
                 }
             })
                 .result
-                .then(function () {
-                    $state.reload();
-                })
-                .catch(function (res) {
-                    if (!(res === 'cancel' || res === 'escape key press' || res === 'backdrop click')) {
-                        throw res;
-                    }
-                });
+                .then(reloadState)
+                .catch(errorInModal);
 
         };
 
+        //Converting Date to display as needed
         vm.convertDate = function (date) {
             var convertedDate = new Date(date);
             return convertedDate.toUTCString();

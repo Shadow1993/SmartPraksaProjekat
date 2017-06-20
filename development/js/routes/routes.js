@@ -82,7 +82,7 @@
         };
         // State Initialization
         $stateProvider
-        // TESTING PURPOSES ROOT
+            // TESTING PURPOSES ROOT
             .state(states.test)
             .state(states.home)
             .state(states.main)
