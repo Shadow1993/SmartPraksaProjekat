@@ -13,7 +13,8 @@ var userSchema = new Schema({
         trim: true
     },
     dateCreated: {
-        type: Date
+        type: Date,
+        default: Date.now()
     },
     password: {
         type: String,
