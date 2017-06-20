@@ -45,8 +45,7 @@
                 }
                 event.preventDefault();
                 $state.go('main.resolutions');
-                // $state.go(fromState); //<-- Bugged
-                //Pop-up message if user doesn't have required permissions
+                //Messages if user doesn't have required permissions
                 toastr.warning('[UnAuthorized] You don\'t have permission to access this page');
                 console.warn('[UnAuthorized] You don\'t have permission to access this page');
             }
