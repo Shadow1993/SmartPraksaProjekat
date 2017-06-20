@@ -158,6 +158,27 @@
                     });
             }
         };
+
+        /*=======================
+            Pagination
+        =========================*/
+        $scope.commentsViewBy             = 5;
+        $scope.currentCommentsPageActive  = 6;
+        $scope.commentItemsPerPage        = $scope.commentsViewBy;
+        $scope.decisionMaxSize            = 5; //Number of pager buttons to show
+
+        $scope.setPage = function (commentsPageNo) {
+            $scope.currentCommentsPageActive = commentsPageNo;
+        };
+
+        $scope.commentsPageChanged = function() {
+            console.log('Page changed to: ' + $scope.currentCommentsPageActive);
+        };
+
+        $scope.setCommentItemsPerPage = function(num) {
+            $scope.commentItemsPerPage = num;
+            $scope.currentCommentsPageActive = 1; //reset to first page
+        };
     }
 
     /*=============================
