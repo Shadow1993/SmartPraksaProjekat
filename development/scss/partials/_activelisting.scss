@@ -33,6 +33,14 @@ h4 {
     }
 }
 .decisions {
+    .total-votes-number {
+        max-width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: -40px;
+        font-weight: 600;
+        padding-left: 10px;
+    }
     &.resolution {
         margin-bottom: 600px;
         margin-top: 70px;
@@ -266,17 +274,21 @@ h4 {
     }
     p {
         color: #fff;
-        font-size: 12.5px;
+        font-size: 14px;
         line-height: 23px;
         margin-top: 8px;
+        max-width: 450px;
     }
     span {
-        font-size: 11px;
+        font-size: 12px;
         color: #ccc;
     }
     .comments-table {
         margin-top: 120px;
         margin-bottom: 200px;
+    }
+    .media {
+        margin-bottom: 27px;
     }
     margin-top: 50px;
     background-color: #fff;  

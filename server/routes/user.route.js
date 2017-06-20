@@ -7,10 +7,10 @@ var express = require('express'),
     UserController = require('../controllers/user.controller');
 
 router
-    .get('/', AuthController.isLoggedIn, AuthController.isAdmin,  UserController.getAllUsers)
-    .get('/:id', AuthController.isLoggedIn, AuthController.isAdmin, UserController.getUserByID)
-    .post('/', AuthController.isLoggedIn, AuthController.isAdmin, UserController.createUser)
-    .put('/',  AuthController.isLoggedIn, AuthController.isAdmin, UserController.updateUser)
-    .delete('/:id', AuthController.isLoggedIn, AuthController.isAdmin, UserController.deleteUserById);
+    .get('/', AuthController.isLoggedIn,   UserController.getAllUsers)
+    .get('/:id', AuthController.isLoggedIn, UserController.getUserByID)
+    .post('/', AuthController.isLoggedIn, UserController.createUser)
+    .put('/',  AuthController.isLoggedIn, UserController.updateUser)
+    .delete('/:id', AuthController.isLoggedIn, UserController.deleteUserById);
 
 module.exports = router;

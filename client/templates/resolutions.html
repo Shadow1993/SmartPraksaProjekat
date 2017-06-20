@@ -60,7 +60,6 @@
                     <th>Date Created</th>
                     <th>Expiration Date</th>
                     <!--<th>Results</th>-->
-                    <th>Reactivate</th>
                 </tr>
                 <tr ng-repeat="archived_decision in archivedDecisions">
                     <td>{{ (currentPageActive-1)*maxSize + $index+1  }}</td>
@@ -84,9 +83,6 @@
                             </div>
                         </div>
                     </td>-->
-                    <td>
-                        <button class="btn btn-success decision-ractivate">Reactivate</button>
-                    </td>
                 </tr>
             </table>
         </div>

@@ -82,25 +82,31 @@
                     </a>
 
                 <div class="collapse" id="simple-majority">
+                    <span class="total-votes-number">Total number of votes: {{ countAllVotes }}.</span>
                     <div class="card card-block">
-                        <div class="progress">
-                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="60" style="width: 50%" aria-valuemin="0">Yes &nbsp; </div>
-                            <span>50%</span>
-                        </div>
+                        <div ng-if="countAllVotes">
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{ countedForPercent }}" style="width: {{ countedForPercent }}%" aria-valuemin="0">{{ countedForPercent != 0 ? 'Yes &nbsp; ' : '' }}</div>
+                                <span>{{ countedForPercent != null ? countedForPercent : 0 }} %</span>
+                            </div>
 
-                        <div class="progress">
-                            <div class="progress-bar bg-danger" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">No &nbsp;</div>
-                            <span>40%</span>
-                        </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: {{ countedAgainstPercent }}%" aria-valuenow="{{ countedAgainstPercent }}" aria-valuemin="0" aria-valuemax="100">{{ countedForPercent != null ? 'No &nbsp; ' : '' }}</div>
+                                <span>{{ countedAgainstPercent != null ? countedAgainstPercent : 0 }} %</span>
+                            </div>
 
-                        <div class="progress">
-                            <div class="progress-bar bg-warning" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">RS &nbsp; </div>
-                            <span>10%</span>
+                            <div class="progress">
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: {{ countedReservedPercent }}%" aria-valuenow="{{ countedReservedPercent }}" aria-valuemin="0" aria-valuemax="100">{{ countedReservedPercent != null ? 'RS &nbsp; ' : '' }}</div>
+                                <span>{{ countedReservedPercent != null ? countedReservedPercent : 0 }} %</span>
+                            </div>
+                        </div>
+                        <div ng-if="!countAllVotes">
+                            <p class="text-center">Results will be displayed after first vote.</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div ng-if="resolution.resoultionInfo.active == 'Expired'" class="card card-block card-archived">
+            <div ng-if="resolution.resoultionInfo.decision.active == 'Expired'" class="card card-block card-archived">
                 <div class="progress">
                     <div class="progress-bar bg-success" role="progressbar" aria-valuenow="50" style="width: 50%" aria-valuemin="100">Yes &nbsp; </div>
                     <span>50%</span>
@@ -117,10 +123,10 @@
             </div>
             <div class="col-xs-12">
                 <span class=" resolution-back btn btn-warning" ui-sref="main.resolutions">Go Back</span>
-                <div ng-if="resolution.resoultionInfo.decision.active == 'Expired'">
-                    <span class="pull-left resolution-back resolution-reactivate btn btn-info" ui-sref="main.resolutions">Reactivate</span>
-                </div>
             </div>
+            <p>For: {{ countedFor }}</p>
+            <p>Against: {{ countedAgainst }}</p>
+            <p>Reserved: {{ countedReserved }}</p>
         </div>
         <!-- .card -->
     <!-- #decisions -->
@@ -141,18 +147,18 @@
                     </div>          
                 </div>
             </form>
-
             <div class="comments-table">
-                <div class="media">
+                <p>Username: </p>
+                <div class="media" ng-repeat="comment in decisionComments">
                     <div class="media-left">
                         <a href="#">
-                        <img class="media-object" src="https://www.gravatar.com/avatar/HASH" alt="gravatar">
+                            <img class="media-object" src="https://www.gravatar.com/avatar/HASH" alt="gravatar">
                         </a>
                     </div>
                     <div class="media-body">
-                        <span>Author: Admin</span>&nbsp;
-                        <span>- &nbsp; 23.01.2017.</span>
-                        <p>By default, images are presented at 80px by 80px if no size parameter is supplied. You may request a specific image size, which will be dynamically delivered from Gravatar by using the s= or size.</p>
+                        <span>Author: {{ fromUser.username }}</span>&nbsp;
+                        <span>- &nbsp; {{ comment.submitedDate | date: "short" }}</span>
+                        <p>{{ comment.text }}</p>
                     </div>
                 </div>
             </div>

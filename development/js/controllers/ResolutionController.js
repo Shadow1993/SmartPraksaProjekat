@@ -9,31 +9,67 @@
         'CommentService',
         'AuthorizeService',
         'VoteService',
+        'UserService',
         '$stateParams',
+        '$state',
         ResolutionController]);
 
     function ResolutionController($scope, $interval, ResolutionService, CommentService,
-                                    AuthorizeService, VoteService, $stateParams) {
+                                    AuthorizeService, VoteService, UserService, $stateParams, $state) {
         var vm = this;
         vm.test = 'test';
         vm.voterComment = '';
         vm.commentAny = '';
         $scope.decisionId = '';
-
-        console.log(AuthorizeService.getUser());
+        $scope.userId = AuthorizeService.getUser();
+        $scope.userName = '';
+        $scope.decisionComments = '';
+        $scope.countedForPercent = null;
+        $scope.countedAgainstPercent = null;
+        $scope.countedReservedPercent = null;
+        $scope.countAllVotes = null;
 
         ResolutionService.getResolution($stateParams.id)
             .then(function (res) {
-                console.log($stateParams.id);
                 $scope.decisionId = $stateParams.id;
                 vm.resoultionInfo = res;
-                console.log(res);
+                return res;
+            })
+            .then(
+                function(res) {
+                    $scope.countedFor       = res.countedVotes.for;
+                    $scope.countedAgainst   = res.countedVotes.against;
+                    $scope.countedReserved  = res.countedVotes.reserved;
+
+                    $scope.countAllVotes = $scope.countedFor + $scope.countedAgainst + $scope.countedReserved;
+                    console.log($scope.countAllVotes);
+
+                    $scope.countedForPercent        = $scope.countedFor / $scope.countAllVotes * 100;
+                    $scope.countedAgainstPercent    = $scope.countedAgainst / $scope.countAllVotes * 100;
+                    $scope.countedReservedPercent   = $scope.countedReserved / $scope.countAllVotes * 100;
+
+                    console.log('For: ' + $scope.countedForPercent + ', against: ' + $scope.countedAgainstPercent + ', reserved: ' + $scope.countedReservedPercent);
+                }
+            );
+
+        /*=================================
+            Get All Comments for Decision
+        ===================================*/
+        function asdf(n) {
+            console.log(n);
+            $scope.fromUser = n;
+        }
+        CommentService.getComments($stateParams.id)
+            .then(function(res) {
+                $scope.decisionComments = res;
+                for (var x = 0; x < res.length; x++) {
+                    UserService.getUser(res[x].submitedBy)
+                        .then(
+                            asdf
+                        );
+                }
             });
 
-        /*CommentService.getComments($stateParams.id)
-            .then( function(res){
-                console.log(res);
-            });*/
         /*============================
             Countdown for decisions
         ==============================*/
@@ -44,7 +80,6 @@
             }
         ).then(
             function (response) {
-                console.log(response);
                 $scope.eventDay = {
                     date: new Date(response)
                 };
@@ -79,15 +114,10 @@
         };
 
         vm.voteSubmit = function () {
-            console.log($scope.myVote + ', ' + vm.voterComment);
-            console.log('Id: ' + $scope.decisionId);
-
             vm.newVote.type = $scope.myVote;
             vm.newVote.submitedBy = '593a43ccdd987208fc8126c7';
             vm.newVote.commentText = vm.voterComment;
             vm.newVote.id = $scope.decisionId;
-
-            console.log(vm.newVote);
 
             VoteService.createVote(vm.newVote)
                 .then(function (res) {
@@ -109,18 +139,19 @@
 
         vm.commentSubmit = function() {
             console.log('Sending comment...');
-            vm.newCommentAny.id = '123';
+            vm.newCommentAny.id = $stateParams.id;
             vm.newCommentAny.text = vm.commentAny;
-            vm.newCommentAny.submitedBy = 'Neko';
+            vm.newCommentAny.submitedBy = $scope.userId.id;
 
             console.log(vm.newCommentAny);
 
-           /* CommentService.createComment(vm.newCommentAny)
+            CommentService.createComment(vm.newCommentAny)
                 .then(function(res) {
                     console.log(res);
+                    $state.reload();
                 }).catch(function (res) {
                     throw res;
-                });*/
+                });
         };
     }
 
