@@ -62,7 +62,7 @@ module.exports.getDecisionById = function (req, res, next) {
                 var passed = false;
                 if (decisionDb.active === 'Expired') {
                     if (decisionDb.type === 'Simple Majority' && countedVotes.against !== 0) {
-                        if (Math.round(countedVotes.agreed / countedVotes.against) > 55) {
+                        if (Math.round(countedVotes.agreed / countedVotes.against) > 60) {
                             passed = true;
                         }
                     } else if (decisionDb.type === 'Unanimous') {
