@@ -11,8 +11,8 @@
         $locationProvider.html5Mode(true);
     }
 
-    app.run(['$rootScope', 'AuthorizeService', '$state', runFunc]);
-    function runFunc($rootScope, AuthorizeService, $state) {
+    app.run(['$rootScope', 'AuthorizeService', '$state', 'NotificationService', runFunc]);
+    function runFunc($rootScope, AuthorizeService, $state, NotificationService) {
         //Execute when changing states
         $rootScope.$on('$stateChangeStart', function (event, toState) {
             //Check with service if user is logged in
@@ -25,7 +25,8 @@
                 if (toState.name !== 'login' && !AuthorizeService.isAuthorized()) {
                     event.preventDefault();
                     $state.go('login');
-                    toastr.warning('Please login first...');
+                    //Message telling user he needs to login before accessing other pages
+                    toastr.warning(NotificationService.auth.fail);
                 } else if (toState.name === 'login' && AuthorizeService.isAuthorized()) {
                     event.preventDefault();
                     $state.go('main.resolutions');
@@ -45,9 +46,8 @@
                 }
                 event.preventDefault();
                 $state.go('main.resolutions');
-                //Messages if user doesn't have required permissions
-                toastr.warning('[UnAuthorized] You don\'t have permission to access this page');
-                console.warn('[UnAuthorized] You don\'t have permission to access this page');
+                //Message if user doesn't have required permissions
+                toastr.warning(NotificationService.auth.perm);
             }
         });
     }

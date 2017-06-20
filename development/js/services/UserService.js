@@ -8,6 +8,7 @@
 
         var api = '/users';
 
+        //Get all Users
         function getUsers() {
             return $http({
                 method: 'GET',
@@ -16,14 +17,8 @@
                 .then(HandlingService.ReturnData)
                 .catch(HandlingService.ReturnError);
         }
-        function getUser(id) {
-            return $http({
-                method: 'GET',
-                url: api + '/' + id
-            })
-                .then(HandlingService.ReturnData)
-                .catch(HandlingService.ReturnError);
-        }
+
+        //Create a new User
         function createUser(data) {
             return $http({
                 method: 'POST',
@@ -33,6 +28,8 @@
                 .then(HandlingService.ReturnSuccess)
                 .catch(HandlingService.ReturnError);
         }
+
+        //Edit an existing User
         function editUser(data) {
             return $http({
                 method: 'PUT',
@@ -42,6 +39,8 @@
                 .then(HandlingService.ReturnSuccess)
                 .catch(HandlingService.ReturnError);
         }
+
+        //Delete an Existing user (Server sided, just deactivates)
         function deleteUser(id) {
             return $http({
                 method: 'DELETE',
@@ -53,7 +52,6 @@
 
         return {
             getUsers: getUsers,
-            getUser: getUser,
             createUser: createUser,
             editUser: editUser,
             deleteUser: deleteUser

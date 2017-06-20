@@ -8,6 +8,7 @@
 
         var api = '/decisions';
 
+        //Get all Decisions
         function getResolutions() {
             return $http({
                 method: 'GET',
@@ -16,6 +17,8 @@
                 .then(HandlingService.ReturnData)
                 .catch(HandlingService.ReturnError);
         }
+
+        //Get a specific Decision
         function getResolution(id) {
             return $http({
                 method: 'GET',
@@ -24,6 +27,8 @@
                 .then(HandlingService.ReturnData)
                 .catch(HandlingService.ReturnError);
         }
+
+        //Create a new Decision
         function createResolution(data) {
             return $http({
                 method: 'POST',
@@ -33,6 +38,8 @@
                 .then(HandlingService.ReturnSuccess)
                 .catch(HandlingService.ReturnError);
         }
+
+        //Edit an existing Decision
         function editResolution(data) {
             return $http({
                 method: 'PUT',
