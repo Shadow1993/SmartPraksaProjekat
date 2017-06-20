@@ -148,7 +148,7 @@
                 </div>
             </form>
             <div class="comments-table">
-                <div class="media" ng-repeat="comment in decisionComments">
+                <div class="media" ng-repeat="comment in decisionComments.slice(((currentCommentsPageActive-1) * commentItemsPerPage), (currentCommentsPageActive)*commentItemsPerPage)">
                     <div class="media-left">
                         <a href="#">
                             <img class="media-object" src="https://www.gravatar.com/avatar/HASH" alt="gravatar">
@@ -159,7 +159,17 @@
                         <span>- &nbsp; {{ comment.submitedDate | date: "short" }}</span>
                         <p>{{ comment.text }}</p>
                     </div>
-                </div>
+                </div><br>
+                <pagination 
+                    uib-pagination 
+                    total-items="decisionComments.length" 
+                    ng-model="currentCommentsPageActive" 
+                    ng-change="commentsPageChanged()" 
+                    class="pagination-sm" 
+                    items-per-page="commentItemsPerPage"
+                    previous-text="&larr;"
+                    next-text="&rarr;"
+                ></pagination>
             </div>
         </div>
     </div>
