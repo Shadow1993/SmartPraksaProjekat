@@ -2,79 +2,69 @@
 var UserModel = require('../models/user.model'),
     RoleModel = require('../models/role.model');
 
+var bcrypt = require('bcryptjs');
 /*
 * GET USERS ('/users', GET) => params = {}
 * GET USER ('/users/:id', GET) => params = id
 * DELETE USER ('/users/:id', DELETE) => params = id
-* UPDATE USER ('/users', PUT) => body = id, username, role
+* UPDATE USER ('/users', PUT) => body = id, username, password, role
 * CREATE USER ('/users', POST) => body = username, password, role, dateCreated
 */
 
-module.exports.getAllUsers = function (req, res) {
+module.exports.getAllUsers = function (req, res, next) {
     UserModel.find({isActive: true})
         .populate('role')
         .exec(function (err, userDb) {
             if (err) {
-                console.log(err.message);
-                res.send({message: 'error while retreiving all users from db'});
+                return next(err.message);
             } else {
-                console.log(userDb);
                 res.send(userDb);
             }
         });
 };
 
-module.exports.getUserByID = function (req, res) {
-    console.log(req.params);
+module.exports.getUserByID = function (req, res, next) {
     UserModel.findOne({ _id: req.params.id, isActive: true })
         .populate('role')
         .exec(function (err, userDb) {
             if (err) {
-                console.log(err.message);
-                res.send({message: 'error while retreiving user from db'});
+                return next(err.message);
             } else {
-                console.log(userDb);
                 res.send(userDb);
             }
         });
 };
 
-module.exports.deleteUserById = function (req, res) {
-    console.log(req.params);
+module.exports.deleteUserById = function (req, res, next) {
     UserModel.findByIdAndUpdate(req.params.id, {$set: {isActive: false}},  function (err, userDb) {
         if (err) {
-            console.log(err.message);
-            res.send({message: 'error while deleting user from db'});
+            return next(err.message);
         } else {
-            console.log(userDb);
             res.send(userDb);
         }
     });
 };
 
-module.exports.updateUser = function (req, res) {
-    console.log(req.body);
+module.exports.updateUser = function (req, res, next) {
     RoleModel.find({
         title: {
             $in: req.body.role
         }
     }, function (err, roleDb) {
         if (err) {
-            console.log(err.message);
-            res.send({message: 'error in user role type'});
+            return next(err.message);
         } else {
             console.log(roleDb);
             UserModel.findByIdAndUpdate(req.body.id, {
                 $set: {
                     username: req.body.username,
+                    password: generateHash(req.body.password),
                     role: roleDb
                 }
             }, function (err, userDb) {
                 if (err) {
-                    console.log(err.message);
-                    res.send({message: 'error while retreiving user from db'});
+                    return next(err.message);
                 } else {
-                    console.log(userDb);
                     res.send(userDb);
                 }
             });
@@ -82,16 +72,18 @@ module.exports.updateUser = function (req, res) {
     });
 };
 
-module.exports.createUser = function (req, res) {
-    console.log(req.body);
+var generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
+
+module.exports.createUser = function (req, res, next) {
     RoleModel.find({
         title: {
             $in: req.body.role
         }
     }, function (err, roleDb) {
         if (err) {
-            console.log(err.message);
-            res.send({message: 'error in role type'});
+            return next(err.message);
         }
         if (!roleDb[0]) {
             res.send({message: 'error in role type'});
@@ -103,12 +95,11 @@ module.exports.createUser = function (req, res) {
                 role: roleDb
             }, function (err, userDb) {
                 if (err) {
-                    res.send({status: 500, message: 'error while writing in db'});
+                    return next(err.message)
                 }
                 if (!userDb) {
-                    res.send({status: 500, message: 'error in username'});
+                    return next(err.message);
                 } else {
-                    console.log(userDb);
                     res.send(userDb);
                 }
             });

@@ -8,18 +8,15 @@ var VoteModel = require('../models/vote.model'),
 * EDIT VOTE ('/votes', PUT) => body =  type, submitedDate, submitedBy, commentText, id - vote id
 */
 
-module.exports.createVote = function (req, res) {
-    console.log(req.body);
+module.exports.createVote = function (req, res, next) {
     DecisionModel.findOne({ _id: req.body.id })
         .populate('votes')
         .exec(function (err, decisionDb) {
             if (err) {
-                console.log(err);
-                res.send(err);
+                return next(err.message);
             } else {
                 for (var i = 0; i < decisionDb.votes.length; i++) {
                     if (decisionDb.votes[i].submitedBy.equals(req.user._id.toString())) {
-                        console.log('user already voted');
                         res.send('user already voted');
                     }
                 }
@@ -29,10 +26,8 @@ module.exports.createVote = function (req, res) {
                     submitedBy: req.body.submitedBy
                 }, function (err, voteDb) {
                     if (err) {
-                        console.log(err);
-                        res.send(err.message);
+                        return next(err.message);
                     } else {
-                        console.log(voteDb);
                         DecisionModel.update(
                             { _id: req.body.id },
                             {
@@ -41,13 +36,12 @@ module.exports.createVote = function (req, res) {
                                 }
                             }, function (err, decisionDb) {
                                 if (err) {
-                                    console.log(err);
+                                    return next(err.message);
                                 } else {
-                                    console.log(decisionDb);
                                     if (voteDb.type === 'Against' || voteDb.type === 'Reserved') {
-                                        console.log('HI IM YOUR BODY TEXT COMMENT' + req.body.commentText);
                                         if (req.body.commentText.match(/(\w+)/g).length < 5 && req.body.commentText.length < 20) {
                                             console.log('less than 5 words and less than 20 characters');
+                                            res.send('less than 5 words and less than 20 characters');
                                         }
                                         CommentModel.create({
                                             text: req.body.commentText,
@@ -55,16 +49,15 @@ module.exports.createVote = function (req, res) {
                                             submitedDate: req.body.submitedDate
                                         }, function (err, commentDb) {
                                             if (err) {
-                                                console.log(err);
+                                                return next(err.message);
                                             } else {
-                                                console.log(commentDb);
                                                 VoteModel.update({ _id: voteDb._id }, {
                                                     $set:
                                                     { comments: commentDb._id }
                                                 },
                                                     function (err, voteDb2) {
                                                         if (err) {
-                                                            console.log(err);
+                                                            return next(err.message);
                                                         } else {
                                                             console.log(voteDb2);
                                                             res.send(voteDb2);
@@ -85,8 +78,7 @@ module.exports.createVote = function (req, res) {
         });
 };
 
-module.exports.editVote = function (req, res) {
-    console.log(req.body);
+module.exports.editVote = function (req, res, next) {
     VoteModel.findByIdAndUpdate({ _id: req.body.id },
         {
             $set: {
@@ -97,10 +89,8 @@ module.exports.editVote = function (req, res) {
         },
         function (err, voteDb) {
             if (err) {
-                console.log(err);
-                res.send(err);
+                return next(err.message);
             } else {
-                console.log(voteDb);
                 if (req.body.role === 'Against' || req.body.role === 'Reserved') {
                     CommentModel.create({
                         text: req.body.commentText,
@@ -108,23 +98,19 @@ module.exports.editVote = function (req, res) {
                         submitedDate: req.body.submitedDate
                     }, function (err, commentDb) {
                         if (err) {
-                            console.log(err);
+                            return next(err.message);
                         } else {
-                            console.log(commentDb);
-                            res.send(commentDb);
                             VoteModel.update({ _id: voteDb._id }, { $set: { comments: commentDb._id } },
                                 function (err, voteDb) {
                                     if (err) {
-                                        console.log(err);
+                                        return next(err.message);
                                     } else {
-                                        console.log(voteDb);
                                         res.send(voteDb);
                                     }
                                 });
                         }
                     });
                 } else {
-                    console.log(voteDb);
                     res.send(voteDb);
                 }
             }
