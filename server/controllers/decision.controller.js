@@ -46,7 +46,7 @@ module.exports.getDecisionById = function (req, res) {
             } else {
                 console.log(decisionDb);
                 var countedVotes = {
-                    for: 0,
+                    agreed: 0,
                     reserved: 0,
                     against: 0
                 };
@@ -56,18 +56,34 @@ module.exports.getDecisionById = function (req, res) {
                         userVoted = true;
                     }
                     if (decisionDb.votes[i].type === 'For') {
-                        countedVotes.for++;
+                        countedVotes.agreed++;
                     } else if (decisionDb.votes[i].type === 'Against') {
                         countedVotes.against++;
                     } else if (decisionDb.votes[i].type === 'Reserved') {
                         countedVotes.reserved++;
                     }
                 }
+                var passed = false;
+                if (decisionDb.active === 'Expired') {
+                    if (decisionDb.type === 'Simple Majority' && countedVotes.against !== 0) {
+                        if (Math.round(countedVotes.agreed / countedVotes.against) > 55) {
+                            passed = true;
+                        }
+                    } else if (decisionDb.type === 'Unanimous') {
+                        if (countedVotes.against === 0 && countedVotes.agreed > 0) {
+                            passed = true;
+                        }
+                    } else if (decisionDb.type === 'Super Majority' && countedVotes.against !== 0) {
+                        if (Math.round(countedVotes.agreed / countedVotes.against) > decisionDb.steps) {
+                            passed = true;
+                        }
+                    } else if (countedVotes.agreed > 0 && countedVotes.against === 0) {
+                        passed = true;
+                    }
+                }
+                res.send({ decision: decisionDb, countedVotes: countedVotes, userVoted: userVoted, passed: passed });
             }
-            console.log(countedVotes);
-            res.send({ decision: decisionDb, countedVotes: countedVotes, userVoted: userVoted });
-        }
-    });
+        });
 };
 
 module.exports.createDecision = function (req, res) {
