@@ -4,7 +4,7 @@ var RoleModel = require('../models/role.model');
 
 module.exports.isLoggedIn = function (req, res, next) {
     if (req.user) {
-        next();
+        return next();
     } else {
         res.send('Please login to continue');
     }
@@ -12,8 +12,8 @@ module.exports.isLoggedIn = function (req, res, next) {
 
 module.exports.isAdmin = function (req, res, next) {
     if (req.user.role.indexOf('Administrator') > -1) {
-        next();
+        return next();
     } else {
-        res.send('you are not authorized');
+        res.send('You are not authorized');
     }
 };

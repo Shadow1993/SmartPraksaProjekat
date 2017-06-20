@@ -9,13 +9,13 @@ module.exports = function (app, passport) {
                 if (err) { res.send({ status: 401, message: 'error' }); }
                 if (!user) { res.send({ status: 401, message: 'wrong username or password' }); }
                 req.logIn(user, function (err) {
-                    if (err) { return next(err); }
+                    if (err) { return next(err.message); }
                     RoleModel.find({ _id: req.user.role }, function (err, roleDb) {
                         if (err) {
-                            console.log(err);
+                            return next(err.message);
                         } else {
                             console.log(roleDb);
-                            return res.send({ user: req.user, role: roleDb });
+                            res.send({ user: req.user, role: roleDb });
                         }
                     });
                 });
@@ -24,17 +24,17 @@ module.exports = function (app, passport) {
         .get('/logout', function (req, res) {
             console.log(req.user);
             req.logout();
-            res.redirect('/');
+            res.send({message: 'User logged out!'});
         })
-        .get('/checkLogin', function (req, res) {
+        .get('/checkLogin', function (req, res, next) {
             if (req.user) {
                 RoleModel.find({ _id: req.user.role }, function (err, roleDb) {
                     if (err) {
                         console.log(err);
-                        res.send(err);
+                        return next(err);
                     } else {
                         console.log(roleDb)
-                        return res.send({ user: req.user, role: roleDb });
+                        res.send({ user: req.user, role: roleDb });
                     }
                 });
             } else {

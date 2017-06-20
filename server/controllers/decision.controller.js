@@ -9,20 +9,18 @@
 
 var DecisionModel = require('../models/decision.model');
 
-module.exports.getAllDecisions = function (req, res) {
+module.exports.getAllDecisions = function (req, res, next) {
     DecisionModel.find({ active: ['Active', 'Expired'] })
         .populate(['comments', 'votes'])
         .exec(function (err, decisionDb) {
             if (err) {
-                console.log(err.message);
-                res.send({ message: 'error while retreiving all decisions from database' });
+                return next(err.message);
             } else {
-                console.log(req.session);
                 for (var i = 0; i < decisionDb.length; i++) {
                     if (decisionDb[i].expirationDate.getTime() < Date.now()) {
                         DecisionModel.findOneAndUpdate({ _id: decisionDb[i]._id }, { $set: { active: 'Expired' } }, function (err, data) {
                             if (err) {
-                                console.log(err);
+                                return next(err.message);
                             } else {
                                 console.log(data);
                             }
@@ -34,17 +32,15 @@ module.exports.getAllDecisions = function (req, res) {
         });
 };
 
-module.exports.getDecisionById = function (req, res) {
+module.exports.getDecisionById = function (req, res, next) {
     console.log(req.params);
     console.log('heeereeeee' + req.user);
     DecisionModel.findById({ _id: req.params.id })
         .populate(['comments', 'votes'])
         .exec(function (err, decisionDb) {
             if (err) {
-                console.log(err.message);
-                res.send({ message: 'error while retreiving decision from database' });
+                return next(err.message);
             } else {
-                console.log(decisionDb);
                 var countedVotes = {
                     agreed: 0,
                     reserved: 0,
@@ -86,8 +82,7 @@ module.exports.getDecisionById = function (req, res) {
         });
 };
 
-module.exports.createDecision = function (req, res) {
-    console.log(req.body);
+module.exports.createDecision = function (req, res, next) {
     DecisionModel.create({
         title: req.body.title,
         description: req.body.description,
@@ -97,17 +92,14 @@ module.exports.createDecision = function (req, res) {
         expirationDate: req.body.expirationDate
     }, function (err, decisionDb) {
         if (err) {
-            console.log(err);
-            res.send(err);
+            return next(err.message);
         } else {
-            console.log(decisionDb);
             res.send(decisionDb);
         }
     });
 };
 
-module.exports.restartDecision = function (req, res) {
-    console.log(req.body);
+module.exports.restartDecision = function (req, res, next) {
     DecisionModel.create({
         title: req.body.title,
         description: req.body.description,
@@ -117,14 +109,12 @@ module.exports.restartDecision = function (req, res) {
         expirationDate: req.body.expirationDate
     }, function (err, decisionDb) {
         if (err) {
-            console.log(err);
-            res.send(err);
+            return next(err.message);
         } else {
             console.log(decisionDb);
             DecisionModel.findOneAndUpdate({ _id: req.body.id }, { $set: { active: 'Deactive' } }, function (err, decisionDb) {
                 if (err) {
-                    console.log(err);
-                    res.send(err);
+                    return next(err.message);
                 } else {
                     res.send(decisionDb);
                 }

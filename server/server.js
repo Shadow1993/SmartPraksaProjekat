@@ -34,7 +34,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //Express
 app.use(express.static(path.normalize(__dirname + serverConfig.PUBLIC)));
 app.use(expressSession({
-    secret: 'keyboard cat'
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: false
 }));
 app.use(passport.initialize());
 app.use(passport.session());
