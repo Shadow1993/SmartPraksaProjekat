@@ -17,7 +17,6 @@ Projekat na Smart Praksi
 |    Method     |      URL      |     Params    | Body | Description  |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
 | GET  | '/users' | <ul></ul> | <ul></ul> | Gets all users |
-| GET  | '/users/:id'  | <ul><li>id : String</li></ul> | <ul></ul> | Gets everything for a single user |
 | POST | '/users' | <ul></ul> | <ul><li>username : String</li><li>password : String</li><li>role : Array[String]</li><li>createdDate : Date</li></ul> | Creates a new decision |
 | PUT | '/users' | <ul></ul> | <ul><li>id : String</li><li>username : String</li><li>password : String</li></ul> | Updates a single user's details |
 | DELETE | '/users/:id' | <ul><li>id : String</li></ul> | <ul></ul> | Deletes a single user |
