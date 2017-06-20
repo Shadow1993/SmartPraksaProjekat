@@ -18,7 +18,7 @@ module.exports.createVote = function (req, res) {
                 res.send(err);
             } else {
                 for (var i = 0; i < decisionDb.votes.length; i++) {
-                    if (decisionDb.votes[i].submitedBy === req.user._id) {
+                    if (decisionDb.votes[i].submitedBy.equals(req.user._id.toString())) {
                         console.log('user already voted');
                         res.send('user already voted');
                     }

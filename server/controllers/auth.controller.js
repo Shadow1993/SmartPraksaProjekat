@@ -17,5 +17,3 @@ module.exports.isAdmin = function (req, res, next) {
         res.send('you are not authorized');
     }
 };
-//decide if decision is passed or rejected
-//user cant vote 2 times
