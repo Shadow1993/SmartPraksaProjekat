@@ -23,6 +23,7 @@
 
         // <<Date-picker>>
 
+
         vm.today = function () {
             vm.decisionData.expirationDate = new Date();
         };
@@ -219,6 +220,14 @@
             'Super Majority',
             'Unanimous'
         ];
+
+        // function votingMajority() {
+        //     if (vm.decisionData.type === 'Super Majority') {
+        //         return true;
+        //     }else {
+        //
+        //     }
+        // }
 
     }
 }());

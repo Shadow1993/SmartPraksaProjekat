@@ -43,5 +43,10 @@
                     }
                 });
         };
+
+        vm.dateReform = function (date) {
+            var dateReform = new Date(date);
+            return dateReform.toUTCString();
+        };
     }
 }());

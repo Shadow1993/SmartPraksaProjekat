@@ -27,8 +27,8 @@
                         <td>{{$index+1}}</td>
                         <td>{{resolution.title}}</td>
                         <td>{{resolution.type}}</td>
-                        <td>{{resolution.startingDate}}</td>
-                        <td>{{resolution.expirationDate}}</td>
+                        <td>{{facilitator.dateReform(resolution.startingDate)}}</td>
+                        <td>{{facilitator.dateReform(resolution.expirationDate)}}</td>
                         <td>{{facilitator.decisionStatus(resolution.startingDate, resolution.expirationDate)}}</td>
                         <td><button class="btn btn-warning disabled">Reactivate</button></td>
                     </tr>

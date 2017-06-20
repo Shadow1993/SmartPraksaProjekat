@@ -42,6 +42,8 @@
             })
             .then(
                 function(res) {
+                    // Count Vote Result
+                    console.log(res);
                     $scope.countedFor       = res.countedVotes.agreed;
                     $scope.countedAgainst   = res.countedVotes.against;
                     $scope.countedReserved  = res.countedVotes.reserved;
@@ -51,6 +53,12 @@
                     $scope.countedForPercent        = $scope.countedFor / $scope.countAllVotes * 100;
                     $scope.countedAgainstPercent    = $scope.countedAgainst / $scope.countAllVotes * 100;
                     $scope.countedReservedPercent   = $scope.countedReserved / $scope.countAllVotes * 100;
+
+                    // Is voted or not
+                    $scope.userVoted = res.userVoted;
+
+                    // Is Vote passed
+                    $scope.votePassed = res.passed;
                 }
             );
 
@@ -105,7 +113,7 @@
             });
 
         /*=============================
-                Vote Form
+            Vote Form
         ===============================*/
         // Check if user leave vote
         console.log('User');

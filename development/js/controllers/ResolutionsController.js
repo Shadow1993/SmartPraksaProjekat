@@ -32,11 +32,14 @@
         /*=======================
             Pagination
         =========================*/
-        $scope.viewby = 10;
+        $scope.viewbyActive = 10;
+        $scope.viewbyArchived = 10;
         $scope.currentPageActive = 11;
         $scope.currentPageArchived = 11;
-        $scope.itemsPerPage = $scope.viewby;
-        $scope.maxSize = 10; //Number of pager buttons to show
+        $scope.itemsPerPageActive = $scope.viewbyActive;
+        $scope.itemsPerPageArchived = $scope.viewbyArchived;
+        $scope.maxSizeActive = 10; //Number of pager buttons to show
+        $scope.maxSizeArchived = 10; //Number of pager buttons to show
 
         $scope.setPage = function (pageNo) {
             $scope.currentPageActive = pageNo;
