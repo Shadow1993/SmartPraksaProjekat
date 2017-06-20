@@ -31,6 +31,8 @@
         $scope.countedAgainstPercent = null;
         $scope.countedReservedPercent = null;
         $scope.countAllVotes = null;
+        $scope.seeResults    = false;
+        $scope.writeComment  = false;
 
         ResolutionService.getResolution($stateParams.id)
             .then(function (res) {
@@ -114,20 +116,20 @@
         };
 
         vm.voteSubmit = function () {
-            //if ($window.confirm('Do you want to leave vote?')) {
-            vm.newVote.type         = $scope.myVote;
-            vm.newVote.submitedBy   = $scope.userId.id;
-            vm.newVote.commentText  = vm.voterComment;
-            vm.newVote.id           = $scope.decisionId;
+            if ($window.confirm('Do you want to leave vote?')) {
+                vm.newVote.type         = $scope.myVote;
+                vm.newVote.submitedBy   = $scope.userId.id;
+                vm.newVote.commentText  = vm.voterComment;
+                vm.newVote.id           = $scope.decisionId;
 
-            VoteService.createVote(vm.newVote)
-                .then(function (res) {
-                    console.log(res);
-                    $location.path('/resolutions');
-                }).catch(function (res) {
-                    throw res;
-                });
-            //}
+                VoteService.createVote(vm.newVote)
+                    .then(function (res) {
+                        console.log(res);
+                        $location.path('/resolutions');
+                    }).catch(function (res) {
+                        throw res;
+                    });
+            }
         };
 
         /*=============================
@@ -142,12 +144,9 @@
 
         vm.commentSubmit = function() {
             if ($window.confirm('Do you want to leave comment?')) {
-                console.log('Sending comment...');
                 vm.newCommentAny.id = $stateParams.id;
                 vm.newCommentAny.text = vm.commentAny;
                 vm.newCommentAny.submitedBy = $scope.userId.id;
-
-                console.log(vm.newCommentAny);
 
                 CommentService.createComment(vm.newCommentAny)
                     .then(function(res) {
@@ -163,7 +162,7 @@
             Pagination
         =========================*/
         $scope.commentsViewBy             = 5;
-        $scope.currentCommentsPageActive  = 6;
+        $scope.currentCommentsPageActive  = 1;
         $scope.commentItemsPerPage        = $scope.commentsViewBy;
         $scope.decisionMaxSize            = 5; //Number of pager buttons to show
 
@@ -172,7 +171,7 @@
         };
 
         $scope.commentsPageChanged = function() {
-            console.log('Page changed to: ' + $scope.currentCommentsPageActive);
+           //console.log('Page changed to: ' + $scope.currentCommentsPageActive);
         };
 
         $scope.setCommentItemsPerPage = function(num) {

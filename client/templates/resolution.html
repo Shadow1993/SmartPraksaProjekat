@@ -5,7 +5,7 @@
     <h4 class="title-listing resolution">{{ resolution.resoultionInfo.active == 'Active' ? 'Active' : 'Expired' }}      Resoulution
     </h4>
 
-    <div class="decisions resolution">
+    <div class="decisions resolution clearfix">
         <div class="cards col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-8  col-lg-offset-2">
             <div class="clearfix alert-success">
                 <div class="voting-type">
@@ -76,12 +76,11 @@
             </div>
 
             <div ng-if="resolution.resoultionInfo.decision.active == 'Active'">
-                <a class="btn btn-secondary pull-left" role="button" data-toggle="collapse" href="#simple-majority" aria-expanded="false"
-                    aria-controls="simple-majority">
-                        See Results
-                    </a>
+                <a class="btn btn-secondary pull-left" role="button" ng-click="seeResults = !seeResults">
+                     See Results
+                </a>
 
-                <div class="collapse" id="simple-majority">
+                <div class="collapse in" id="simple-majority" ng-show="seeResults">
                     <span class="total-votes-number">Total number of votes: {{ countAllVotes }}.</span>
                     <div class="card card-block">
                         <div ng-if="countAllVotes">
@@ -133,7 +132,8 @@
 </div>
    <div class="comments" ng-if="resolution.resoultionInfo.decision.active == 'Active'">
         <div class="col-xs-12 col-md-8 col-md-offset-2">
-            <form name="createNewCommentForm" ng-submit="resolution.commentSubmit()">
+            <button class="btn btn-danger" ng-click="writeComment = !writeComment">Write Comment</button>
+            <form name="createNewCommentForm" ng-submit="resolution.commentSubmit()" ng-show="writeComment == true">
                 <div>
                     <h5 class="write-comment">Write comment</h5>
                     <div class="form-group">
