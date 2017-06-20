@@ -23,6 +23,7 @@
 
         checkAuthentication();
 
+        //Login User
         function authorize(data) {
             return $http({
                 method: 'POST',
@@ -42,7 +43,7 @@
                 .then(LoginFunction)
                 .catch(HandlingService.ReturnError);
         }
-
+        //After Logging in..
         function LoginFunction() {
             checkAuthentication();
             $state.go('main.resolutions');
@@ -50,6 +51,7 @@
             HandlingService.ReturnSuccess();
         }
 
+        //Logout User
         function deauthorize() {
             return $http.get('/logout')
                 .then(function () {
@@ -63,14 +65,11 @@
                 });
         }
 
+        //Check if User is Logged in
         function checkAuthentication() {
             return $http.get(api.info)
                 .then(checkAuth)
                 .catch(HandlingService.ReturnError);
-        }
-
-        function isAuthorized() {
-            return auth;
         }
         function checkAuth(res) {
             if (res.data.user) {
@@ -80,6 +79,8 @@
                 auth = false;
             }
         }
+
+        //Set info gathered from server within service
         function setUser(res) {
             user.id = res.data.user._id;
             user.username = res.data.user.username;
@@ -88,6 +89,12 @@
             }
         }
 
+        //Return If there's a logged in user
+        function isAuthorized() {
+            return auth;
+        }
+
+        //Return stored User Info
         function getUser() {
             return user;
         }

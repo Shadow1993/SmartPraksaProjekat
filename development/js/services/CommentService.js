@@ -6,6 +6,7 @@
     function CommentService($http, HandlingService) {
         var api = '/comments';
 
+        //Get Comments for a Decision
         function getComments(id) {
             return $http({
                 method: 'GET',
@@ -15,6 +16,7 @@
                 .catch(HandlingService.ReturnError);
         }
 
+        //Create a new Comment
         function createComment(data) {
             return $http({
                 method: 'POST',

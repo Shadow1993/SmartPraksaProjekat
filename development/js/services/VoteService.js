@@ -6,6 +6,7 @@
     function VoteService($http, HandlingService) {
         var api = '/votes';
 
+        //Create a new Vote
         function createVote(data) {
             return $http({
                 method: 'POST',
@@ -16,6 +17,7 @@
                 .catch(HandlingService.ReturnError);
         }
 
+        //Change an existing Vote
         function editVote(data) {
             return $http({
                 method: 'PUT',

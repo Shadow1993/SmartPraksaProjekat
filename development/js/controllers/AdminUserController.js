@@ -3,17 +3,23 @@
 
     var app = angular.module('app');
 
-    app.controller('AdminUserController', ['UserService',
-                                            '$uibModalInstance',
-                                            '$rootScope',
-                                            'user',
-                                            AdminUserController
-                                            ]);
+    app.controller('AdminUserController', [
+        'UserService',
+        '$uibModalInstance',
+        '$rootScope',
+        'user',
+        AdminUserController
+    ]);
 
-    function AdminUserController(UserService, $uibModalInstance, $rootScope, user) {
+    function AdminUserController(
+        UserService,
+        $uibModalInstance,
+        $rootScope,
+        user
+    ) {
         var vm = this;
-        vm.test = 'test';
 
+        //Fixes a bug when navigating while modal is open, simply closes it instead of leaving it open
         $rootScope.$on('$stateChangeStart',
             function () {
                 vm.cancelModal();
@@ -22,60 +28,72 @@
         vm.cancelModal = function () {
             $uibModalInstance.dismiss('cancel');
         };
+
+        //User object
         vm.newUser = {
             username: null,
             password: null,
-            role: ['Viewer'],
-            dateCreated: null
+            role: ['Viewer']
         };
+        //Permissions from form for user
         vm.permissions = {
             facilitator: null,
             voter: null
         };
 
+        function checkRolesAndApply() {
+            if (vm.permissions.facilitator) {
+                vm.newUser.role.push('Facilitator');
+            }
+            if (vm.permissions.voter) {
+                vm.newUser.role.push('Voter');
+            }
+        }
+
+        function modalCompleted() {
+            $uibModalInstance.close('completed');
+        }
+
+        function reportFormError() {
+            toastr.error('Please check the errors on the form and resubmit it again.');
+        }
+
+        function throwError(res) {
+            throw res;
+        }
+
+        //If the user object is not passed into modal
         if (!user) {
             vm.submitText = 'Create User';
             vm.submit = function (valid) {
                 if (valid) {
-                    if (vm.permissions.facilitator) {
-                        vm.newUser.role.push('Facilitator');
-                    }
-                    if (vm.permissions.voter) {
-                        vm.newUser.role.push('Voter');
-                    }
-                    vm.newUser.dateCreated = Date.now();
+                    checkRolesAndApply();
                     UserService.createUser(vm.newUser)
-                        .then(function() {
-                            $uibModalInstance.close('completed');
-                        })
-                        .catch(function(res) {
-                            throw res;
-                        });
+                        .then(modalCompleted)
+                        .catch(throwError);
                 } else {
-                    toastr.error('Please check the errors on the form and resubmit it again.');
+                    reportFormError();
                 }
             };
+            //If the user object is passed into modal
         } else if (Boolean(user)) {
             vm.submitText = 'Edit User';
+            //Populate form with values from
             vm.newUser = {
                 id: user._id,
                 username: user.username,
-                password: user.password,
+                password: '',
                 role: ['Viewer'],
                 dateCreated: user.dateCreated
             };
             vm.submit = function (valid) {
                 if (valid) {
-                    if (vm.permissions.facilitator) {
-                        vm.newUser.role.push('Facilitator');
-                    }
-                    if (vm.permissions.voter) {
-                        vm.newUser.role.push('Voter');
-                    }
-                    UserService.editUser(vm.newUser);
-                    $uibModalInstance.close('completed');
+                    checkRolesAndApply();
+                    UserService.editUser(vm.newUser)
+                        .then(modalCompleted)
+                        .catch(throwError);
                 } else {
-                    toastr.error('Please check the errors on the form and resubmit it again.');
+                    reportFormError();
                 }
             };
         }
