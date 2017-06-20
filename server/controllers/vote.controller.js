@@ -15,11 +15,6 @@ module.exports.createVote = function (req, res, next) {
             if (err) {
                 return next(err.message);
             } else {
-                for (var i = 0; i < decisionDb.votes.length; i++) {
-                    if (decisionDb.votes[i].submitedBy.equals(req.user._id.toString())) {
-                        res.send('user already voted');
-                    }
-                }
                 VoteModel.create({
                     type: req.body.type,
                     submitedDate: req.body.submitedDate,
