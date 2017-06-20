@@ -7,19 +7,12 @@
 
     function LoginController(AuthorizeService) {
         var vm = this;
-        vm.test = 'test';
 
         vm.authorize = function(valid) {
             if (valid) {
-                AuthorizeService.authorize(vm.user)
-                    .then(function() {
-                        toastr.success('Logged in..');
-                    })
-                    .catch(function(res) {
-                        throw res;
-                    });
+                AuthorizeService.authorize(vm.user);
             } else {
-                toastr.error('Error logging in..');
+                toastr.error('Error logging in..Please check the form for errors..');
             }
         };
 

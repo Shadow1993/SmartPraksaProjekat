@@ -84,5 +84,14 @@
         UserService.getUsers()
             .then(SuccessCall)
             .catch(ErrorCall);
+
+        vm.pagination = {
+            currentPage: 1,
+
+            setPage: function (pageNo) {
+                vm.pagination.currentPage = pageNo;
+            },
+            maxSize: 5
+        };
     }
 }());

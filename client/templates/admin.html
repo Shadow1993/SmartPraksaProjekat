@@ -13,7 +13,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="info in admin.userInfo" ng-click='admin.editUser(info)' class='hover-over'>
+                <tr ng-repeat="info in admin.userInfo.slice(((admin.pagination.currentPage - 1) * admin.pagination.maxSize), (admin.pagination.currentPage) * admin.pagination.maxSize)" ng-click='admin.editUser(info)' class='hover-over'>
                     <td>{{ $index + 1 }}</td>
                     <td>{{ info.username }}</td>
                     <td>
@@ -24,5 +24,7 @@
                 </tr>
             </tbody>
         </table>
+        <div uib-pagination total-items="admin.userInfo.length" ng-model="admin.pagination.currentPage"
+            class="pagination-sm" items-per-page="admin.pagination.maxSize" previous-text="&larr;" next-text="&rarr;"></div>
     </div>
 </div>
