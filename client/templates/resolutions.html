@@ -16,8 +16,8 @@
                     <th>Expiration Date</th>
                     <!--<th>Results</th>-->
                 </tr>
-                <tr ng-repeat="active_decision in activeDecisions.slice(((currentPageActive-1) * itemsPerPage), (currentPageActive)*itemsPerPage)">
-                    <td>{{ (currentPageActive-1)*maxSize + $index+1 }}</td>
+                <tr ng-repeat="active_decision in activeDecisions.slice(((currentPageActive-1) * itemsPerPageActive), (currentPageActive)*itemsPerPageActive)">
+                    <td>{{ (currentPageActive-1)*maxSizeActive + $index+1 }}</td>
                     <td ui-sref="main.resolution({ id: active_decision._id })">{{ active_decision.title }}</td>
                     <td><span>{{ active_decision.description }}</span></td>
                     <td>{{ active_decision.type }}</td>
@@ -46,7 +46,7 @@
         ng-model="currentPageActive" 
         ng-change="pageChanged()" 
         class="pagination-sm" 
-        items-per-page="itemsPerPage"
+        items-per-page="itemsPerPageActive"
         previous-text="&larr;"
         next-text="&rarr;"
     ></pagination>
@@ -63,8 +63,8 @@
                     <th>Expiration Date</th>
                     <!--<th>Results</th>-->
                 </tr>
-                <tr ng-repeat="archived_decision in archivedDecisions">
-                    <td>{{ (currentPageActive-1)*maxSize + $index+1  }}</td>
+                <tr ng-repeat="archived_decision in archivedDecisions.slice(((currentPageArchived-1) * itemsPerPageArchived), (currentPageArchived)*itemsPerPageArchived)">
+                    <td>{{ (currentPageArchived-1)*maxSizeArchived + $index+1  }}</td>
                     <td ui-sref="main.resolution({ id: archived_decision._id })">{{ archived_decision.title }}</td>
                     <td><span>{{ archived_decision.description }}</span></td>
                     <td>{{ archived_decision.type }}</td>
@@ -94,7 +94,7 @@
             ng-model="currentPageArchived" 
             ng-change="pageChanged()" 
             class="pagination-sm" 
-            items-per-page="itemsPerPage"
+            items-per-page="itemsPerPageArchived"
             previous-text="&larr;"
             next-text="&rarr;"
         ></pagination>
