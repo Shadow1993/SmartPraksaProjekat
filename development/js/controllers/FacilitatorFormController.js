@@ -221,5 +221,13 @@
             'Unanimous'
         ];
 
+        // function votingMajority() {
+        //     if (vm.decisionData.type === 'Super Majority') {
+        //         return true;
+        //     }else {
+        //
+        //     }
+        // }
+
     }
 }());
