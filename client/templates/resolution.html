@@ -87,17 +87,17 @@
                         <div ng-if="countAllVotes">
                             <div class="progress">
                                 <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{ countedForPercent }}" style="width: {{ countedForPercent }}%" aria-valuemin="0">{{ countedForPercent != 0 ? 'Yes &nbsp; ' : '' }}</div>
-                                <span>{{ countedForPercent != null ? countedForPercent : 0 }} %</span>
+                                <span>{{ countedForPercent != null ? countedForPercent : 0 | number: 0 }} %</span>
                             </div>
 
                             <div class="progress">
                                 <div class="progress-bar bg-danger" role="progressbar" style="width: {{ countedAgainstPercent }}%" aria-valuenow="{{ countedAgainstPercent }}" aria-valuemin="0" aria-valuemax="100">{{ countedForPercent != null ? 'No &nbsp; ' : '' }}</div>
-                                <span>{{ countedAgainstPercent != null ? countedAgainstPercent : 0 }} %</span>
+                                <span>{{ countedAgainstPercent != null ? countedAgainstPercent : 0 | number: 0 }} %</span>
                             </div>
 
                             <div class="progress">
                                 <div class="progress-bar bg-warning" role="progressbar" style="width: {{ countedReservedPercent }}%" aria-valuenow="{{ countedReservedPercent }}" aria-valuemin="0" aria-valuemax="100">{{ countedReservedPercent != null ? 'RS &nbsp; ' : '' }}</div>
-                                <span>{{ countedReservedPercent != null ? countedReservedPercent : 0 }} %</span>
+                                <span>{{ countedReservedPercent != null ? countedReservedPercent : 0 | number: 0 }} %</span>
                             </div>
                         </div>
                         <div ng-if="!countAllVotes">
@@ -106,32 +106,32 @@
                     </div>
                 </div>
             </div>
+            
             <div ng-if="resolution.resoultionInfo.decision.active == 'Expired'" class="card card-block card-archived">
                 <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="50" style="width: 50%" aria-valuemin="100">Yes &nbsp; </div>
-                    <span>50%</span>
+                    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{ countedForPercent }}" style="width: {{ countedForPercent }}%" aria-valuemin="100">{{ countedForPercent != 0 ? 'Yes &nbsp; ' : '' }}</div>
+                    <span>{{ countedForPercent != null ? countedForPercent : 0 | number: 0 }} %</span>
                 </div>
 
                 <div class="progress">
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">No &nbsp; </div>
-                    <span>40%</span>
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: {{ countedAgainstPercent }}%" aria-valuenow="{{ countedAgainstPercent }}" aria-valuemin="0" aria-valuemax="100">{{ countedForPercent != 0 ? 'No &nbsp; ' : '' }}</div>
+                    <span>{{ countedAgainstPercent != null ? countedAgainstPercent : 0 | number: 0 }} %</span>
                 </div>
                 <div class="progress">
-                    <div class="progress-bar bg-warning" role="progressbar" style="width: 10%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">RS &nbsp; </div>
-                    <span>10%</span>
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: {{ countedReservedPercent }}%" aria-valuenow="{{ countedReservedPercent }}" aria-valuemin="0" aria-valuemax="100">{{ countedReservedPercent != 0 ? 'RS &nbsp; ' : '' }}</div>
+                    <span>{{ countedReservedPercent != null ? countedReservedPercent : 0 | number: 0 }} %</span>
                 </div>
+                <p class="archived-votes-number">Total number of votes: {{ countAllVotes }}.</p>
             </div>
             <div class="col-xs-12">
                 <span class=" resolution-back btn btn-warning" ui-sref="main.resolutions">Go Back</span>
             </div>
-            <p>For: {{ countedFor }}</p>
-            <p>Against: {{ countedAgainst }}</p>
-            <p>Reserved: {{ countedReserved }}</p>
+
         </div>
         <!-- .card -->
     <!-- #decisions -->
 </div>
-   <div class="comments">
+   <div class="comments" ng-if="resolution.resoultionInfo.decision.active == 'Active'">
         <div class="col-xs-12 col-md-8 col-md-offset-2">
             <form name="createNewCommentForm" ng-submit="resolution.commentSubmit()">
                 <div>
@@ -148,7 +148,6 @@
                 </div>
             </form>
             <div class="comments-table">
-                <p>Username: </p>
                 <div class="media" ng-repeat="comment in decisionComments">
                     <div class="media-left">
                         <a href="#">
