@@ -71,7 +71,7 @@
                     </form>                    
                 </div>
                 
-                <div ng-show="userVoted" class="col-xs-10 col-xs-offset-1 alert alert-danger">
+                <div ng-show="resolution.resoultionInfo.decision.active == 'Active' && userVoted" class="col-xs-10 col-xs-offset-1 alert alert-danger">
                     You are already voted!
                 </div>
 
@@ -133,7 +133,7 @@
                 <p class="archived-votes-number">Total number of votes: {{ countAllVotes }}.</p>
                 
             </div>
-            <div class="col-xs-12">
+            <div class="col-xs-12 go-back">
                 <span class=" resolution-back btn btn-warning" ui-sref="main.resolutions">Go Back</span>
             </div>
 
@@ -142,7 +142,7 @@
     <!-- #decisions -->
 </div>
    <div class="comments" ng-if="resolution.resoultionInfo.decision.active == 'Active'">
-        <div class="col-xs-12 col-md-8 col-md-offset-2">
+        <div class="col-xs-12 col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-8  col-lg-offset-2">
             <button class="btn btn-danger" ng-click="writeComment = !writeComment">Write Comment</button>
             <form name="createNewCommentForm" ng-submit="resolution.commentSubmit()" ng-show="writeComment == true">
                 <div>

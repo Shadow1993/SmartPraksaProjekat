@@ -32,11 +32,18 @@
         /*=======================
             Table Sorting
         =========================*/
+        // Active Listing
         $scope.orderByField     = false;
-        $scope.sortingArg       = 'expirationDate';
         $scope.decisionsSorting = function(someArg, someState) {
             $scope.sortingArg   = someArg;
             $scope.sortingState = someState;
+        };
+
+        // Archived Listing
+        $scope.orderByFieldAr       = false;
+        $scope.decisionsSortingAr   = function(someArgAr, someStateAr) {
+            $scope.sortingArgAr     = someArgAr;
+            $scope.sortingStateAr   = someStateAr;
         };
 
         /*=======================

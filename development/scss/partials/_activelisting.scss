@@ -43,6 +43,9 @@ input[type='submit']:disabled {
     font-weight: 600;
 }
 .decisions {
+    .alert-danger {
+        text-align: center;
+    }
     .total-votes-number {
         max-width: 100%;
         display: flex;
@@ -98,7 +101,6 @@ input[type='submit']:disabled {
                     min-width: 400px;
                 }
                 &:last-of-type {
-                   //min-width: 150px;
                     span {
                         position: relative;
                         right: 5px;
@@ -360,39 +362,6 @@ input[type='submit']:disabled {
 /*=============================================
     Smaller Screens
 ===============================================*/
-    @media screen and (max-width: 400px){
-        #decisions {
-            .vote {
-                a {
-                    font-size: 12px;
-                }
-            }
-            .voting-type {
-                width: 100%;
-                display: block;
-                margin-bottom: -14px;
-                font-size: 12px;
-                text-align: center;
-            }
-            .expiration-date {
-                width: 100%;
-                display: block;
-                font-size: 12px;
-                text-align: center !important;
-            }
-            .decision-text {
-                font-size: 12px;
-            }
-            .card-block {
-                overflow-x: scroll;
-                .btn {
-                    font-size: 11px;
-                }
-            }
-        }
-        
-    }
-
     @media screen and (min-width: 401px) and (max-width: 800px){
         .decisions {
             width: 100%;
@@ -441,6 +410,33 @@ input[type='submit']:disabled {
             }
             .decision-text {
                 font-size: 15px;
+            }
+            &.resolution {
+                .resolution-back {
+                    width: 170px;
+                    float: none;
+                    margin-left: auto;
+                    margin-right: auto;
+                    display: flex;
+                    justify-content: center;
+                }
+            }
+        }
+        
+        .comments {
+            h5 {
+                font-size: 14px;
+            }
+            span {
+                font-size: 12px;
+            }
+            p {
+                margin-top: 3px;
+            }
+            .media-object {
+                width: 60px;
+                height: 60px;
+                object-fit: cover;
             }
         } 
     }
@@ -496,6 +492,11 @@ input[type='submit']:disabled {
                 position: relative;
                 top: 2px;
             }
+            .media-object {
+                width: 60px;
+                height: 60px;
+                object-fit: cover;
+            }
             .decision-text {
                 font-size: 14px;
             }
@@ -503,9 +504,80 @@ input[type='submit']:disabled {
                 font-size: 12px !important;
                 letter-spacing: .5px;
             }
+            .card-block {
+                .progress {
+                    width: 90%;
+                    margin-left: 0;
+                    span {
+                        font-size: 12px;
+                    }
+                }
+            }
         } 
+        .comments {
+            h5 {
+                font-size: 13px;
+            }
+            span {
+                font-size: 11px;
+            }
+            p {
+                margin-top: 2px;
+            }
+            .media-object {
+                width: 50px;
+                height: 50px;
+                object-fit: cover;
+            }
+        }
     }   
 
     @media screen and (max-width: 320px ){
-        
+        h4 {
+            &.resolution {
+                font-size: 17px;
+                line-height: 23px;
+            }
+        }
+        .decisions {
+            .decision-text {
+                font-size: 12px;
+                text-align: center;
+            }
+            .alert-danger {
+                padding: 10px;
+            }
+            span {
+                &.total-votes-number {
+                    font-size: 12px;
+                    top: 10px;
+                    position: relative;
+                }
+            }
+            .card-block {
+                .progress {
+                    width: 90%;
+                    margin-left: 0;
+                    span {
+                        font-size: 11px;
+                    }
+                }
+            }
+        }
+        .comments {
+            h5 {
+                font-size: 12px;
+            }
+            span {
+                font-size: 10px;
+            }
+            p {
+                margin-top: 2px;
+            }
+            .media-object {
+                width: 50px;
+                height: 50px;
+                object-fit: cover;
+            }
+        }
     }

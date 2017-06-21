@@ -66,19 +66,19 @@
             Get All Comments for Decision
         ===================================*/
         function asdf(n) {
-            //console.log(n);
             $scope.fromUser = n;
         }
         CommentService.getComments($stateParams.id)
             .then(function(res) {
-                $scope.decisionComments = res;
-                for (var x = 0; x < res.length; x++) {
-                    console.log(res[x].submitedBy);
+                var array = [];
+                for (var x = res.length - 1; x >= 0; x--) {
+                    array.push(res[x]);
                     UserService.getUser(res[x].submitedBy)
                         .then(
                             asdf
                         );
                 }
+                $scope.decisionComments = array;
             });
 
         /*============================
@@ -109,6 +109,12 @@
 
                 setInterval(function () {
                     $scope.$apply($scope.updateClock);
+                    if ($scope.timeTillEvent.daysLeft === 0 &&
+                        $scope.timeTillEvent.hoursLeft === 0 &&
+                        $scope.timeTillEvent.minutesLeft === 0 &&
+                        $scope.timeTillEvent.secondsLeft === 0) {
+                        return $location.path('/resolutions');
+                    }
                 }, 1000);
                 $scope.updateClock();
             });

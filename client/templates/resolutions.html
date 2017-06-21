@@ -8,9 +8,6 @@
         <div class="clearfix decisions">
             <table class="table table-decisions">
                 <tr>
-                    Order By: {{ orderByField }} Reverse: {{ reverseSort }}
-                </tr>
-                <tr>
                     <th>#</th>
                     <th>
                         <span ng-click="decisionsSorting('title', sortingState = !sortingState)">
@@ -48,31 +45,51 @@
                 </tr>
             </table>
     </div>
-    <pagination 
-        uib-pagination 
-        total-items="activeDecisions.length" 
-        ng-model="currentPageActive" 
-        ng-change="pageChanged()" 
-        class="pagination-sm" 
-        items-per-page="itemsPerPageActive"
-        previous-text="&larr;"
-        next-text="&rarr;"
-    ></pagination>
+    <div ng-show="activeDecisions.length >= 11">
+        <pagination 
+            uib-pagination 
+            total-items="activeDecisions.length" 
+            ng-model="currentPageActive" 
+            ng-change="pageChanged()" 
+            class="pagination-sm" 
+            items-per-page="itemsPerPageActive"
+            previous-text="&larr;"
+            next-text="&rarr;"
+        ></pagination>
+    </div>
     
     <h4 class="title-listing archived-title">Archived Listing</h4>
         <div class="clearfix decisions archived-decisions">
             <table class="table table-decisions table-archived-decisions">
                 <tr>
                     <th>#</th>
-                    <th>Title</th>
-                    <th>Question</th>
-                    <th>Type</th>
-                    <th>Date Created &nbsp; 
-                        <i class="glyphicon glyphicon-chevron-down"></i>
+                    <th>
+                        <span ng-click="decisionsSortingAr('title', sortingStateAr = !sortingStateAr)">
+                            Title
+                            <i ng-if="sortingArgAr == 'title'" class="glyphicon glyphicon-chevron-{{ !sortingStateAr ? 'up' : 'down' }}"></i>
+                        </span>
                     </th>
-                    <th>Expiration Date &nbsp; <i class="glyphicon glyphicon-chevron-down"></i></th>
+                    <th>Question</th>
+                    <th>
+                        <span ng-click="decisionsSortingAr('type', sortingStateAr = !sortingStateAr)">
+                            Type
+                            <i ng-if="sortingArgAr == 'type'" class="glyphicon glyphicon-chevron-{{ !sortingStateAr ? 'up' : 'down' }}"></i>
+                        </span>
+                    </th>
+                    <th>
+                        <span ng-click="decisionsSortingAr('startingDate', sortingStateAr = !sortingStateAr)">
+                            Date Created &nbsp; 
+                            <i ng-if="sortingArgAr == 'startingDate'" class="glyphicon glyphicon-chevron-{{ !sortingStateAr ? 'up' : 'down' }}"></i>
+                        </span>
+                    </th>
+                    <th>
+                        <span ng-click="decisionsSortingAr('expirationDate', sortingStateAr = !sortingStateAr)">
+                            Expiration Date &nbsp; 
+                            <i ng-if="sortingArgAr == 'expirationDate'" class="glyphicon glyphicon-chevron-{{ !sortingStateAr ? 'up' : 'down' }}"></i>
+                        </span>
+                    </th>
                 </tr>
-                <tr ng-repeat="archived_decision in archivedDecisions.slice(((currentPageArchived-1) * itemsPerPageArchived), (currentPageArchived)*itemsPerPageArchived)">
+                <tr ng-repeat="archived_decision in archivedDecisions.slice(((currentPageArchived-1) * itemsPerPageArchived), (currentPageArchived)*itemsPerPageArchived) | orderBy:sortingArgAr:sortingStateAr">
                     <td>{{ (currentPageArchived-1)*maxSizeArchived + $index+1  }}</td>
                     <td ui-sref="main.resolution({ id: archived_decision._id })">{{ archived_decision.title }}</td>
                     <td><span>{{ archived_decision.description }}</span></td>
@@ -82,14 +99,16 @@
                 </tr>
             </table>
         </div>
-        <pagination 
-            uib-pagination 
-            total-items="archivedDecisions.length" 
-            ng-model="currentPageArchived" 
-            ng-change="pageChanged()" 
-            class="pagination-sm" 
-            items-per-page="itemsPerPageArchived"
-            previous-text="&larr;"
-            next-text="&rarr;"
-        ></pagination>
+        <div ng-show="archivedDecisions.length >= 11">
+            <pagination 
+                uib-pagination 
+                total-items="archivedDecisions.length" 
+                ng-model="currentPageArchived" 
+                ng-change="pageChanged()" 
+                class="pagination-sm" 
+                items-per-page="itemsPerPageArchived"
+                previous-text="&larr;"
+                next-text="&rarr;"
+            ></pagination>
+        </div>
 </div>
