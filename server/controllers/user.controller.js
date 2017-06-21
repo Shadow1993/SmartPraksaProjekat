@@ -22,6 +22,22 @@ module.exports.getAllUsers = function (req, res, next) {
         });
 };
 
+module.exports.getUserByID = function (req, res) {
+    console.log(req.params);
+    UserModel.findOne({ _id: req.params.id, isActive: true })
+        .populate('role')
+        .exec(function (err, userDb) {
+            if (err) {
+                console.log(err.message);
+                res.send({message: 'error while retreiving user from db'});
+            } else {
+                console.log(userDb);
+                res.send(userDb);
+            }
+        });
+};
+
+
 module.exports.deleteUserById = function (req, res, next) {
     UserModel.findByIdAndUpdate(req.params.id, {$set: {isActive: false}},  function (err, userDb) {
         if (err) {
