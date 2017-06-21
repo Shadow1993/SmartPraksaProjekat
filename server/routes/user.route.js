@@ -8,6 +8,7 @@ var express = require('express'),
 
 router
     .get('/', AuthController.isLoggedIn, AuthController.isAdmin, UserController.getAllUsers)
+    .get('/', AuthController.isLoggedIn, AuthController.isAdmin, UserController.getUserByID)
     .post('/', AuthController.isLoggedIn, AuthController.isAdmin, UserController.createUser)
     .put('/',  AuthController.isLoggedIn, AuthController.isAdmin, UserController.updateUser)
     .delete('/:id', AuthController.isLoggedIn, AuthController.isAdmin, UserController.deleteUserById);
