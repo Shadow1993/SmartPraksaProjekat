@@ -7,6 +7,7 @@
         'UserService',
         '$uibModalInstance',
         '$rootScope',
+        'NotificationService',
         'user',
         AdminUserController
     ]);
@@ -15,6 +16,7 @@
         UserService,
         $uibModalInstance,
         $rootScope,
+        NotificationService,
         user
     ) {
         var vm = this;
@@ -55,7 +57,7 @@
         }
 
         function reportFormError() {
-            toastr.error('Please check the errors on the form and resubmit it again.');
+            toastr.error(NotificationService.validation.empty);
         }
 
         function throwError(res) {

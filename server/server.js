@@ -52,6 +52,11 @@ app.get('*', function (req, res) {
     res.sendFile(path.normalize(__dirname + serverConfig.PUBLIC + serverConfig.HOMEFILE));
 });
 
+// catch wrong url and send response
+app.all('*', function (req, res) {
+    res.send('404 Not found, proceed to homepage');
+});
+
 /* Handlers */
 
 // catch 404 and forward to error handler
@@ -74,16 +79,6 @@ if (app.get('env') === 'development') {
         });
     });
 }
-
-// production error handler
-// no stacktraces leaked to user
-app.use(function (err, req, res) {
-    res.status(err.status || 500);
-    res.render('error', {
-        message: err.message,
-        error: {}
-    });
-});
 
 /*-~- Server Start -~-*/
 //Set port
