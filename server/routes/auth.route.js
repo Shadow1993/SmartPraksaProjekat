@@ -6,8 +6,8 @@ module.exports = function (app, passport) {
     app
         .post('/login', function (req, res, next) {
             passport.authenticate('local-login', function (err, user, info) {
-                if (err) { res.send({ status: 401, message: 'error' }); }
-                if (!user) { res.send({ status: 401, message: 'wrong username or password' }); }
+                if (err) { res.status(401).send('wrong username or password'); }
+                if (!user) { res.status(401).send('wrong username or password'); }
                 req.logIn(user, function (err) {
                     if (err) { return next(err.message); }
                     RoleModel.find({ _id: req.user.role }, function (err, roleDb) {
@@ -24,7 +24,7 @@ module.exports = function (app, passport) {
         .get('/logout', function (req, res) {
             console.log(req.user);
             req.logout();
-            res.send({message: 'User logged out!'});
+            res.send({ message: 'User logged out!' });
         })
         .get('/checkLogin', function (req, res, next) {
             if (req.user) {
@@ -42,8 +42,3 @@ module.exports = function (app, passport) {
             }
         });
 };
-
-//auth rute
-
-//edit user password
-

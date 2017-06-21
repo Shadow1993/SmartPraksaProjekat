@@ -11,7 +11,7 @@ var bcrypt = require('bcryptjs');
 */
 
 module.exports.getAllUsers = function (req, res, next) {
-    UserModel.find({isActive: true})
+    UserModel.find({ isActive: true })
         .populate('role')
         .exec(function (err, userDb) {
             if (err) {
@@ -22,25 +22,23 @@ module.exports.getAllUsers = function (req, res, next) {
         });
 };
 
-module.exports.getUserByID = function (req, res) {
+module.exports.getUserByID = function (req, res, next) {
     console.log(req.params);
     UserModel.findOne({ _id: req.params.id, isActive: true })
         .populate('role')
         .exec(function (err, userDb) {
             if (err) {
-                console.log(err.message);
-                res.send({message: 'error while retreiving user from db'});
+                return next(err.message);
             } else {
-                console.log(userDb);
                 res.send(userDb);
             }
         });
 };
 
-
 module.exports.deleteUserById = function (req, res, next) {
-    UserModel.findByIdAndUpdate(req.params.id, {$set: {isActive: false}},  function (err, userDb) {
+    UserModel.findByIdAndUpdate(req.params.id, { $set: { isActive: false } }, function (err, userDb) {
         if (err) {
+            console.log(err.message);
             return next(err.message);
         } else {
             res.send(userDb);
@@ -55,6 +53,7 @@ module.exports.updateUser = function (req, res, next) {
         }
     }, function (err, roleDb) {
         if (err) {
+            console.log(err.message);
             return next(err.message);
         } else {
             console.log(roleDb);
@@ -85,7 +84,7 @@ module.exports.createUser = function (req, res, next) {
             return next(err.message);
         }
         if (!roleDb[0]) {
-            res.send({message: 'error in role type'});
+            res.send({ message: 'error in role type' });
         } else {
             UserModel.create({
                 username: req.body.username,
@@ -106,6 +105,6 @@ module.exports.createUser = function (req, res, next) {
     });
 };
 
-var generateHash = function(password) {
+var generateHash = function (password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };

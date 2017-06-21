@@ -34,7 +34,6 @@ module.exports.getAllDecisions = function (req, res, next) {
 
 module.exports.getDecisionById = function (req, res, next) {
     console.log(req.params);
-    console.log('heeereeeee' + req.user);
     DecisionModel.findById({ _id: req.params.id })
         .populate(['comments', 'votes'])
         .exec(function (err, decisionDb) {
