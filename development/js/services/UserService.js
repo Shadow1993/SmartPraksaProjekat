@@ -18,6 +18,16 @@
                 .catch(HandlingService.ReturnError);
         }
 
+        //Get a specific User
+        function getUser(id) {
+            return $http({
+                method: 'GET',
+                url: api + '/' + id
+            })
+                .then(HandlingService.ReturnData)
+                .catch(HandlingService.ReturnError);
+        }
+
         //Create a new User
         function createUser(data) {
             return $http({
@@ -52,6 +62,7 @@
 
         return {
             getUsers: getUsers,
+            getUser: getUser,
             createUser: createUser,
             editUser: editUser,
             deleteUser: deleteUser
