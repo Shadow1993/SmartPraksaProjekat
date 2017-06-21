@@ -3,16 +3,22 @@
 
     var app = angular.module('app');
 
-    app.controller('LoginController', ['AuthorizeService', LoginController]);
+    app.controller('LoginController', ['AuthorizeService', 'NotificationService', LoginController]);
 
-    function LoginController(AuthorizeService) {
+    function LoginController(AuthorizeService, NotificationService) {
         var vm = this;
 
-        vm.authorize = function(valid) {
+        vm.authorize = function (valid) {
             if (valid) {
-                AuthorizeService.authorize(vm.user);
+                AuthorizeService.authorize(vm.user)
+                    .then(function() {
+                        toastr.success(NotificationService.auth.success);
+                    })
+                    .catch(function () {
+                        toastr.warning(NotificationService.auth.invalid);
+                    });
             } else {
-                toastr.error('Error logging in..Please check the form for errors..');
+                toastr.error(NotificationService.validation.empty);
             }
         };
 

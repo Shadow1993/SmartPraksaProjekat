@@ -6,7 +6,7 @@
     function HandlingService($q) {
 
         function ReturnError(response) {
-            return $q.reject('Error: ' + response.status + '; Response: ' + response.data.message);
+            return $q.reject('Status: ' + response.status + '; Response: ' + response.data);
         }
         function ReturnData(response) {
             return response.data;
