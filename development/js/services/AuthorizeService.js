@@ -60,9 +60,9 @@
                         username: '',
                         role: []
                     };
-                    toastr.info('Logged out');
                     return $state.go('login');
-                });
+                })
+                .catch(HandlingService.ReturnError);
         }
 
         //Check if User is Logged in
