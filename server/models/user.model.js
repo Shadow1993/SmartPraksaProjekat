@@ -30,16 +30,16 @@ var userSchema = new Schema({
     }]
 });
 
-userSchema.methods.generateHash = function(password) {
+userSchema.methods.generateHash = function (password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 
-userSchema.methods.validPassword = function(password) {
+userSchema.methods.validPassword = function (password) {
     return bcrypt.compareSync(password, this.password);
 };
 
-userSchema.methods.getRole = function() {
-    Role.find({_id: this.role}, function(err, roleDb) {
+userSchema.methods.getRole = function () {
+    Role.find({ _id: this.role }, function (err, roleDb) {
         if (err) {
             console.log(err);
         } else {
@@ -49,9 +49,36 @@ userSchema.methods.getRole = function() {
     });
 };
 
-userSchema.pre('save', function(next) {
+userSchema.pre('save', function (next) {
     this.password = this.generateHash(this.password);
     next();
 });
 
+var UserModel = mongoose.model('User', userSchema);
+
+UserModel.find({}, function (err, userData) {
+    if (err) {
+        console.log(err);
+    } else if (userData == '') {
+        Role.find({
+            title: 'Administrator'
+        }, function (err, roleDb) {
+            if (err) {
+                console.log(err);
+            } else {
+                UserModel.create({
+                    username: process.env.ADMINUSERNAME || 'admin',
+                    password: process.env.ADMINPASSWORD || '123',
+                    role: roleDb
+                }, function (err, userSaved) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log(userSaved);
+                    }
+                });
+            }
+        });
+    }
+});
 module.exports = mongoose.model('User', userSchema);
