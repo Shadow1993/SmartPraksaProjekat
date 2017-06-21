@@ -13,3 +13,8 @@ router
     .post('/', AuthController.isLoggedIn,  DecisionController.createDecision);
 
 module.exports = router;
+
+//proveri da li za mongoose svuda trebaju promisi ili mogu i callback
+//promena nekih kverija
+//authorizacija za sve usere - genericka funkcija
+//start with sequelize / & ionic
