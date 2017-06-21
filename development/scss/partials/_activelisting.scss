@@ -69,6 +69,17 @@ input[type='submit']:disabled {
         max-width: 100%;
         overflow-x: scroll;
         vertical-align: middle;
+        i {
+            &.glyphicon {
+                position: relative;
+                left: 5px; top: 2px;
+                font-size: 14px;
+                font-weight: 400;
+            }
+            &:hover {
+                cursor: pointer;
+            }
+        }
         tr {
             color: #000;
             vertical-align: middle;
@@ -81,7 +92,7 @@ input[type='submit']:disabled {
                 vertical-align: middle;
                 &:nth-of-type(2) {
                     max-width: 80px;
-                    text-align: center;
+                    text-align: left;
                 }
                 &:nth-of-type(3){
                     min-width: 400px;
@@ -90,12 +101,22 @@ input[type='submit']:disabled {
                    //min-width: 150px;
                     span {
                         position: relative;
-
                         right: 5px;
-                        float: right;
                     }
                 }
                 max-width: 300px;
+            }
+            th {
+                span {
+                    text-align: left;
+                }
+                text-align: left;
+                &:hover {
+                    cursor: pointer;
+                }
+                &:last-of-type {
+                    text-align: left;
+                }
             }
             td {
                 &:nth-child(2) {
@@ -391,9 +412,7 @@ input[type='submit']:disabled {
                             min-width: 120px;
                             span {
                                 position: relative;
-
                                 right: 5px;
-                                float: right;
                             }
                         }
                     }
@@ -449,9 +468,7 @@ input[type='submit']:disabled {
                             min-width: 150px;
                             span {
                                 position: relative;
-
                                 right: 5px;
-                                float: right;
                             }
                         }
                     }

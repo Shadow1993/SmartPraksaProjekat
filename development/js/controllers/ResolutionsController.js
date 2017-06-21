@@ -30,6 +30,16 @@
             });
 
         /*=======================
+            Table Sorting
+        =========================*/
+        $scope.orderByField     = false;
+        $scope.sortingArg       = 'expirationDate';
+        $scope.decisionsSorting = function(someArg, someState) {
+            $scope.sortingArg   = someArg;
+            $scope.sortingState = someState;
+        };
+
+        /*=======================
             Pagination
         =========================*/
         $scope.viewbyActive = 10;

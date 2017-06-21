@@ -26,6 +26,10 @@
         </div>
         <div class="form-group">
             <label for="decType" class="control-lable title-color">Decision Type</label>
+            <select ng-if="ffc.votingMajority()" 
+                    ng-options="step for step in ffc.steps track by step" 
+                    ng-model="ffc.decisionData.steps"
+                    ng-init="ffc.decisionData.steps=ffc.steps[0]"></select>
             <select class='form-control' 
                     ng-init='ffc.decisionData.type = ffc.options[0]' 
                     ng-model='ffc.decisionData.type' 
@@ -75,6 +79,7 @@
                      show-meridian="ffc.ismeridian"></div>
              </span>
                 </p>
+                
                 <div class="form-buttons">
                 <input class="btn btn-success create-decision" type="submit" value="Create Decision">
                 <input class="btn btn-warning close-decision" type="button" ng-click="ffc.closeModal()" value="Cancel">
