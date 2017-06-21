@@ -6,9 +6,9 @@
     app.controller('FacilitatorFormController', ['ResolutionService',
         '$rootScope',
         '$uibModalInstance',
+        '$scope',
         FacilitatorFormController]);
-
-    function FacilitatorFormController(ResolutionService, $rootScope, $uibModalInstance) {
+    function FacilitatorFormController(ResolutionService, $rootScope, $uibModalInstance, $scope) {
 
         var vm = this;
 
@@ -33,7 +33,7 @@
             vm.decisionData.expirationDate = null;
         };
 
-        vm.inlineOptions = {
+        $scope.inlineOptions = {
             customClass: getDayClass,
             minDate: new Date(),
             showWeeks: true
@@ -54,13 +54,6 @@
                 mode = data.mode;
             return mode === 'day' && (date.getDay() === 7 || date.getDay() === 7);
         }
-
-        vm.toggleMin = function () {
-            vm.inlineOptions.minDate = vm.inlineOptions.minDate ? null : new Date();
-            vm.dateOptions.minDate = vm.inlineOptions.minDate;
-        };
-
-        vm.toggleMin();
 
         vm.open1 = function () {
             vm.popup1.opened = true;
@@ -238,7 +231,7 @@
             } else {
                 return false;
             }
-        }
+        };
 
     }
 }());
