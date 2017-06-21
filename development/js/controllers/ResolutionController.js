@@ -66,13 +66,14 @@
             Get All Comments for Decision
         ===================================*/
         function asdf(n) {
-            console.log(n);
+            //console.log(n);
             $scope.fromUser = n;
         }
         CommentService.getComments($stateParams.id)
             .then(function(res) {
                 $scope.decisionComments = res;
                 for (var x = 0; x < res.length; x++) {
+                    console.log(res[x].submitedBy);
                     UserService.getUser(res[x].submitedBy)
                         .then(
                             asdf
