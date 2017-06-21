@@ -18,7 +18,8 @@
             title: '',
             description: '',
             startingDate: Date.now(),
-            expirationDate: null
+            expirationDate: null,
+            steps: ''
         };
 
         // <<Date-picker>>
@@ -185,6 +186,15 @@
         vm.formSubmit = function (working) {
             if (working) {
                 toastr.success('Form is valid! Kudos to You Sir/Madam!');
+                if (vm.decisionData.type === 'Simple Majority') {
+                    vm.decisionData.steps = '60';
+                } else if (vm.decisionData.type === 'Super Majority') {
+
+                } else if (vm.decisionData.type === 'Unanimous') {
+                    vm.decisionData.steps = '90';
+                }else {
+                    return toastr.error('You did not choose your destiny. Choose wisely next time.');
+                }
                 console.log(vm.decisionData);
                 console.log(vm.mytime);
                 ResolutionService.createResolution(vm.decisionData)
@@ -220,13 +230,15 @@
             'Unanimous'
         ];
 
-        // function votingMajority() {
-        //     if (vm.decisionData.type === 'Super Majority') {
-        //         return true;
-        //     }else {
-        //
-        //     }
-        // }
+        vm.steps = ['60', '70', '80', '90'];
+
+        vm.votingMajority = function () {
+            if (vm.decisionData.type === 'Super Majority') {
+                return true;
+            } else {
+                return false;
+            }
+        }
 
     }
 }());
