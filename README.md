@@ -43,8 +43,9 @@
  - Once you reach the website's address, you will be directed to '/login' to login.
      - If you try to reach a non existing route you will also be redirected to '/login' as it is the default.
  - After logging in, you will be redirected to '/resolutions', this is basically a default page for anyone logged in as anyone can access it.
-     - The navigation at the top can be used to access other pages if user has access to, or logout.
- - If the user has a role of Facilitator, and/or Administrator, he/she will  have access to an extra page (each), where they can perform their tasks.
+ - Every page after Login (Except Logout, as it doesn't have a page to show), will have a Header section, used to navigate around the website. Will contain links based on the user's roles:
+     - If the user has a role of Facilitator, the user will  have access to an extra page, where they can perform their tasks.
+     - If the user has a role of Administrator, the user will  have access to an extra page, where they can perform their tasks.
 
 ---
 *Details Per Page* :
@@ -60,16 +61,52 @@
   <li>This page is the main page of the website, and you will be redirected to it after loggin in.</li>
   <li>Anyone logged in can see this page.</li>
   <li>Used to display active & archived decisions, in two tables.</li>
-  <li>Clicking on any decision individually will take you to a page with more details for it:</li>
+  <li>Clicking on any decision individually will take you to a more detailed page:</li>
   <ul>
      <li>Allows Voters to vote on the specific decision.</li>
      <ul>
          <li>Voting can only be done once per user.</li>
-         <li>Cannot vote after the specific Decision in question time has expired.</li>
+         <li>Cannot vote after the specific Decisions' time has expired.</li>
      </ul>
-     <li>Anyone can comment on the specific decision to join in the discussion.</li>
-     <li>There's also a results section which will display the decision results.</li>
+     <li>Anyone can comment on the specific Decision, to join in the discussion.</li>
+     <li>There's also a results section which will display the Decisions' results.</li>
   </ul>
+</ul>
+</details>
+<details><summary>Facilitator</summary>
+<ul>
+  <li>Accessible only to Facilitators.</li>
+  <li>This page lists out all decisions.</li>
+  <li>Page functionallity includes:</li>
+  <ul>
+    <li>Creating a new Decision.</li>
+    <ul>
+      <li>Presents a form to fill out.</li>
+      <li>All fields are required:</li>
+      <ul>
+        <li>Upon filling it out, a request to the server is made to create a new Decision.</li>
+        <li>Failing to fill in whole form in accordance with pre-set rules, will prevent the user from creating the Decision, and notify the user with an adequate prompt.</li>
+      </ul>
+      <li>After the Decision is made, redirects back to the Facilitator page.</li>
+    </ul>
+  </ul>
+</ul>
+</details>
+<details><summary>Administrator</summary>
+<ul>
+  <li>Accessible only to Administrators.</li>
+  <li>Lists out all users.</li>
+  <li>Page functionallity includes:</li>
+  <ul>
+    <li>Deleting (Deactivating inside the DataBase) any user.</li>
+    <li>Editing any users' information and/or roles (Cannot edit Administrators).</li>
+    <li>Creating a new user.</li>
+  </ul>
+</ul>
+</details>
+<details><summary>Logout</summary>
+<ul>
+  <li>This page is just here to log you out and redirect you to login, nothing more.</li>
 </ul>
 </details>
 </details>
