@@ -43,10 +43,26 @@
             voter: null
         };
 
+        //Fill in checkboxes for roles if any
+        for (var i in user.role) {
+            if (user.role[i].title === 'Voter') {
+                vm.permissions.voter = true;
+            }
+            if (user.role[i].title === 'Facilitator') {
+                vm.permissions.facilitator = true;
+            }
+        }
+
         function checkRolesAndApply() {
+            //If any role is assigned, remove the viewer role (reset roles)
+            if (vm.permissions.facilitator || vm.permissions.voter) {
+                vm.newUser.role = [];
+            }
+            //Apply facilitator role
             if (vm.permissions.facilitator) {
                 vm.newUser.role.push('Facilitator');
             }
+            //Apply voter role
             if (vm.permissions.voter) {
                 vm.newUser.role.push('Voter');
             }
@@ -85,7 +101,6 @@
                 id: user._id,
                 username: user.username,
                 password: '',
-                role: ['Viewer'],
                 dateCreated: user.dateCreated
             };
             vm.submit = function (valid) {
