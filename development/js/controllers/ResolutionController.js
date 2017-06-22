@@ -25,6 +25,7 @@
         vm.commentAny = '';
         $scope.decisionId = '';
         $scope.userId = AuthorizeService.getUser();
+        $scope.userRole = $scope.userId.role;
         $scope.userName = '';
         $scope.decisionComments = '';
         $scope.countedForPercent = null;
