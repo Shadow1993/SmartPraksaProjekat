@@ -7,7 +7,7 @@
 
         <h4 class="fascilitator-title">All Decisions</h4>
         <p>
-        <button class="btn btn-primary" ng-click="facilitator.addDecision()">Create a new decision</button>
+            <button class="btn btn-primary" ng-click="facilitator.addDecision()">Create a new decision</button>
         </p>
         <div class="table-fascilitator table-responsive">
             <table class="table">
@@ -23,7 +23,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="resolution in facilitator.resolutions">
+                    <tr ng-repeat="resolution in facilitator.resolutions.slice(((facilitator.pagination.currentPage - 1) * facilitator.pagination.maxSize), (facilitator.pagination.currentPage) * facilitator.pagination.maxSize)" class='hover-over'>
                         <td>{{$index+1}}</td>
                         <td>{{resolution.title}}</td>
                         <td>{{resolution.type}}</td>
@@ -34,6 +34,8 @@
                     </tr>
                 </tbody>
             </table>
+            <div uib-pagination total-items="facilitator.resolutions.length" ng-model="facilitator.pagination.currentPage" class="pagination-sm" items-per-page="facilitator.pagination.maxSize"
+                previous-text="&larr;" next-text="&rarr;"></div>
         </div>
     </div>
 </div>

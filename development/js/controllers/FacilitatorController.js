@@ -3,7 +3,7 @@
 
     var app = angular.module('app');
 
-    app.controller('FacilitatorController', ['ResolutionService', '$uibModal', '$state', FacilitatorController]);
+    app.controller('FacilitatorController', ['ResolutionService', '$uibModal', '$state', '$scope', FacilitatorController]);
 
     function FacilitatorController(ResolutionService, $uibModal, $state) {
 
@@ -47,6 +47,15 @@
         vm.dateReform = function (date) {
             var dateReform = new Date(date);
             return dateReform.toUTCString();
+        };
+
+        vm.pagination = {
+            currentPage: 1,
+
+            setPage: function (pageNo) {
+                vm.pagination.currentPage = pageNo;
+            },
+            maxSize: 7
         };
     }
 }());
