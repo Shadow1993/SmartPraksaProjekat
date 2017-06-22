@@ -3,7 +3,11 @@
 
     var app = angular.module('app');
 
-    app.controller('FacilitatorController', ['ResolutionService', '$uibModal', '$state', '$scope', FacilitatorController]);
+    app.controller('FacilitatorController', ['ResolutionService',
+                                            '$uibModal',
+                                            '$state',
+                                            '$scope',
+                                            FacilitatorController]);
 
     function FacilitatorController(ResolutionService, $uibModal, $state) {
 
