@@ -23,14 +23,13 @@
                         <span><strong>{{ timeTillEvent.secondsLeft }}</strong> seconds</span>
                     </div>
 
-
                 </div>
             </div>
             <div class="decision-text">
-                {{ resolution.resoultionInfo.decision.description }}
+               {{ resolution.resoultionInfo.decision.description }}
             </div>
             <div class="card-block">
-                <div class="btn-group  {{ resolution.resoultionInfo.decision.active == 'Active' ? '' : 'hide' }}">
+                <div ng-if="userRole[0] === 'Voter' || userRole[1] === 'Voter'" class="btn-group  {{ resolution.resoultionInfo.decision.active == 'Active' ? '' : 'hide' }}">
                     <form name="voteForm" ng-submit="resolution.voteSubmit()" ng-show="!userVoted">
                         <label>
                             <input type="radio" name="myVote" ng-model="myVote" value="For" autocomplete="off" required="!myVote"> For
