@@ -299,6 +299,10 @@ input[type='submit']:disabled {
             opacity: .8;
         }
     } 
+    .go-back {
+        padding-right: 0;
+        padding-right: 5px;
+    }
 }
 .comments {
     h5 {
@@ -411,6 +415,16 @@ input[type='submit']:disabled {
             .decision-text {
                 font-size: 15px;
             }
+            .card-block {
+                &.card-archived {
+                    margin: -40px 0;
+                    .alert-success {
+                        margin-left: 0;
+                        width: 100%;
+                        font-size: 12px;
+                    }
+                }
+            }
             &.resolution {
                 .resolution-back {
                     width: 170px;
@@ -438,6 +452,9 @@ input[type='submit']:disabled {
                 height: 60px;
                 object-fit: cover;
             }
+        }
+        .go-back {
+            padding-right: 0;
         } 
     }
 
@@ -505,8 +522,16 @@ input[type='submit']:disabled {
                 letter-spacing: .5px;
             }
             .card-block {
+                &.card-archived {
+                    margin: -40px 0;
+                    .alert-success {
+                        margin-left: 0;
+                        width: 100%;
+                        font-size: 12px;
+                    }
+                }
                 .progress {
-                    width: 90%;
+                    width: 100%;
                     margin-left: 0;
                     span {
                         font-size: 12px;
@@ -530,6 +555,9 @@ input[type='submit']:disabled {
                 object-fit: cover;
             }
         }
+        .go-back {
+            padding-right: 0;
+        } 
     }   
 
     @media screen and (max-width: 320px ){
@@ -555,8 +583,16 @@ input[type='submit']:disabled {
                 }
             }
             .card-block {
+                &.card-archived {
+                    margin: -40px 0;
+                    .alert-success {
+                        margin-left: 0;
+                        width: 100%;
+                        font-size: 11px;
+                    }
+                }
                 .progress {
-                    width: 90%;
+                    width: 100%;
                     margin-left: 0;
                     span {
                         font-size: 11px;
@@ -580,4 +616,7 @@ input[type='submit']:disabled {
                 object-fit: cover;
             }
         }
+        .go-back {
+            padding-right: 0;
+        } 
     }
