@@ -18,13 +18,12 @@ module.exports.getAllDecisions = function (req, res, next) {
             } else {
                 for (var i = 0; i < decisionDb.length; i++) {
                     if (decisionDb[i].expirationDate.getTime() < Date.now()) {
-                        DecisionModel.findOneAndUpdate({ _id: decisionDb[i]._id }, { $set: { active: 'Expired' } }, function (err, data) {
-                            if (err) {
-                                return next(err.message);
-                            } else {
-                                console.log(data);
-                            }
-                        });
+                        DecisionModel.findOneAndUpdate({ _id: decisionDb[i]._id }, { $set: { active: 'Expired' } },
+                            function (err, data) {
+                                if (err) {
+                                    return next(err.message);
+                                }
+                            });
                     }
                 }
                 res.send(decisionDb);
@@ -45,6 +44,7 @@ module.exports.getDecisionById = function (req, res, next) {
                     reserved: 0,
                     against: 0
                 };
+                //Counting votes
                 var userVoted = false;
                 for (var i = 0; i < decisionDb.votes.length; i++) {
                     if (decisionDb.votes[i].submitedBy.equals(req.user._id.toString())) {
@@ -58,6 +58,7 @@ module.exports.getDecisionById = function (req, res, next) {
                         countedVotes.reserved++;
                     }
                 }
+                //Checking if decision expired
                 var passed = false;
                 if (decisionDb.active === 'Expired') {
                     if (decisionDb.type === 'Simple Majority' && countedVotes.against !== 0) {

@@ -3,6 +3,7 @@
 var RoleModel = require('../models/role.model');
 
 module.exports.isLoggedIn = function (req, res, next) {
+    console.log(req.user);
     if (req.user) {
         return next();
     } else {

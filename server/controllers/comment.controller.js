@@ -9,7 +9,6 @@ var CommentModel = require('../models/comment.model'),
     DecisionModel = require('../models/decision.model');
 
 module.exports.getAllComments = function (req, res, next) {
-    console.log(req.params);
     DecisionModel
         .findOne({ _id: req.params.id })
         .populate('comments')
@@ -23,7 +22,6 @@ module.exports.getAllComments = function (req, res, next) {
 };
 
 module.exports.createComment = function (req, res, next) {
-    console.log(req.body);
     CommentModel.create({
         text: req.body.text,
         submitedBy: req.body.submitedBy,
@@ -42,7 +40,6 @@ module.exports.createComment = function (req, res, next) {
                     if (err) {
                         return next(err.message);
                     } else {
-                        console.log(decisionDb);
                         res.send(decisionDb);
                     }
                 });

@@ -38,7 +38,7 @@ module.exports = function (app, passport) {
                     }
                 });
             } else {
-                res.send({ message: 'there is no user logged in atm!' });
+                res.send({ message: 'there is no user logged in!' });
             }
         });
 };

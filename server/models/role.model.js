@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose'),
     seedRoleData = require('./seed.role.model'),
+    UserModel = require('./user.model'),
     Schema = mongoose.Schema;
 
 var roleSchema = new Schema({

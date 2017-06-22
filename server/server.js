@@ -38,9 +38,11 @@ app.use(expressSession({
     resave: false,
     saveUninitialized: false
 }));
+//Passport session and middlware initialization
 app.use(passport.initialize());
 app.use(passport.session());
 
+//Routes configuration
 require('./routes/auth.route')(app, passport);
 app.use('/users', userRouter);
 app.use('/decisions', decisionRouter);
@@ -52,9 +54,9 @@ app.get('*', function (req, res) {
     res.sendFile(path.normalize(__dirname + serverConfig.PUBLIC + serverConfig.HOMEFILE));
 });
 
-// catch wrong url and send response
+//Catch wrong url and send response
 app.all('*', function (req, res) {
-    res.send('404 Not found, proceed to homepage');
+    res.status(404).send('404 Not found, proceed to homepage');
 });
 
 /* Handlers */

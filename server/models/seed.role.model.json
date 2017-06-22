@@ -3,8 +3,8 @@
 		"title": "Administrator",
 		"description": "Administrator has permissions to create, read, update and delete users"
 	}, {
-		"title": "Fascilitator",
-		"description": "Fascilitator has permissions to create, read, update and delete decisions, and to post comments"
+		"title": "Facilitator",
+		"description": "Facilitator has permissions to create, read, update and delete decisions, and to post comments"
 	}, {
 		"title": "Voter",
 		"description": "Voter has permissions to view decisions, create votes and post comments"
