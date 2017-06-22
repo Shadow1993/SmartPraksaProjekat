@@ -23,15 +23,18 @@
                 toastr.error();
             });
 
-        vm.decisionStatus = function (startingDate, expirationDate) {
-            if (Date.parse(expirationDate) - Date.now() >= 0) {
-                return 'Pending';
-            } else {
-                return 'Expired';
-            }
+            // Was calculating expire/active
 
-        };
+        // vm.decisionStatus = function (startingDate, expirationDate) {
+        //     if (Date.parse(expirationDate) - Date.now() >= 0) {
+        //         return 'Active';
+        //     } else {
+        //         return 'Expired';
+        //     }
+        // };
+
         // Modal window
+
         vm.addDecision = function () {
             vm.modalAddDecision = $uibModal.open({
                 templateUrl: '../templates/facilitatorForm.html',
@@ -59,7 +62,7 @@
             setPage: function (pageNo) {
                 vm.pagination.currentPage = pageNo;
             },
-            maxSize: 7
+            maxSize: 5
         };
     }
 }());
