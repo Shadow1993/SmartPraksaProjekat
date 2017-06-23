@@ -16,7 +16,6 @@
 
         ResolutionService.getResolutions()
             .then(function (res) {
-                //console.log(res);
                 vm.resoultionsInfo = res;
                 return res;
             }).then(function (res) {

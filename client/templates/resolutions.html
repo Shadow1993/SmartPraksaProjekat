@@ -39,9 +39,8 @@
                         </span>
                     </th>
                 </tr>
-                <tr ng-repeat="active_decision in activeDecisions |
+                <tr ng-repeat="active_decision in filteredActiveDecisions = (activeDecisions | filter: activeListFilter) |
                         orderBy: sortingArg:sortingState |
-                        filter: activeListFilter |
                         limitTo: paginationDecisionListing.maxSize : (paginationDecisionListing.currentPage - 1) * paginationDecisionListing.maxSize   
                 ">
                     <td>{{ (paginationDecisionListing.currentPage - 1) * paginationDecisionListing.maxSize + $index + 1 }}</td>
@@ -53,10 +52,10 @@
                 </tr>
             </table>
     </div>
-    <div ng-show="activeDecisions.length >= 3">
+    <div ng-show="filteredActiveDecisions.length >= 10">
         <pagination 
             uib-pagination 
-            total-items="activeDecisions.length" 
+            total-items="filteredActiveDecisions.length" 
             ng-model="paginationDecisionListing.currentPage" 
             ng-change="pageChanged()" 
             class="pagination-sm" 
@@ -101,8 +100,7 @@
                         </span>
                     </th>
                 </tr>
-                <tr ng-repeat="archived_decision in archivedDecisions |
-                        filter: archivedListFilter |
+                <tr ng-repeat="archived_decision in filteredArchivedDecisions = ( archivedDecisions | filter: archivedListFilter ) |
                         orderBy:sortingArgAr:sortingStateAr |
                         limitTo: paginationDecisionListingAr.maxSize : (paginationDecisionListingAr.currentPage - 1) * paginationDecisionListingAr.maxSize
                 ">
@@ -115,12 +113,12 @@
                 </tr>
             </table>
         </div>
-        <div ng-show="archivedDecisions.length >= 11">
+        <div ng-show="filteredArchivedDecisions.length > 10">
             <pagination 
                 uib-pagination 
-                total-items="archivedDecisions.length" 
+                total-items="filteredArchivedDecisions.length" 
                 ng-model="paginationDecisionListingAr.currentPage" 
-                ng-change="pageChanged()" 
+                ng-change="pageChanged()"
                 class="pagination-sm" 
                 items-per-page="paginationDecisionListingAr.maxSize"
                 previous-text="&larr;"
