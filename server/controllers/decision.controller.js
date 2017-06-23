@@ -82,6 +82,26 @@ module.exports.getDecisionById = function (req, res, next) {
         });
 };
 
+function countVotes(decisionsParam) {
+    var retVal = {
+        userVoted: false,
+        countedVotes: {
+            agreed: 0,
+            against: 0,
+            reserved: 0
+        }
+    };
+
+    return retVal;
+}
+
+function checkIfExpired() {
+
+    return passed;
+}
+
+
+
 module.exports.createDecision = function (req, res, next) {
     DecisionModel.create({
         title: req.body.title,
