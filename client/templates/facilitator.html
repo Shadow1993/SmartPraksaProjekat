@@ -43,21 +43,12 @@
                     </tr>
                 </thead>
                 <tbody>
-<<<<<<< HEAD
                     <tr ng-repeat="resolution in facilitator.resolutions|
                 filter: facilitator.filterList |
                 orderBy: facilitator.sortOrder: facilitator.sortReversed |
                 limitTo: facilitator.pagination.maxSize : 
                 (facilitator.pagination.currentPage - 1) 
                 * facilitator.pagination.maxSize" class='hover-over font-white'>
-=======
-                    <tr ng-repeat="resolution in filteredDecisions = (facilitator.resolutions| filter: facilitator.filterList) |
-                            orderBy: facilitator.sortOrder: facilitator.sortReversed |
-                            limitTo: facilitator.pagination.maxSize : 
-                            (facilitator.pagination.currentPage - 1) 
-                            * facilitator.pagination.maxSize" class='hover-over'
-                    >
->>>>>>> 9bf0952148e3c7e802b5075b3b50dd03d9999dc8
                         <td>{{(facilitator.pagination.currentPage - 1) * facilitator.pagination.maxSize + $index + 1 }}</td>
                         <td>{{resolution.title}}</td>
                         <td>{{resolution.type}}</td>
