@@ -43,12 +43,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="resolution in facilitator.resolutions|
-                filter: facilitator.filterList |
-                orderBy: facilitator.sortOrder: facilitator.sortReversed |
-                limitTo: facilitator.pagination.maxSize : 
-                (facilitator.pagination.currentPage - 1) 
-                * facilitator.pagination.maxSize" class='hover-over'>
+                    <tr ng-repeat="resolution in filteredDecisions = (facilitator.resolutions| filter: facilitator.filterList) |
+                            orderBy: facilitator.sortOrder: facilitator.sortReversed |
+                            limitTo: facilitator.pagination.maxSize : 
+                            (facilitator.pagination.currentPage - 1) 
+                            * facilitator.pagination.maxSize" class='hover-over'
+                    >
                         <td>{{(facilitator.pagination.currentPage - 1) * facilitator.pagination.maxSize + $index + 1 }}</td>
                         <td>{{resolution.title}}</td>
                         <td>{{resolution.type}}</td>
@@ -60,7 +60,16 @@
                 </tbody>
             </table>
         </div>
-        <div uib-pagination total-items="facilitator.resolutions.length" ng-model="facilitator.pagination.currentPage" class="pagination-sm"
-                items-per-page="facilitator.pagination.maxSize" previous-text="&larr;" next-text="&rarr;"></div>
+        <div ng-show="filteredDecisions.length > 5">
+            <pagination 
+                uib-pagination 
+                total-items="filteredDecisions.length" 
+                ng-model="facilitator.pagination.currentPage" 
+                class="pagination-sm"
+                items-per-page="facilitator.pagination.maxSize" 
+                previous-text="&larr;" 
+                next-text="&rarr;">
+            </pagination>
+        </div>
     </div>
 </div>
