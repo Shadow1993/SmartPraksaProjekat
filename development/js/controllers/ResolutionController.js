@@ -44,7 +44,7 @@
             .then(
                 function(res) {
                     // Count Vote Result
-                    console.log(res);
+                    //console.log(res);
                     $scope.countedFor       = res.countedVotes.agreed;
                     $scope.countedAgainst   = res.countedVotes.against;
                     $scope.countedReserved  = res.countedVotes.reserved;
@@ -124,9 +124,6 @@
             Vote Form
         ===============================*/
         // Check if user leave vote
-        console.log('User');
-        console.log($scope.userId);
-
         vm.newVote = {
             type: null,
             submitedDate: Date.now(),

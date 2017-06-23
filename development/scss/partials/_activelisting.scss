@@ -42,7 +42,14 @@ input[type='submit']:disabled {
     text-align: center;
     font-weight: 600;
 }
-.decisions {
+.search-decisions {
+    i {
+        position: absolute;
+        right: 7%; top: 10px;
+        color: #000;
+    }
+}
+.decisions {   
     .alert-danger {
         text-align: center;
     }
@@ -84,14 +91,41 @@ input[type='submit']:disabled {
             }
         }
         tr {
+            &:first-of-type {
+                th {
+                    color: #000;
+                    span {
+                        color: #000;
+                    }
+                }
+               &:hover {
+                   background: $loginCol;
+                   th {
+                       color: #000;
+                       span {
+                          color: #000;
+                       }
+                   }
+               }  
+            }
+            &:hover {
+                td, th {
+                    color: #000 !important;
+                }  
+                span {
+                    color: #000 !important;
+                    max-width: 300px;
+                }      
+            }
             color: #000;
             vertical-align: middle;
             span {
-                color: #000;
+                color: #fff;
                 max-width: 300px;
             }
             td, th {
                 word-wrap: break-word; 
+                color: #fff;
                 vertical-align: middle;
                 &:nth-of-type(2) {
                     max-width: 80px;
@@ -367,6 +401,16 @@ input[type='submit']:disabled {
     Smaller Screens
 ===============================================*/
     @media screen and (min-width: 401px) and (max-width: 800px){
+        .search-decisions {
+            i {
+                position: absolute;
+                right: 10%; top: 10px;
+                color: #000;
+            }
+            input {
+                font-size: 12px;
+            }
+        }
         .decisions {
             width: 100%;
             overflow-x: scroll;
@@ -459,6 +503,16 @@ input[type='submit']:disabled {
     }
 
     @media screen and (max-width: 400px){
+        .search-decisions {
+            i {
+                position: absolute;
+                right: 12%; top: 10px;
+                color: #000;
+            }
+            input {
+                font-size: 11px;
+            }
+        }
         .decisions {
             width: 100%;
             overflow-x: scroll;

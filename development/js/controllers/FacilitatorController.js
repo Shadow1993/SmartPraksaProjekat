@@ -4,10 +4,10 @@
     var app = angular.module('app');
 
     app.controller('FacilitatorController', ['ResolutionService',
-                                            '$uibModal',
-                                            '$state',
-                                            '$scope',
-                                            FacilitatorController]);
+        '$uibModal',
+        '$state',
+        '$scope',
+        FacilitatorController]);
 
     function FacilitatorController(ResolutionService, $uibModal, $state) {
 
@@ -23,7 +23,7 @@
                 toastr.error();
             });
 
-            // Was calculating expire/active
+        // Was calculating expire/active
 
         // vm.decisionStatus = function (startingDate, expirationDate) {
         //     if (Date.parse(expirationDate) - Date.now() >= 0) {
@@ -64,5 +64,12 @@
             },
             maxSize: 5
         };
+        vm.reactivateDecision = function (data) {
+            ResolutionService.editResolution(data)
+                .then(function () {
+                    $state.reload();
+                });
+        };
+
     }
 }());

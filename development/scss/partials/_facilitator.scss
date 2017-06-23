@@ -7,23 +7,6 @@ h4 {
         color: #fff;
     }
 }
-.table-fascilitator {
-    background-color: #fff;
-    margin-bottom: 30px;
-    .btn-warning {
-        font-size: 12px;
-        width: 90%;
-    }
-    .delete-decision  {
-        background: red;
-        padding: 5px 12px 7px 12px;
-        color: #fff;
-        font-weight: bold;
-    }
-    .delete-decision:hover {
-        cursor: pointer;
-    }
-}
 
 
 /*=============================
@@ -88,7 +71,52 @@ h4 {
 ===============================*/
 
 .search-bar{
-    padding-top:10px;
     color: blue;
+    margin-top: 3px;
 }
 
+
+
+/*=============================
+    Bootstrap and other tweaks
+===============================*/
+
+.table-responsive{
+    border: none;
+}
+
+.btn-modal{
+    margin-top:7px;
+}
+
+.table {
+    tr {
+        &:hover {
+            td {
+                background-color: #fff;
+                color: #000;
+            }
+        }
+        td {
+            color: #fff;
+            
+        }
+        &:first-of-type {
+            th {
+                color: #000;
+                span {
+                    color: #000;
+                }
+            }
+            &:hover {
+                background: $loginCol;
+                th {
+                    color: #000;
+                    span {
+                        color: #000;
+                    }
+                }
+            }  
+        }
+    }
+}

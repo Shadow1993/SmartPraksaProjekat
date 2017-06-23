@@ -3,15 +3,20 @@
     <!-- ============================
         Show Created Decisions
     ================================= -->
-    <div class="col-xs-12">
+    <div class="col-xs-12 users-table table-responsive">
 
-        <h4 class="fascilitator-title">All Decisions</h4>
-        <p>
-            <button class="btn btn-primary" ng-click="facilitator.addDecision()">Create a new decision</button>
-        </p>
-        <div class="table-fascilitator table-responsive">
-            <table class="table">
+        
+       
+            
+        
+        <div class="table-responsive">
+            <table class="table table-hover table-condensed">
+                <h4 class="text-center">All Decisions</h4>
                 <thead>
+                    <div class="form-group col-md-2">
+                        <label> </label>
+                    <button class="btn btn-primary form-control btn-modal" ng-click="facilitator.addDecision()">New Decision</button>
+                    </div>
                     <div class="form-group col-sm-4 search-bar">
                     <label for="search">Search:</label>
                     <input type="text" ng-model='facilitator.filterList' class="form-control" id="search" placeholder="Search">
@@ -38,24 +43,34 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="resolution in facilitator.resolutions|
-                filter: facilitator.filterList |
-                orderBy: facilitator.sortOrder: facilitator.sortReversed |
-                limitTo: facilitator.pagination.maxSize : 
-                (facilitator.pagination.currentPage - 1) 
-                * facilitator.pagination.maxSize" class='hover-over'>
+                    <tr ng-repeat="resolution in filteredDecisions = (facilitator.resolutions| filter: facilitator.filterList) |
+                        orderBy: facilitator.sortOrder: facilitator.sortReversed |
+                        limitTo: facilitator.pagination.maxSize : 
+                        (facilitator.pagination.currentPage - 1) 
+                        * facilitator.pagination.maxSize" 
+                        class='hover-over'
+                    >
                         <td>{{(facilitator.pagination.currentPage - 1) * facilitator.pagination.maxSize + $index + 1 }}</td>
                         <td>{{resolution.title}}</td>
                         <td>{{resolution.type}}</td>
                         <td>{{facilitator.dateReform(resolution.startingDate)}}</td>
                         <td>{{facilitator.dateReform(resolution.expirationDate)}}</td>
                         <td>{{resolution.active}}</td>
-                        <td><button class="btn btn-warning disabled">Reactivate</button></td>
+                        <td><button class="btn btn-warning" ng-click="facilitator.reactivateDecision(resolution)">Reactivate</button></td>
                     </tr>
                 </tbody>
             </table>
-            <div uib-pagination total-items="facilitator.resolutions.length" ng-model="facilitator.pagination.currentPage" class="pagination-sm"
-                items-per-page="facilitator.pagination.maxSize" previous-text="&larr;" next-text="&rarr;"></div>
+        </div>
+        <div ng-show="filteredDecisions.length > 5">
+            <pagination 
+                uib-pagination 
+                total-items="filteredDecisions.length" 
+                ng-model="facilitator.pagination.currentPage" 
+                class="pagination-sm"
+                items-per-page="facilitator.pagination.maxSize" 
+                previous-text="&larr;" 
+                next-text="&rarr;">
+            </pagination>
         </div>
     </div>
 </div>

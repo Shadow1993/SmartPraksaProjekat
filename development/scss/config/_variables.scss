@@ -18,5 +18,9 @@ $slowDuration: .6s;
 // Utilities
 
 .hover-over{
-    &:hover{cursor:pointer;}
+    color: #000;
+    &:hover{
+        cursor:pointer;
+        color: black;
+        }
 }
