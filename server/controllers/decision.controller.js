@@ -100,25 +100,28 @@ module.exports.createDecision = function (req, res, next) {
 };
 
 module.exports.restartDecision = function (req, res, next) {
+    console.log(new Date(req.body.expirationDate) - new Date(req.body.startingDate));
     DecisionModel.create({
         title: req.body.title,
         description: req.body.description,
         type: req.body.type,
         steps: req.body.steps,
-        startingDate: req.body.startingDate,
-        expirationDate: req.body.expirationDate
+        startingDate: Date.now(),
+        expirationDate: (new Date(req.body.expirationDate) - new Date(req.body.startingDate)) + Date.now()
     }, function (err, decisionDb) {
         if (err) {
             return next(err.message);
         } else {
             console.log(decisionDb);
-            DecisionModel.findOneAndUpdate({ _id: req.body.id }, { $set: { active: 'Deactive' } }, function (err, decisionDb) {
-                if (err) {
-                    return next(err.message);
-                } else {
-                    res.send(decisionDb);
-                }
-            });
+            DecisionModel.findOneAndUpdate({ _id: req.body._id }, { $set: { active: 'Deactive' } },
+                function (err, decisionDb2) {
+                    if (err) {
+                        return next(err.message);
+                    } else {
+                        console.log('ASAAAAAAAAAAAAAAAAAAAAAAAAAAAA' + decisionDb2);
+                        res.send(decisionDb2);
+                    }
+                });
         }
     });
 };
