@@ -33,3 +33,49 @@ module.exports.isAdmin = function (req, res, next) {
             }
         });
 };
+
+module.exports.isFacilitator = function (req, res, next) {
+    RoleModel.find({ _id: req.user.role })
+        .exec(function (err, roleDb) {
+            if (err) {
+                return next(err.message);
+            } else {
+                console.log(roleDb);
+                var test = false;
+                for (var i = 0; i < roleDb.length; i++) {
+                    console.log(roleDb[i]);
+                    if (roleDb[i].title === 'Facilitator') {
+                        test = true;
+                    }
+                }
+                if (test) {
+                    next();
+                } else {
+                    res.status(401).send('You are not authorized Facilitator');
+                }
+            }
+        });
+};
+
+module.exports.isVoter = function (req, res, next) {
+    RoleModel.find({ _id: req.user.role })
+        .exec(function (err, roleDb) {
+            if (err) {
+                return next(err.message);
+            } else {
+                console.log(roleDb);
+                var test = false;
+                for (var i = 0; i < roleDb.length; i++) {
+                    console.log(roleDb[i]);
+                    if (roleDb[i].title === 'Voter') {
+                        test = true;
+                    }
+                }
+                if (test) {
+                    next();
+                } else {
+                    res.status(401).send('You are not authorized Voter');
+                }
+            }
+        });
+};
