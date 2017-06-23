@@ -33,14 +33,12 @@
             Table Sorting
         =========================*/
         // Active Listing
-        $scope.orderByField     = false;
         $scope.decisionsSorting = function(someArg, someState) {
             $scope.sortingArg   = someArg;
             $scope.sortingState = someState;
         };
 
         // Archived Listing
-        $scope.orderByFieldAr       = false;
         $scope.decisionsSortingAr   = function(someArgAr, someStateAr) {
             $scope.sortingArgAr     = someArgAr;
             $scope.sortingStateAr   = someStateAr;
@@ -49,29 +47,21 @@
         /*=======================
             Pagination
         =========================*/
-        $scope.viewbyActive = 10;
-        $scope.viewbyArchived = 10;
-        $scope.currentPageActive = 11;
-        $scope.currentPageArchived = 11;
-        $scope.itemsPerPageActive = $scope.viewbyActive;
-        $scope.itemsPerPageArchived = $scope.viewbyArchived;
-        $scope.maxSizeActive = 10; //Number of pager buttons to show
-        $scope.maxSizeArchived = 10; //Number of pager buttons to show
-
-        $scope.setPage = function (pageNo) {
-            $scope.currentPageActive = pageNo;
-            $scope.currentPageArchived = pageNo;
+        // Active
+        $scope.paginationDecisionListing = {
+            currentPage: 1,
+            setPage: function (pageNo) {
+                $scope.paginationDecisionListing.currentPage = pageNo;
+            },
+            maxSize: 10
         };
-
-        $scope.pageChanged = function() {
-            console.log('Page changed to: ' + $scope.currentPageActive);
-            console.log('Page changed to: ' + $scope.currentPageArchived);
-        };
-
-        $scope.setItemsPerPage = function(num) {
-            $scope.itemsPerPage = num;
-            $scope.currentPageActive = 1; //reset to first page
-            $scope.currentPageArchived = 1; //reset to first page
+        // Archived
+        $scope.paginationDecisionListingAr = {
+            currentPage: 1,
+            setPage: function (pageNoAr) {
+                $scope.paginationDecisionListingAr.currentPage = pageNoAr;
+            },
+            maxSize: 10
         };
     }
 }());
