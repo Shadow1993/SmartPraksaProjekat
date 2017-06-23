@@ -9,7 +9,7 @@ var express = require('express'),
 router
     .get('/', AuthController.isLoggedIn, DecisionController.getAllDecisions)
     .get('/:id', AuthController.isLoggedIn, DecisionController.getDecisionById)
-    .put('/', AuthController.isLoggedIn, DecisionController.restartDecision)
-    .post('/', AuthController.isLoggedIn, DecisionController.createDecision);
+    .put('/', AuthController.isLoggedIn, AuthController.isFacilitator, DecisionController.restartDecision)
+    .post('/', AuthController.isLoggedIn, AuthController.isFacilitator, DecisionController.createDecision);
 
 module.exports = router;
