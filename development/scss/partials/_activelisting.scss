@@ -91,12 +91,29 @@ input[type='submit']:disabled {
             }
         }
         tr {
+            &:first-of-type {
+                th {
+                    color: #000;
+                    span {
+                        color: #000;
+                    }
+                }
+               &:hover {
+                   background: $loginCol;
+                   th {
+                       color: #000;
+                       span {
+                          color: #000;
+                       }
+                   }
+               }  
+            }
             &:hover {
                 td, th {
-                    color: #000;
+                    color: #000 !important;
                 }  
                 span {
-                    color: #000;
+                    color: #000 !important;
                     max-width: 300px;
                 }      
             }
