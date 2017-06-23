@@ -89,9 +89,34 @@ h4 {
     margin-top:7px;
 }
 
-.font-white{
-    color:white;
-    td{
-        color:white !important;
+.table {
+    tr {
+        &:hover {
+            td {
+                background-color: #fff;
+                color: #000;
+            }
+        }
+        td {
+            color: #fff;
+            
+        }
+        &:first-of-type {
+            th {
+                color: #000;
+                span {
+                    color: #000;
+                }
+            }
+            &:hover {
+                background: $loginCol;
+                th {
+                    color: #000;
+                    span {
+                        color: #000;
+                    }
+                }
+            }  
+        }
     }
 }
