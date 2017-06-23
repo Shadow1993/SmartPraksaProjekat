@@ -14,15 +14,6 @@ h4 {
         font-size: 12px;
         width: 90%;
     }
-    .delete-decision  {
-        background: red;
-        padding: 5px 12px 7px 12px;
-        color: #fff;
-        font-weight: bold;
-    }
-    .delete-decision:hover {
-        cursor: pointer;
-    }
 }
 
 
@@ -88,7 +79,20 @@ h4 {
 ===============================*/
 
 .search-bar{
-    padding-top:10px;
     color: blue;
+    margin-top: 3px;
 }
 
+
+
+/*=============================
+    Bootstrap tweaks
+===============================*/
+
+.table-responsive{
+    border: none;
+}
+
+.btn-modal{
+    margin-top:7px;
+}
