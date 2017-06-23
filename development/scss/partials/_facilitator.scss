@@ -7,14 +7,6 @@ h4 {
         color: #fff;
     }
 }
-.table-fascilitator {
-    background-color: #fff;
-    margin-bottom: 30px;
-    .btn-warning {
-        font-size: 12px;
-        width: 90%;
-    }
-}
 
 
 /*=============================
@@ -86,7 +78,7 @@ h4 {
 
 
 /*=============================
-    Bootstrap tweaks
+    Bootstrap and other tweaks
 ===============================*/
 
 .table-responsive{
@@ -95,4 +87,11 @@ h4 {
 
 .btn-modal{
     margin-top:7px;
+}
+
+.font-white{
+    color:white;
+    td{
+        color:white !important;
+    }
 }

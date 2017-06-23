@@ -48,14 +48,14 @@
                 orderBy: facilitator.sortOrder: facilitator.sortReversed |
                 limitTo: facilitator.pagination.maxSize : 
                 (facilitator.pagination.currentPage - 1) 
-                * facilitator.pagination.maxSize" class='hover-over'>
+                * facilitator.pagination.maxSize" class='hover-over font-white'>
                         <td>{{(facilitator.pagination.currentPage - 1) * facilitator.pagination.maxSize + $index + 1 }}</td>
                         <td>{{resolution.title}}</td>
                         <td>{{resolution.type}}</td>
                         <td>{{facilitator.dateReform(resolution.startingDate)}}</td>
                         <td>{{facilitator.dateReform(resolution.expirationDate)}}</td>
                         <td>{{resolution.active}}</td>
-                        <td><button class="btn btn-warning disabled">Reactivate</button></td>
+                        <td><button class="btn btn-warning">Reactivate</button></td>
                     </tr>
                 </tbody>
             </table>

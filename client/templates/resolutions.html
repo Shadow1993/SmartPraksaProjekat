@@ -100,10 +100,9 @@
                         </span>
                     </th>
                 </tr>
-                <tr ng-repeat="archived_decision in filteredArchivedDecisions = ( archivedDecisions | filter: archivedListFilter ) |
+                <tr class="font-white" ng-repeat="archived_decision in filteredArchivedDecisions = ( archivedDecisions | filter: archivedListFilter ) |
                         orderBy:sortingArgAr:sortingStateAr |
-                        limitTo: paginationDecisionListingAr.maxSize : (paginationDecisionListingAr.currentPage - 1) * paginationDecisionListingAr.maxSize
-                ">
+                        limitTo: paginationDecisionListingAr.maxSize : (paginationDecisionListingAr.currentPage - 1) * paginationDecisionListingAr.maxSize">
                     <td>{{ (paginationDecisionListingAr.currentPage - 1) * paginationDecisionListingAr.maxSize + $index + 1 }}</td>
                     <td ui-sref="main.resolution({ id: archived_decision._id })">{{ archived_decision.title }}</td>
                     <td><span>{{ archived_decision.description }}</span></td>

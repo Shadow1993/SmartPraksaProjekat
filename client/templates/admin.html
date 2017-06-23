@@ -31,7 +31,7 @@
                 orderBy: admin.sortOrder: admin.sortReversed |
                 limitTo: admin.pagination.maxSize : (admin.pagination.currentPage - 1) * admin.pagination.maxSize'
                 ng-click='admin.editUser(info)'
-                    class='hover-over'>
+                    class='hover-over font-white'>
                     <td>{{ (admin.pagination.currentPage - 1) * admin.pagination.maxSize + $index + 1 }}</td>
                     <td>{{ info.username }}</td>
                     <td>
