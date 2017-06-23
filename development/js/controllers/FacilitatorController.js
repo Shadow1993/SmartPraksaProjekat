@@ -64,5 +64,11 @@
             },
             maxSize: 5
         };
+        vm.reactivateDecision = function(data) {
+            ResolutionService.editResolution(data)
+            .then(function() {
+                $state.reload();
+            });
+        };
     }
 }());
