@@ -72,8 +72,8 @@
             maxSize: 5
         };
 
-        // vm.scrollTop = function () {
-        //     $ionicScrollDelegate.scrollTop();
-        // };
+        vm.scrollTop = function () {
+            $ionicScrollDelegate.scrollTop();
+        };
     }
 }());
