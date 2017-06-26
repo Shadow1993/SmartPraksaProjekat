@@ -1,32 +1,14 @@
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-        aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a href='http://www.smart.rs/'><img src="http://www.smartschool.rs/wp-content/uploads/2016/04/logo-banner-school.png" class="logo navbar-brand" alt="logo"></a>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li><a class="nav-link" ui-sref='main.resolutions'>Resolutions</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li ng-if='header.permission("Facilitator")'><a class="nav-link" ui-sref='main.facilitator'>Facilitator</a></li>
-        <li ng-if='header.permission("Administrator")'><a class="nav-link" ui-sref='main.admin'>Administrator</a></li>
-        <li><a class="nav-link" ui-sref="logout">Logout</a></li>
-      </ul>
-    </div>
-  </div>
+<nav class="bar bar-header bar-positive">
+  <button type="button" class="button icon ion-navicon" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+    aria-expanded="false"></button>
+  <span class='pull right'>You are {{header.myRole}}</span>
 </nav>
-<div class="col-xs-12">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item">You are <strong>{{header.myRole}}</strong></li>
-  </ol>
+<!-- Collect the nav links, forms, and other content for toggling -->
+<div class="collapse navbar-collapse navbar-fixed-top navbar-fixed-custom-pos" id="bs-example-navbar-collapse-1">
+  <ul class="list">
+    <li><a class="item" ui-sref='main.resolutions'>Resolutions</a></li>
+    <li ng-if='header.permission("Facilitator")'><a class="item" ui-sref='main.facilitator'>Facilitator</a></li>
+    <li ng-if='header.permission("Administrator")'><a class="item" ui-sref='main.admin'>Administrator</a></li>
+    <li><a class="item" ui-sref="logout">Logout</a></li>
+  </ul>
 </div>
