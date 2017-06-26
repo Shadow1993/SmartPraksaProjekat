@@ -3,36 +3,20 @@
 
     var app = angular.module('app');
 
-    app.controller('HeaderController', ['AuthorizeService', HeaderController]);
+    app.controller('HeaderController', ['$ionicSideMenuDelegate', '$location', '$scope', HeaderController]);
 
-    function HeaderController(AuthorizeService) {
+    function HeaderController($ionicSideMenuDelegate, $location, $scope) {
         var vm = this;
-        vm.test = 'test';
-        vm.myRole = '';
 
-        AuthorizeService.checkAuthentication()
-            .then(function () {
-                vm.user = AuthorizeService.getUser();
-                vm.permission = function (role) {
-                    for (var i in vm.user.role) {
-                        if (vm.user.role[i] === role) {
-                            return true;
-                        }
-                    }
-                    return false;
-                };
-                if (vm.user.role.includes('Viewer')) {
-                    vm.myRole += ' Viewer';
-                }
-                if (vm.user.role.includes('Voter')) {
-                    vm.myRole += ' Voter';
-                }
-                if (vm.user.role.includes('Facilitator')) {
-                    vm.myRole += ' Facilitator';
-                }
-                if (vm.user.role.includes('Administrator')) {
-                    vm.myRole += ' Administrator';
-                }
-            });
+        $scope.$watch(function () {
+            return location.hash;
+        }, function () {
+            var title = $location.url()
+            $scope.title = title.slice(1, title.length);
+        });
+
+        vm.toggleNavMenu = function () {
+            $ionicSideMenuDelegate.toggleLeft();
+        };
     }
 }());

@@ -1,2 +1,19 @@
-<div ui-view='header'></div>
-<div ui-view='main'></div>
+<ion-side-menus>
+    <ion-side-menu-content>
+        <div ui-view='header'></div>
+        <div ui-view='main'></div>
+    </ion-side-menu-content>
+    <ion-side-menu side='left'>
+        <ion-header-bar class="bar bar-positive">
+            <h1 class='title'>Navigation</h1>
+        </ion-header-bar>
+        <ion-content>
+            <ul class="list">
+                <li ng-click='home.toggleNavMenu()'><a class="item" ui-sref='main.resolutions'>Resolutions</a></li>
+                <li ng-click='home.toggleNavMenu()' ng-if='home.permission("Facilitator")'><a class="item" ui-sref='main.facilitator'>Facilitator</a></li>
+                <li ng-click='home.toggleNavMenu()' ng-if='home.permission("Administrator")'><a class="item" ui-sref='main.admin'>Administrator</a></li>
+                <li ng-click='home.toggleNavMenu()'><a class="item" ui-sref="logout">Logout</a></li>
+            </ul>
+        </ion-content>
+    </ion-side-menu>
+</ion-side-menus>

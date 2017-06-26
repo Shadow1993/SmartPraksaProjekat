@@ -20,7 +20,9 @@
                 abstract: 'true',
                 views: {
                     '@': {
-                        templateUrl: './../templates/home.html'
+                        templateUrl: './../templates/home.html',
+                        controller: 'HomeController',
+                        controllerAs: 'home'
                     },
                     'header@home': {
                         templateUrl: './../templates/header.html',
