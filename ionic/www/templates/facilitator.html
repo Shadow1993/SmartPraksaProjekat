@@ -61,13 +61,17 @@
             items-per-page="facilitator.pagination.maxSize" previous-text="&larr;" next-text="&rarr;"></div>
     </div>
 </div>-->
-
-<div class="item" ng-repeat="resolution in facilitator.resolutions|
-                filter: facilitator.filterList |
-                orderBy: facilitator.sortOrder: facilitator.sortReversed |
-                limitTo: facilitator.pagination.maxSize : 
-                (facilitator.pagination.currentPage - 1) 
-                * facilitator.pagination.maxSize">
-    <p>{{resolution.title}}</p>
-    <p>{{resolution.type}}</p>
-</div>
+<ion-content class="has-header">
+<div class="item" ng-repeat="resolution in facilitator.resolutions">
+    <label for="title">Title:</label>
+    <p name="title">{{resolution.title}}</p>
+    <label for="title">Type:</label>
+    <p name="type">{{resolution.type}}</p>
+    <label for="date-created">Date Created:</label>
+    <p name="date-created">{{facilitator.dateReform(resolution.startingDate)}}</p>
+    <label for="expiration-date">Expiration Date:</label>
+    <p name="expiration-date">{{facilitator.dateReform(resolution.expirationDate)}}</p>
+    <label for="status">Status:</label>
+    <p name="status">{{resolution.active}}</p>
+    </div>
+    </ion-content>
