@@ -2,3 +2,14 @@
 .navbar-fixed-custom-pos {
     top: 44px;
 }
+
+/*Facilitator*/
+
+#swipe:before {
+    padding: 2px 5px;
+    content: "Swipe right to read more";
+    color: #fff;
+    background: blue;
+    border-bottom-right-radius: 5px;
+    font-size: 16px;
+}
