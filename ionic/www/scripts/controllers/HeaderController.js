@@ -11,7 +11,7 @@
         $scope.$watch(function () {
             return location.hash;
         }, function () {
-            var title = $location.url()
+            var title = $location.url();
             $scope.title = title.slice(1, title.length);
         });
 
