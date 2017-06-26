@@ -1,7 +1,7 @@
 <ion-side-menus>
     <ion-side-menu-content drag-content="false">
-        <div ui-view='header'></div>
-        <div ui-view='main'></div>
+        <ion-header-bar class="bar bar-header bar-positive" align-title="center" ui-view='header'></ion-header-bar>
+        <ion-nav-view ui-view='main'></ion-nav-view>
     </ion-side-menu-content>
     <ion-side-menu side='left'>
         <ion-header-bar class="bar bar-positive">
