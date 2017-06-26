@@ -6,10 +6,10 @@
     app.controller('FacilitatorController', ['ResolutionService',
         '$uibModal',
         '$state',
-        '$scope',
+        '$ionicScrollDelegate',
         FacilitatorController]);
 
-    function FacilitatorController(ResolutionService, $uibModal, $state) {
+    function FacilitatorController(ResolutionService, $uibModal, $state, $ionicScrollDelegate) {
 
         var vm = this;
 
@@ -71,5 +71,9 @@
             },
             maxSize: 5
         };
+
+        // vm.scrollTop = function () {
+        //     $ionicScrollDelegate.scrollTop();
+        // };
     }
 }());

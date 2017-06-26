@@ -1,6 +1,15 @@
 /* Empty. Add your own CSS if you like */
+
+/*=============================
+    Global classes
+===============================*/
+
 .navbar-fixed-custom-pos {
     top: 44px;
+}
+
+.item {
+    background-color:lightskyblue;
 }
 
 /*=============================
@@ -12,8 +21,8 @@
 
 /*New Decision button*/
 
-.btn.btn-primary {
-    margin-left: 3%;
+.btn.btn-primary{
+    margin-left: 1%;
 }
 
 /*Search bar id*/
@@ -27,3 +36,18 @@
 .label-custom{
     font-weight:bold;
 }
+
+.paragraph-custom {
+    font-weight: 600;
+    color: darkblue !important;
+}
+
+.btn-float{
+    position:fixed;
+    right:0;
+    bottom:0;
+}
+
+/*.icon {
+    font-size: 30px;
+}*/
