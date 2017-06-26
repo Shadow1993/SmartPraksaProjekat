@@ -1,14 +1,13 @@
 <nav class="bar bar-header bar-positive">
-  <button type="button" class="button icon ion-navicon" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-    aria-expanded="false"></button>
+  <button type="button" class="button icon ion-navicon" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"></button>
   <span class='pull right'>You are {{header.myRole}}</span>
 </nav>
 <!-- Collect the nav links, forms, and other content for toggling -->
 <div class="collapse navbar-collapse navbar-fixed-top navbar-fixed-custom-pos" id="bs-example-navbar-collapse-1">
   <ul class="list">
-    <li><a class="item" ui-sref='main.resolutions'>Resolutions</a></li>
-    <li ng-if='header.permission("Facilitator")'><a class="item" ui-sref='main.facilitator'>Facilitator</a></li>
-    <li ng-if='header.permission("Administrator")'><a class="item" ui-sref='main.admin'>Administrator</a></li>
+    <li><a class="item" ui-sref='main.resolutions' data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">Resolutions</a></li>
+    <li ng-if='header.permission("Facilitator")'><a class="item" ui-sref='main.facilitator' data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">Facilitator</a></li>
+    <li ng-if='header.permission("Administrator")'><a class="item" ui-sref='main.admin' data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">Administrator</a></li>
     <li><a class="item" ui-sref="logout">Logout</a></li>
   </ul>
 </div>
