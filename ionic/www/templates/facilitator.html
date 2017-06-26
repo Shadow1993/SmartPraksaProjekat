@@ -61,17 +61,22 @@
             items-per-page="facilitator.pagination.maxSize" previous-text="&larr;" next-text="&rarr;"></div>
     </div>
 </div>-->
-<ion-content class="has-header">
-<div class="item" ng-repeat="resolution in facilitator.resolutions">
-    <label for="title">Title:</label>
+<div class="bar bar-subheader bar-positive">
+    <input type="text" placeholder="Search" ng-model='facilitator.filterList' id="search-bar-custom"/>
+    <button class="btn btn-primary" ng-click="facilitator.addDecision()">New Decision</button>
+</div>
+<ion-content class="has-header has-subheader">
+<div class="item background-custom" ng-repeat="resolution in facilitator.resolutions | filter: facilitator.filterList">
+    <label for="title" class="label-custom">Title:</label>
     <p name="title">{{resolution.title}}</p>
-    <label for="title">Type:</label>
+    <label for="title" class="label-custom">Type:</label>
     <p name="type">{{resolution.type}}</p>
-    <label for="date-created">Date Created:</label>
+    <label for="date-created" class="label-custom">Date Created:</label>
     <p name="date-created">{{facilitator.dateReform(resolution.startingDate)}}</p>
-    <label for="expiration-date">Expiration Date:</label>
+    <label for="expiration-date" class="label-custom">Expiration Date:</label>
     <p name="expiration-date">{{facilitator.dateReform(resolution.expirationDate)}}</p>
-    <label for="status">Status:</label>
+    <label for="status" class="label-custom">Status:</label>
     <p name="status">{{resolution.active}}</p>
+    <p><button class="btn btn-warning" ng-click="facilitator.reactivateDecision(resolution)">Reactivate</button></p>
     </div>
     </ion-content>
