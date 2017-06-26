@@ -4,11 +4,11 @@
             <label> </label>
             <button class='btn btn-primary form-control btn-modal' ng-click='admin.addUser()'>Add New User</button>
         </div>
-        <div class="form-group col-sm-push-1 col-sm-4 search-bar">
+        <div class="form-group col-sm-push-1 col-sm-4">
             <label for="search">Search:</label>
             <input type="text" ng-model='admin.filterList' class="form-control" id="search" placeholder="Search">
         </div>
-        <div class="form-group col-sm-push-2 col-sm-3 search-bar">
+        <div class="form-group col-sm-push-2 col-sm-3">
             <label for="search">Sort Order:</label>
             <select class="form-control" ng-model="admin.sortOrder" ng-init="admin.sortOrder = admin.sortOptions[0]" ng-options="option for option in admin.sortOptions track by option"></select>
         </div>
