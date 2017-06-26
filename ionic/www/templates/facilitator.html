@@ -1,8 +1,4 @@
-<div class="container">
-
-    <!-- ============================
-        Show Created Decisions
-    ================================= -->
+<!--<div class="container">
     <div class="col-xs-12">
 
         <h4 class="fascilitator-title">All Decisions</h4>
@@ -59,10 +55,23 @@
                         </tbody>
                     </div>
                 </ion-scroll>
-                
             </table>
             </div>
         <div uib-pagination total-items="facilitator.resolutions.length" ng-model="facilitator.pagination.currentPage" class="pagination-sm"
             items-per-page="facilitator.pagination.maxSize" previous-text="&larr;" next-text="&rarr;"></div>
     </div>
-</div>
+</div>-->
+<ion-content class="has-header">
+<div class="item" ng-repeat="resolution in facilitator.resolutions">
+    <label for="title">Title:</label>
+    <p name="title">{{resolution.title}}</p>
+    <label for="title">Type:</label>
+    <p name="type">{{resolution.type}}</p>
+    <label for="date-created">Date Created:</label>
+    <p name="date-created">{{facilitator.dateReform(resolution.startingDate)}}</p>
+    <label for="expiration-date">Expiration Date:</label>
+    <p name="expiration-date">{{facilitator.dateReform(resolution.expirationDate)}}</p>
+    <label for="status">Status:</label>
+    <p name="status">{{resolution.active}}</p>
+    </div>
+    </ion-content>
