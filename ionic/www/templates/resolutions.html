@@ -1,0 +1,114 @@
+    <!-- =============================
+        Decisions for voting
+    ================================== -->
+    <div class="container">
+        
+        <h4 class="title-listing">Active Listing</h4>
+        
+        <div class="clearfix decisions">
+            <table class="table table-decisions">
+                <tr>
+                    <th>#</th>
+                    <th>
+                        <span ng-click="decisionsSorting('title', sortingState = !sortingState)">
+                            Title
+                            <i ng-if="sortingArg == 'title'" class="glyphicon glyphicon-chevron-{{ !sortingState ? 'up' : 'down' }}"></i>
+                        </span>
+                    </th>
+                    <th>Question</th>
+                    <th>
+                        <span ng-click="decisionsSorting('type', sortingState = !sortingState)">
+                            Type
+                            <i ng-if="sortingArg == 'type'" class="glyphicon glyphicon-chevron-{{ !sortingState ? 'up' : 'down' }}"></i>
+                        </span>
+                    </th>
+                    <th>
+                        <span ng-click="decisionsSorting('startingDate', sortingState = !sortingState)">
+                            Date Created &nbsp; 
+                            <i ng-if="sortingArg == 'startingDate'" class="glyphicon glyphicon-chevron-{{ !sortingState ? 'up' : 'down' }}"></i>
+                        </span>
+                    </th>
+                    <th>
+                        <span ng-click="decisionsSorting('expirationDate', sortingState = !sortingState)">
+                            Expiration Date &nbsp; 
+                            <i ng-if="sortingArg == 'expirationDate'" class="glyphicon glyphicon-chevron-{{ !sortingState ? 'up' : 'down' }}"></i>
+                        </span>
+                    </th>
+                </tr>
+                <tr ng-repeat="active_decision in activeDecisions.slice(((currentPageActive-1) * itemsPerPageActive), (currentPageActive)*itemsPerPageActive) | orderBy:sortingArg:sortingState">
+                    <td>{{ (currentPageActive-1)*maxSizeActive + $index+1 }}</td>
+                    <td ui-sref="main.resolution({ id: active_decision._id })">{{ active_decision.title }}</td>
+                    <td><span>{{ active_decision.description }}</span></td>
+                    <td>{{ active_decision.type }}</td>
+                    <td>{{ active_decision.startingDate | date:"short" }}</td>
+                    <td>{{ active_decision.expirationDate | date:"short" }}</td>
+                </tr>
+            </table>
+    </div>
+    <div ng-show="activeDecisions.length >= 11">
+        <pagination 
+            uib-pagination 
+            total-items="activeDecisions.length" 
+            ng-model="currentPageActive" 
+            ng-change="pageChanged()" 
+            class="pagination-sm" 
+            items-per-page="itemsPerPageActive"
+            previous-text="&larr;"
+            next-text="&rarr;"
+        ></pagination>
+    </div>
+    
+    <h4 class="title-listing archived-title">Archived Listing</h4>
+        <div class="clearfix decisions archived-decisions">
+            <table class="table table-decisions table-archived-decisions">
+                <tr>
+                    <th>#</th>
+                    <th>
+                        <span ng-click="decisionsSortingAr('title', sortingStateAr = !sortingStateAr)">
+                            Title
+                            <i ng-if="sortingArgAr == 'title'" class="glyphicon glyphicon-chevron-{{ !sortingStateAr ? 'up' : 'down' }}"></i>
+                        </span>
+                    </th>
+                    <th>Question</th>
+                    <th>
+                        <span ng-click="decisionsSortingAr('type', sortingStateAr = !sortingStateAr)">
+                            Type
+                            <i ng-if="sortingArgAr == 'type'" class="glyphicon glyphicon-chevron-{{ !sortingStateAr ? 'up' : 'down' }}"></i>
+                        </span>
+                    </th>
+                    <th>
+                        <span ng-click="decisionsSortingAr('startingDate', sortingStateAr = !sortingStateAr)">
+                            Date Created &nbsp; 
+                            <i ng-if="sortingArgAr == 'startingDate'" class="glyphicon glyphicon-chevron-{{ !sortingStateAr ? 'up' : 'down' }}"></i>
+                        </span>
+                    </th>
+                    <th>
+                        <span ng-click="decisionsSortingAr('expirationDate', sortingStateAr = !sortingStateAr)">
+                            Expiration Date &nbsp; 
+                            <i ng-if="sortingArgAr == 'expirationDate'" class="glyphicon glyphicon-chevron-{{ !sortingStateAr ? 'up' : 'down' }}"></i>
+                        </span>
+                    </th>
+                </tr>
+                <tr ng-repeat="archived_decision in archivedDecisions.slice(((currentPageArchived-1) * itemsPerPageArchived), (currentPageArchived)*itemsPerPageArchived) | orderBy:sortingArgAr:sortingStateAr">
+                    <td>{{ (currentPageArchived-1)*maxSizeArchived + $index+1  }}</td>
+                    <td ui-sref="main.resolution({ id: archived_decision._id })">{{ archived_decision.title }}</td>
+                    <td><span>{{ archived_decision.description }}</span></td>
+                    <td>{{ archived_decision.type }}</td>
+                    <td>{{ archived_decision.startingDate | date:"short" }}</td>
+                    <td>{{ archived_decision.expirationDate | date:"short" }}</td>
+                </tr>
+            </table>
+        </div>
+        <div ng-show="archivedDecisions.length >= 11">
+            <pagination 
+                uib-pagination 
+                total-items="archivedDecisions.length" 
+                ng-model="currentPageArchived" 
+                ng-change="pageChanged()" 
+                class="pagination-sm" 
+                items-per-page="itemsPerPageArchived"
+                previous-text="&larr;"
+                next-text="&rarr;"
+            ></pagination>
+        </div>
+</div>

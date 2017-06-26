@@ -1,0 +1,33 @@
+<style>
+    body{
+        color: white;
+        font-weight: bolder;
+        font-size: 1.4em;
+    }
+    li{
+        cursor: pointer;
+    }
+    li:hover{
+        color:red;
+        transition-duration: 0.3s;
+    }
+</style>
+<h1>TEST</h1>
+<div>
+    <h2>Routes:</h2>
+    <ul>
+        <li ui-sref='login'>/login</li>
+        <li ui-sref='logout'>/logout</li>
+        <li ui-sref='main.admin'>/admin</li>
+        <li ui-sref='main.facilitator'>/facilitator</li>
+        <li ui-sref='main.resolutions'>/resolutions</li>
+    </ul>
+    <h2>DB Testing</h2>
+    <ul>
+        <li ng-click='test.populateUsers()'>Populate Users</li>
+        <li ng-click='test.populateDecisions()'>Populate Decisions</li>
+        <li ng-click='test.getComments()'>Get Comments</li>
+        <li ng-click='test.addComment()'>Add Comment</li>
+        <li ng-click='test.addVote()'>Add Vote</li>
+    </ul>
+</div>

@@ -1,0 +1,61 @@
+<div class="container">
+
+    <!-- ============================
+        Show Created Decisions
+    ================================= -->
+    <div class="col-xs-12">
+
+        <h4 class="fascilitator-title">All Decisions</h4>
+        <p>
+            <button class="btn btn-primary" ng-click="facilitator.addDecision()">Create a new decision</button>
+        </p>
+        <div class="table-fascilitator table-responsive">
+            <table class="table">
+                <thead>
+                    <div class="form-group col-sm-4 search-bar">
+                    <label for="search">Search:</label>
+                    <input type="text" ng-model='facilitator.filterList' class="form-control" id="search" placeholder="Search">
+                </div>
+                    <tr>
+                        <th>#</th>
+                        <th ng-click='facilitator.sortOrder = "title"; facilitator.sortReversed = !facilitator.sortReversed' class='hover-over'>
+                            Title
+                            <i ng-if="facilitator.sortOrder === 'title'" class="glyphicon glyphicon-chevron-{{ !facilitator.sortReversed ? 'down' : 'up' }}"></i>
+                        </th>
+                        <th ng-click='facilitator.sortOrder = "type"; facilitator.sortReversed = !facilitator.sortReversed' class='hover-over'>
+                            Type
+                            <i ng-if="facilitator.sortOrder === 'type'" class="glyphicon glyphicon-chevron-{{ !facilitator.sortReversed ? 'down' : 'up' }}"></i></th>
+                        <th ng-click='facilitator.sortOrder = "startingDate"; facilitator.sortReversed = !facilitator.sortReversed' class='hover-over'>
+                            Date Created
+                            <i ng-if="facilitator.sortOrder === 'startingDate'" class="glyphicon glyphicon-chevron-{{ !facilitator.sortReversed ? 'down' : 'up' }}"></i></th>
+                        <th ng-click='facilitator.sortOrder = "expirationDate"; facilitator.sortReversed = !facilitator.sortReversed' class='hover-over'>
+                            Expiration Date
+                            <i ng-if="facilitator.sortOrder === 'expirationDate'" class="glyphicon glyphicon-chevron-{{ !facilitator.sortReversed ? 'down' : 'up' }}"></i></th>
+                        <th ng-click='facilitator.sortOrder = "active"; facilitator.sortReversed = !facilitator.sortReversed' class='hover-over'>
+                            Status
+                            <i ng-if="facilitator.sortOrder === 'active'" class="glyphicon glyphicon-chevron-{{ !facilitator.sortReversed ? 'down' : 'up' }}"></i></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="resolution in facilitator.resolutions|
+                filter: facilitator.filterList |
+                orderBy: facilitator.sortOrder: facilitator.sortReversed |
+                limitTo: facilitator.pagination.maxSize : 
+                (facilitator.pagination.currentPage - 1) 
+                * facilitator.pagination.maxSize" class='hover-over'>
+                        <td>{{(facilitator.pagination.currentPage - 1) * facilitator.pagination.maxSize + $index + 1 }}</td>
+                        <td>{{resolution.title}}</td>
+                        <td>{{resolution.type}}</td>
+                        <td>{{facilitator.dateReform(resolution.startingDate)}}</td>
+                        <td>{{facilitator.dateReform(resolution.expirationDate)}}</td>
+                        <td>{{resolution.active}}</td>
+                        <td><button class="btn btn-warning disabled">Reactivate</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div uib-pagination total-items="facilitator.resolutions.length" ng-model="facilitator.pagination.currentPage" class="pagination-sm"
+                items-per-page="facilitator.pagination.maxSize" previous-text="&larr;" next-text="&rarr;"></div>
+        </div>
+    </div>
+</div>

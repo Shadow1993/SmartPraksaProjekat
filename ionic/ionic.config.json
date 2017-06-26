@@ -1,0 +1,14 @@
+{
+  "name": "smart-praksa-projekat",
+  "app_id": "",
+  "type": "ionic1",
+  "watchPatterns": [
+    "scss/**/*"
+  ],
+  "proxies": [
+    {
+      "path": "/",
+      "proxyUrl": "http://localhost:8080/"
+    }
+  ]
+}
