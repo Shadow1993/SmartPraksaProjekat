@@ -11,6 +11,18 @@ html {
 body {
     font-family: $font-main;
     font-size: 14px;
-    color: $black;
-    background-color: $white;
+    color: $white;
+    background-color: darken($lightskyblue, 70);
+}
+
+.container-fluid {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.panel{
+    .panel-body {
+        color: $blue;
+        background-color: $lightskyblue;
+    }
 }

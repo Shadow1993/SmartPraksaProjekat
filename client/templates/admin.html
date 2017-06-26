@@ -1,57 +1,36 @@
-<div class="container">
-    <div class="col-xs-12 users-table table-responsive">
-        <table class="table table-hover table-condensed">
-            <h4 class='text-center'>All Users</h4>
-            <thead>
-                <div class="form-group col-sm-2">
-                    <label> </label>
-                    <button class='btn btn-success form-control btn-modal' ng-click='admin.addUser()'>Add New User</button>
-                </div>
-                <div class="form-group col-sm-4 search-bar">
-                    <label for="search">Search:</label>
-                    <input type="text" ng-model='admin.filterList' class="form-control" id="search" placeholder="Search">
-                </div>
-                <tr>
-                    <th> </th>
-                    <th ng-click='admin.sortOrder = "username"; admin.sortReversed = !admin.sortReversed' class='hover-over'>
-                        Username
-                        <i ng-if="admin.sortOrder === 'username'" class="glyphicon glyphicon-chevron-{{ !admin.sortReversed ? 'down' : 'up' }}"></i>
-                    </th>
-                    <th>Privileges</th>
-                    <th ng-click='admin.sortOrder = "dateCreated"; admin.sortReversed = !admin.sortReversed' class='hover-over'>
-                        Date Created
-                        <i ng-if="admin.sortOrder === 'dateCreated'" class="glyphicon glyphicon-chevron-{{ !admin.sortReversed ? 'down' : 'up' }}"></i>
-                    </th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat='info in filteredUsers = (admin.userInfo | filter: admin.filterList) |
-                orderBy: admin.sortOrder: admin.sortReversed |
-                limitTo: admin.pagination.maxSize : (admin.pagination.currentPage - 1) * admin.pagination.maxSize'
-                ng-click='admin.editUser(info)'
-                    class='hover-over'>
-                    <td>{{ (admin.pagination.currentPage - 1) * admin.pagination.maxSize + $index + 1 }}</td>
-                    <td>{{ info.username }}</td>
-                    <td>
-                        <span ng-repeat='role in info.role'>{{ role.title }} </span>
-                    </td>
-                    <td>{{ admin.convertDate(info.dateCreated) }}</td>
-                    <td><span class="delete-user" ng-click='admin.deleteUser(info._id)'>x</span></td>
-                </tr>
-            </tbody>
-        </table>
-        
-        <div ng-show="filteredUsers.length > 5">
-            <pagination 
-                uib-pagination 
-                total-items="filteredUsers.length" 
-                ng-model="admin.pagination.currentPage" 
-                class="pagination-sm" 
-                items-per-page="admin.pagination.maxSize" 
-                previous-text="&larr;" 
-                next-text="&rarr;">
-            </pagination>
+<div class="container-fluid">
+    <div class="row">
+        <div class="form-group col-sm-3">
+            <label> </label>
+            <button class='btn btn-primary form-control btn-modal' ng-click='admin.addUser()'>Add New User</button>
+        </div>
+        <div class="form-group col-sm-push-1 col-sm-4">
+            <label for="search">Search:</label>
+            <input type="text" ng-model='admin.filterList' class="form-control" id="search" placeholder="Search">
+        </div>
+        <div class="form-group col-sm-push-2 col-sm-3">
+            <label for="search">Sort Order:</label>
+            <select class="form-control" ng-model="admin.sortOrder" ng-init="admin.sortOrder = admin.sortOptions[0]" ng-options="option for option in admin.sortOptions track by option"></select>
         </div>
     </div>
-</div>
+    <div ng-repeat='info in filteredUsers = (admin.userInfo | filter: admin.filterList) |
+                    orderBy: admin.sortOrder |
+                    limitTo: admin.pagination.maxSize : (admin.pagination.currentPage - 1) * admin.pagination.maxSize'
+        class='panel panel-primary'>
+        <div class="panel-heading" ng-click='admin.editUser(info)'>
+            <span class="col-xs-1">{{ (admin.pagination.currentPage - 1) * admin.pagination.maxSize + $index + 1 }}.</span>
+            <span class="col-xs-10"><strong>UserName</strong>: &nbsp; {{ info.username }}</span>
+            <span class="hover-over glyphicon glyphicon-remove" aria-hidden="true" ng-click='admin.deleteUser(info._id)'></span>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <p class="col-sm-6"><strong>Roles</strong> : &nbsp;  <span ng-repeat='role in info.role'>{{ role.title }} </span></p>
+                <p class="col-sm-6"><strong>Date Created</strong> : &nbsp; {{ admin.convertDate(info.dateCreated) }}</p>
+            </div>
+        </div>
+    </div>
+    <div ng-show="filteredUsers.length > 5">
+        <pagination uib-pagination total-items="filteredUsers.length" ng-model="admin.pagination.currentPage" class="pagination-sm"
+            items-per-page="admin.pagination.maxSize" previous-text="&larr;" next-text="&rarr;">
+        </pagination>
+    </div>

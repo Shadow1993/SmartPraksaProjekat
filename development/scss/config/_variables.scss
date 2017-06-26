@@ -9,6 +9,8 @@ $white: #fff;
 $grey: #9d9fa2;
 $loginCol: #ae713d;
 $backgroundColor: #1abc9c;
+$blue: darkblue;
+$lightskyblue: lightskyblue;
 
 // Durations
 $fastDuration: .1s;
@@ -18,9 +20,7 @@ $slowDuration: .6s;
 // Utilities
 
 .hover-over{
-    color: #000;
     &:hover{
         cursor:pointer;
-        color: black;
         }
 }
