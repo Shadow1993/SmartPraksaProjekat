@@ -42,12 +42,14 @@
     color: darkblue !important;
 }
 
-.btn-float{
-    position:fixed;
-    right:0;
-    bottom:0;
+
+.icon-move .row .col{
+     text-align: center;
+     color:darkblue;
+     padding-left: 50%;
+     padding-right: 50%;
 }
 
-.icon {
+/*.icon.icon-custom {
     color:darkblue;
-}
+}*/
