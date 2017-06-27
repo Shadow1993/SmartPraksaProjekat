@@ -34,3 +34,21 @@
             items-per-page="admin.pagination.maxSize" previous-text="&larr;" next-text="&rarr;">
         </pagination>
     </div>-->
+<div class="bar bar-subheader bar-positive">
+    <input type="text" ng-model='admin.filterList' class="form-control" id="search-bar-custom" placeholder="Search">
+    <button class='btn btn-primary form-control btn-modal' ng-click='admin.addUser()'>Add New User</button>
+    <select class="form-control" ng-model="admin.sortOrder" ng-options="option for option in admin.sortOptions track by option"><option value="" disabled selected>Sort by:</option></select>
+</div>
+<ion-content class="has-header has-subheader has-footer">
+    <div ng-repeat='info in filteredUsers = (admin.userInfo | filter: admin.filterList) |
+                    orderBy: admin.sortOrder'>
+        <div class="item" ng-click='admin.editUser(info)'>
+            <label for="username" class="label-custom">Username:</label>
+            <p name="username" class="paragraph-custom">{{ info.username }}</p>
+            <label for="role" class="label-custom">Role:</label>
+            <p class="paragraph-custom" name="role" ng-repeat='role in info.role'>{{ role.title }}</p>
+            <label for="date-created" class="label-custom">Date Created:</label>
+            <p name="date-created" class="paragraph-custom">{{ admin.convertDate(info.dateCreated) }}</p>
+            <button class="btn btn-warning" ng-click='admin.deleteUser(info._id)'>Delete User</button>
+        </div>
+</ion-content>

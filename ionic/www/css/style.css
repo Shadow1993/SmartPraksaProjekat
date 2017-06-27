@@ -12,6 +12,15 @@
     background-color:lightskyblue;
 }
 
+/*Back to top "button"*/
+
+.icon-move .row .col{
+     text-align: center;
+     color:darkblue;
+     padding-left: 50%;
+     padding-right: 50%;
+}
+
 /*=============================
     Facilitator
 ===============================*/
@@ -23,6 +32,7 @@
 
 .btn.btn-primary{
     margin-left: 1%;
+    margin-right:1%;
 }
 
 /*Search bar id*/
@@ -35,6 +45,7 @@
 
 .label-custom{
     font-weight:bold;
+    color:black;
 }
 
 .paragraph-custom {
@@ -42,12 +53,3 @@
     color: darkblue !important;
 }
 
-
-.icon-move .row .col{
-     text-align: center;
-     color:darkblue;
-     padding-left: 50%;
-     padding-right: 50%;
-}
-
-/*Mijao*/

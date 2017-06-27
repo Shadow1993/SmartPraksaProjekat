@@ -64,7 +64,7 @@
 
         };
 
-        vm.sortOptions = ['', '+username', '-username', '+dateCreated', '-dateCreated'];
+        vm.sortOptions = [' ','+username', '-username', '+dateCreated', '-dateCreated'];
 
         //Converting Date to display as needed
         vm.convertDate = function (date) {

@@ -23,22 +23,20 @@
                 toastr.error();
             });
 
-        // Was calculating expire/active
-
-        // vm.decisionStatus = function (startingDate, expirationDate) {
-        //     if (Date.parse(expirationDate) - Date.now() >= 0) {
-        //         return 'Active';
-        //     } else {
-        //         return 'Expired';
-        //     }
-        // };
-
         // Reactivate decision
+
         vm.reactivateDecision = function (data) {
-            ResolutionService.editResolution(data)
-                .then(function () {
-                    $state.reload();
-                });
+            if (data.active === 'Active') {
+                toastr.warning('Cannot reactivate an ongoing decision');
+            } else if (data.active === 'Expired') {
+                ResolutionService.editResolution(data)
+                    .then(function () {
+                        $state.reload();
+                    });
+            } else {
+                console.error('Cannot reactivate decision');
+                console.error(data);
+            }
         };
 
         // Modal window
@@ -71,5 +69,7 @@
             },
             maxSize: 5
         };
+
+        vm.sortOptions = [' ', '+title', '-title', '+expirationDate', '-expirationDate', '+startingDate', '-startingDate', '+type', '-type'];
     }
 }());
