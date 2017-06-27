@@ -10,6 +10,7 @@
 
 .item {
     background-color:lightskyblue;
+    border: 1px solid darkblue;
 }
 
 /*Back to top "button"*/
