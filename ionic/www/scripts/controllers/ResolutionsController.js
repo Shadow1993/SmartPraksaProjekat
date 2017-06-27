@@ -6,10 +6,9 @@
     app.controller('ResolutionsController', ['$scope',
                                             'ResolutionService',
                                             '$ionicScrollDelegate',
-                                            '$window',
                                             ResolutionsController]);
 
-    function ResolutionsController($scope, ResolutionService, $ionicScrollDelegate, $window) {
+    function ResolutionsController($scope, ResolutionService, $ionicScrollDelegate) {
         var vm = this;
         vm.test = 'test';
 
@@ -31,23 +30,20 @@
             });
 
         // Scroll To Top
-        vm.scrollTop = function () {
+        $scope.scrollTop = function () {
             $ionicScrollDelegate.scrollTop();
         };
         // Show/hide scroll to top button
-        $scope.getScrollPosition = function() {
+        $scope.showHideBtn  = '';
+        $scope.scrollPosition = function() {
             $scope.scrollC = $ionicScrollDelegate.getScrollPosition().top;
             if ($scope.scrollC > 250) {
-                console.log('Hello');
-                $scope.showHideBtn = false;
-                return $scope.showHideBtn;
+                $scope.showHideBtn = 'visible';
+                console.log($scope.showHideBtn);
             } else {
-                console.log('Not visible');
-                $scope.showHideBtn = false;
-                return $scope.showHideBtn;
+                $scope.showHideBtn = 'not-visible';
+                console.log($scope.showHideBtn);
             }
         };
-
-
     }
 }());

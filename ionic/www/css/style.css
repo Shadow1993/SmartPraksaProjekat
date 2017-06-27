@@ -100,8 +100,7 @@
     margin-bottom: 10px;
 }
 .bar-footer {
-    display: flex;
-    justify-content: flex-end;
+    padding: 0;
 }
 .bar-positive .button.button-clear {
     top: -3px;

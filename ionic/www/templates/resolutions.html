@@ -3,7 +3,7 @@
     <ion-icon class="ion-ios-search search-list"></ion-icon>
 </div>
 
-<ion-content class="has-header has-subheader has-footer" on-scroll="getScrollPosition()">
+<ion-content class="has-header has-subheader has-footer" on-scroll="scrollPosition(this)">
     <ion-list>
         <h3 class="text-center resolution-listing-title {{ filteredActiveDecisions.length == 0 ? 'hidden' : '' }}">Active Listing</h3>
         <h6 ng-show="allFilterList.length > 0 && filteredActiveDecisions.length == 0" class="text-center">No matched items into Active List</h6>
@@ -45,9 +45,10 @@
     </ion-list>
 </ion-content>
 
+    
+<p>Show or Hide: {{ showHideBtn }}</p>
 <ion-footer-bar class="bar-positive icon-move">
-    <p>SH: {{ showHideBtn}}</p>
-    <a class="button button-clear" ng-click="resolutions.scrollTop()" ng-if="showHideBtn">
+    <a class="button button-clear" ng-click="resolutions.scrollTop()">
         <i class="icon ion-arrow-up-a"></i>
     </a>
 </ion-footer-bar>
