@@ -1,4 +1,4 @@
-<div class="add-user col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
+<div class="modal-form col-sm-8 col-sm-offset-2 col-xs-12 col-xs-offset-0">
     <h4>{{admin.submitText}}</h4>
     <form name='newUserForm' ng-submit='admin.submit(newUserForm.$valid)' novalidate>
         <div class="form-group" ng-class='{ "has-error": newUserForm.username.$dirty && newUserForm.username.$invalid  }'>
@@ -20,16 +20,16 @@
                         Password is required</span>
         </div>
         <div class="checkboxes">
-            <p>Additional Privileges</p>
+            <p class="extra">Additional Privileges</p>
             <input ng-model='admin.permissions.facilitator' type="checkbox" id="facilitators">
-            <label for="facilitators">Facilitators</label>
+            <label for="facilitators" class="control-label">Facilitators</label>
             <span class="newline">
                 <input ng-model='admin.permissions.voter'
                         type="checkbox"
                         id="voters">
-                <label for="voters">Voters</label></span>
+                <label for="voters" class="control-label">Voters</label></span>
         </div>
-        <input type='submit' class="btn btn-success create-user" value='{{admin.submitText}}' />
-        <input type='button' ng-click='admin.cancelModal()' class="btn btn-success create-user" value='Cancel' />
+        <input type='submit' class="btn btn-primary" value='{{admin.submitText}}' />
+        <input type='button' ng-click='admin.cancelModal()' class="btn btn-warning" value='Cancel' />
     </form>
 </div>

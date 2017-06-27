@@ -29,6 +29,11 @@
                         controller: 'HeaderController',
                         controllerAs: 'header'
                     },
+                    'footer@home': {
+                        templateUrl: './../templates/footer.html',
+                        controller: 'FooterController',
+                        controllerAs: 'footer'
+                    },
                     'main@home': {
                         templateUrl: './../templates/main.html'
                     }

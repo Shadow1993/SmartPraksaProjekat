@@ -1,17 +1,4 @@
 /*=========================
-    Breadcrumb
-===========================*/
-.breadcrumb {
-    margin-top: 140px;
-    margin-bottom: 50px;
-    display: flex;
-    float: right;
-    li {
-        color: brown;
-        font-size: 14px;
-    }
-}
-/*=========================
     All Users
 ===========================*/
 .pagination-smart {
@@ -29,34 +16,6 @@
         background-color: #ecf0f1;
         color: #000;
         border: 1px solid #ccc;
-    }
-}
-
-
-
-/*=========================
-    Add User Form
-===========================*/
-.add-user {
-    margin-bottom: 100px;
-    line-height: normal;
-    h4, label {
-        color: #fff;
-    }
-    .form-control {
-        font-size: 14px !important;
-    }
-    .create-user {
-        background: #449d44;  
-        border-bottom: none;
-        height: 40px;
-        padding: 0 10px 0 10px;
-        font-size: 11.5px;
-        letter-spacing: 0;
-    }
-    .create-user:hover {
-        background-color: #449d44;
-        opacity: .7;
     }
 }
 

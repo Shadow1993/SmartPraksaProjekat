@@ -1,87 +1,22 @@
-<!--<div class="container">
-    <div class="col-xs-12">
-
-        <h4 class="fascilitator-title">All Decisions</h4>
-        <p>
-            <button class="btn btn-primary" ng-click="facilitator.addDecision()">Create a new decision</button>
-        </p>
-        <div class="table-fascilitator table-responsive">
-
-            <table class="table">
-                <ion-scroll direction="xy">
-                    <div class="scroll-container" id="swipe">
-                        <thead>
-                            <div class="form-group col-sm-4 search-bar">
-                                <label for="search">Search:</label>
-                                <input type="text" ng-model='facilitator.filterList' class="form-control" id="search" placeholder="Search">
-                            </div>
-                            <tr>
-                                <th>#</th>
-                                <th ng-click='facilitator.sortOrder = "title"; facilitator.sortReversed = !facilitator.sortReversed' class='hover-over'>
-                                    Title
-                                    <i ng-if="facilitator.sortOrder === 'title'" class="glyphicon glyphicon-chevron-{{ !facilitator.sortReversed ? 'down' : 'up' }}"></i>
-                                </th>
-                                <th ng-click='facilitator.sortOrder = "type"; facilitator.sortReversed = !facilitator.sortReversed' class='hover-over'>
-                                    Type
-                                    <i ng-if="facilitator.sortOrder === 'type'" class="glyphicon glyphicon-chevron-{{ !facilitator.sortReversed ? 'down' : 'up' }}"></i></th>
-                                <th ng-click='facilitator.sortOrder = "startingDate"; facilitator.sortReversed = !facilitator.sortReversed' class='hover-over'>
-                                    Date Created
-                                    <i ng-if="facilitator.sortOrder === 'startingDate'" class="glyphicon glyphicon-chevron-{{ !facilitator.sortReversed ? 'down' : 'up' }}"></i></th>
-                                <th ng-click='facilitator.sortOrder = "expirationDate"; facilitator.sortReversed = !facilitator.sortReversed' class='hover-over'>
-                                    Expiration Date
-                                    <i ng-if="facilitator.sortOrder === 'expirationDate'" class="glyphicon glyphicon-chevron-{{ !facilitator.sortReversed ? 'down' : 'up' }}"></i></th>
-                                <th ng-click='facilitator.sortOrder = "active"; facilitator.sortReversed = !facilitator.sortReversed' class='hover-over'>
-                                    Status
-                                    <i ng-if="facilitator.sortOrder === 'active'" class="glyphicon glyphicon-chevron-{{ !facilitator.sortReversed ? 'down' : 'up' }}"></i></th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="resolution in facilitator.resolutions|
-                filter: facilitator.filterList |
-                orderBy: facilitator.sortOrder: facilitator.sortReversed |
-                limitTo: facilitator.pagination.maxSize : 
-                (facilitator.pagination.currentPage - 1) 
-                * facilitator.pagination.maxSize" class='hover-over'>
-                                <td>{{(facilitator.pagination.currentPage - 1) * facilitator.pagination.maxSize + $index + 1
-                                    }}</td>
-                                <td>{{resolution.title}}</td>
-                                <td>{{resolution.type}}</td>
-                                <td>{{facilitator.dateReform(resolution.startingDate)}}</td>
-                                <td>{{facilitator.dateReform(resolution.expirationDate)}}</td>
-                                <td>{{resolution.active}}</td>
-                                <td><button class="btn btn-warning disabled">Reactivate</button></td>
-                            </tr>
-                        </tbody>
-                    </div>
-                </ion-scroll>
-            </table>
-            </div>
-        <div uib-pagination total-items="facilitator.resolutions.length" ng-model="facilitator.pagination.currentPage" class="pagination-sm"
-            items-per-page="facilitator.pagination.maxSize" previous-text="&larr;" next-text="&rarr;"></div>
-    </div>
-</div>-->
 <div class="bar bar-subheader bar-positive">
-    <input type="text" placeholder="Search" ng-model='facilitator.filterList' id="search-bar-custom"/>
-    <button class="btn btn-primary" ng-click="facilitator.addDecision()">New Decision</button>
+    <input type="text" placeholder="Search" ng-model='facilitator.filterList' id="search-bar-custom" class="form-control" />
+    <button class="btn btn-primary form-control" ng-click="facilitator.addDecision()">New Decision</button>
+    <!--<select class="form-control" ng-model="facilitator.sortOrder" ng-options="option for option in facilitator.sortOptions track by option"><option value="" disabled selected>Sort by:</option></select>-->
+    <select class="form-control" ng-model="facilitator.sortOrder" ng-options="option for option in facilitator.sortOptions track by option"><option value="" disabled selected>Sort by:</option></select>
 </div>
 <ion-content class="has-header has-subheader has-footer">
-<div class="item background-custom" ng-repeat="resolution in facilitator.resolutions | filter: facilitator.filterList">
-    <label for="title" class="label-custom">Title:</label>
-    <p name="title" class="paragraph-custom">{{resolution.title}}</p>
-    <label for="title" class="label-custom">Type:</label>
-    <p name="type" class="paragraph-custom">{{resolution.type}}</p>
-    <label for="date-created" class="label-custom">Date Created:</label>
-    <p name="date-created" class="paragraph-custom">{{facilitator.dateReform(resolution.startingDate)}}</p>
-    <label for="expiration-date" class="label-custom">Expiration Date:</label>
-    <p name="expiration-date" class="paragraph-custom">{{facilitator.dateReform(resolution.expirationDate)}}</p>
-    <label for="status" class="label-custom">Status:</label>
-    <p name="status" class="paragraph-custom">{{resolution.active}}</p>
-    <p><button class="btn btn-warning" ng-click="facilitator.reactivateDecision(resolution)">Reactivate</button></p>
+    <div class="item background-custom" ng-repeat="resolution in filteredDecisions = (facilitator.resolutions| filter: facilitator.filterList) |
+        orderBy: facilitator.sortOrder">
+        <label for="title" class="label-custom">Title:</label>
+        <p name="title" class="paragraph-custom">{{resolution.title}}</p>
+        <label for="title" class="label-custom">Type:</label>
+        <p name="type" class="paragraph-custom">{{resolution.type}}</p>
+        <label for="starting-date" class="label-custom">Starting Date:</label>
+        <p name="starting-date" class="paragraph-custom">{{facilitator.dateReform(resolution.startingDate)}}</p>
+        <label for="expiration-date" class="label-custom">Expiration Date:</label>
+        <p name="expiration-date" class="paragraph-custom">{{facilitator.dateReform(resolution.expirationDate)}}</p>
+        <label for="status" class="label-custom">Status:</label>
+        <p name="status" class="paragraph-custom">{{resolution.active}}</p>
+        <p><button class="btn btn-warning" ng-click="facilitator.reactivateDecision(resolution)">Reactivate</button></p>
     </div>
-    </ion-content>
-    <ion-footer-bar class="bar-positive icon-move">
-        <a class="button button-clear" ng-click="facilitator.scrollTop()">
-  <i class="icon ion-arrow-up-a"></i>
-</a>
-    </ion-footer-bar>
+</ion-content>

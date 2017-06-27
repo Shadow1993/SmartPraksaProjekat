@@ -1,76 +1,54 @@
-<div class="container">
-
-    <!-- ============================
-        Show Created Decisions
-    ================================= -->
-    <div class="col-xs-12 users-table table-responsive">
-
-        
-       
-            
-        
-        <div class="table-responsive">
-            <table class="table table-hover table-condensed">
-                <h4 class="text-center">All Decisions</h4>
-                <thead>
-                    <div class="form-group col-md-2">
-                        <label> </label>
-                    <button class="btn btn-primary form-control btn-modal" ng-click="facilitator.addDecision()">New Decision</button>
-                    </div>
-                    <div class="form-group col-sm-4 search-bar">
-                    <label for="search">Search:</label>
-                    <input type="text" ng-model='facilitator.filterList' class="form-control" id="search" placeholder="Search">
-                </div>
-                    <tr>
-                        <th>#</th>
-                        <th ng-click='facilitator.sortOrder = "title"; facilitator.sortReversed = !facilitator.sortReversed' class='hover-over'>
-                            Title
-                            <i ng-if="facilitator.sortOrder === 'title'" class="glyphicon glyphicon-chevron-{{ !facilitator.sortReversed ? 'down' : 'up' }}"></i>
-                        </th>
-                        <th ng-click='facilitator.sortOrder = "type"; facilitator.sortReversed = !facilitator.sortReversed' class='hover-over'>
-                            Type
-                            <i ng-if="facilitator.sortOrder === 'type'" class="glyphicon glyphicon-chevron-{{ !facilitator.sortReversed ? 'down' : 'up' }}"></i></th>
-                        <th ng-click='facilitator.sortOrder = "startingDate"; facilitator.sortReversed = !facilitator.sortReversed' class='hover-over'>
-                            Date Created
-                            <i ng-if="facilitator.sortOrder === 'startingDate'" class="glyphicon glyphicon-chevron-{{ !facilitator.sortReversed ? 'down' : 'up' }}"></i></th>
-                        <th ng-click='facilitator.sortOrder = "expirationDate"; facilitator.sortReversed = !facilitator.sortReversed' class='hover-over'>
-                            Expiration Date
-                            <i ng-if="facilitator.sortOrder === 'expirationDate'" class="glyphicon glyphicon-chevron-{{ !facilitator.sortReversed ? 'down' : 'up' }}"></i></th>
-                        <th ng-click='facilitator.sortOrder = "active"; facilitator.sortReversed = !facilitator.sortReversed' class='hover-over'>
-                            Status
-                            <i ng-if="facilitator.sortOrder === 'active'" class="glyphicon glyphicon-chevron-{{ !facilitator.sortReversed ? 'down' : 'up' }}"></i></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="resolution in filteredDecisions = (facilitator.resolutions| filter: facilitator.filterList) |
-                        orderBy: facilitator.sortOrder: facilitator.sortReversed |
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 form-group">
+            <label for="addDecision" class="control-label"> </label>
+            <button id="addDecision" class="btn btn-primary form-control btn-modal" ng-click="facilitator.addDecision()">Add Decision</button>
+        </div>
+        <div class="col-sm-push-1 col-sm-4 col-xs-6 form-group">
+            <label class="control-label" for="search">Search:</label>
+            <input type="text" ng-model='facilitator.filterList' class="form-control" id="search" placeholder="Search">
+        </div>
+        <div class="form-group col-sm-push-2 col-sm-3">
+            <label for="search">Sort Order:</label>
+            <select class="form-control" ng-model="facilitator.sortOrder" ng-init="facilitator.sortOrder = facilitator.sortOptions[0]" ng-options="option for option in facilitator.sortOptions track by option"></select>
+        </div>
+    </div>
+    <div ng-repeat="resolution in filteredDecisions = (facilitator.resolutions| filter: facilitator.filterList) |
+                        orderBy: facilitator.sortOrder |
                         limitTo: facilitator.pagination.maxSize : 
                         (facilitator.pagination.currentPage - 1) 
-                        * facilitator.pagination.maxSize" 
-                        class='hover-over'
-                    >
-                        <td>{{(facilitator.pagination.currentPage - 1) * facilitator.pagination.maxSize + $index + 1 }}</td>
-                        <td>{{resolution.title}}</td>
-                        <td>{{resolution.type}}</td>
-                        <td>{{facilitator.dateReform(resolution.startingDate)}}</td>
-                        <td>{{facilitator.dateReform(resolution.expirationDate)}}</td>
-                        <td>{{resolution.active}}</td>
-                        <td><button class="btn btn-warning" ng-click="facilitator.reactivateDecision(resolution)">Reactivate</button></td>
-                    </tr>
-                </tbody>
-            </table>
+                        * facilitator.pagination.maxSize" class='panel panel-primary'>
+        <div class="panel-heading">
+            <div class="row">
+                <span class="col-xs-1">{{(facilitator.pagination.currentPage - 1) * facilitator.pagination.maxSize + $index + 1 }}</span>
+                <h5 class="col-xs-6"><strong>Title</strong> : &nbsp; {{resolution.title}}</h5>
+                <button class="btn btn-warning col-xs-3" ng-disabled="resolution.active === 'Active'" ng-click="facilitator.reactivateDecision(resolution)">Reactivate</button>
+            </div>
         </div>
-        <div ng-show="filteredDecisions.length > 5">
-            <pagination 
-                uib-pagination 
-                total-items="filteredDecisions.length" 
-                ng-model="facilitator.pagination.currentPage" 
-                class="pagination-sm"
-                items-per-page="facilitator.pagination.maxSize" 
-                previous-text="&larr;" 
-                next-text="&rarr;">
-            </pagination>
+        <div class="panel-body">
+            <div class="row">
+                <p class="col-xs-6"><strong>Type:</strong> {{resolution.type}}</p>
+                <div class="col-xs-6">
+                    <div class="row">
+                        <p><strong>Date Started:</strong></p>
+                        <p>{{facilitator.dateReform(resolution.startingDate)}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <p class="col-xs-6"><strong>Status:</strong> {{resolution.active}}</p>
+                <div class="col-xs-6">
+                    <div class="row">
+                        <p><strong>Date Ending:</strong></p>
+                        <p>{{facilitator.dateReform(resolution.expirationDate)}}</p>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
+    <div ng-show="filteredDecisions.length > 5">
+        <pagination uib-pagination total-items="filteredDecisions.length" ng-model="facilitator.pagination.currentPage" class="pagination-sm"
+            items-per-page="facilitator.pagination.maxSize" previous-text="&larr;" next-text="&rarr;">
+        </pagination>
     </div>
 </div>

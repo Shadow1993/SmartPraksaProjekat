@@ -2,13 +2,14 @@
     <ion-side-menu-content drag-content="false">
         <ion-header-bar class="bar bar-header bar-positive" align-title="center" ui-view='header'></ion-header-bar>
         <ion-nav-view ui-view='main'></ion-nav-view>
+        <ion-footer-bar class="bar-positive icon-move" ui-view='footer'></ion-footer-bar>
     </ion-side-menu-content>
     <ion-side-menu side='left'>
         <ion-header-bar class="bar bar-positive">
             <h1 class='title' ng-click='home.toggleNavMenu()'>Navigation</h1>
         </ion-header-bar>
         <ion-content>
-            <ul class="list">
+            <ul class="list scroll-custom">
                 <li ng-click='home.toggleNavMenu()'><a class="item" ui-sref='main.resolutions'>Resolutions</a></li>
                 <li ng-click='home.toggleNavMenu()' ng-if='home.permission("Facilitator")'><a class="item" ui-sref='main.facilitator'>Facilitator</a></li>
                 <li ng-click='home.toggleNavMenu()' ng-if='home.permission("Administrator")'><a class="item" ui-sref='main.admin'>Administrator</a></li>
