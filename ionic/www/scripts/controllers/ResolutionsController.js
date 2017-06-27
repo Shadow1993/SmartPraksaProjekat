@@ -5,9 +5,11 @@
 
     app.controller('ResolutionsController', ['$scope',
                                             'ResolutionService',
+                                            '$ionicScrollDelegate',
+                                            '$window',
                                             ResolutionsController]);
 
-    function ResolutionsController($scope, ResolutionService) {
+    function ResolutionsController($scope, ResolutionService, $ionicScrollDelegate, $window) {
         var vm = this;
         vm.test = 'test';
 
@@ -16,7 +18,6 @@
 
         ResolutionService.getResolutions()
             .then(function (res) {
-                //console.log(res);
                 vm.resoultionsInfo = res;
                 return res;
             }).then(function (res) {
@@ -29,49 +30,24 @@
                 }
             });
 
-        /*=======================
-            Table Sorting
-        =========================*/
-        // Active Listing
-        $scope.orderByField     = false;
-        $scope.decisionsSorting = function(someArg, someState) {
-            $scope.sortingArg   = someArg;
-            $scope.sortingState = someState;
+        // Scroll To Top
+        vm.scrollTop = function () {
+            $ionicScrollDelegate.scrollTop();
+        };
+        // Show/hide scroll to top button
+        $scope.getScrollPosition = function() {
+            $scope.scrollC = $ionicScrollDelegate.getScrollPosition().top;
+            if ($scope.scrollC > 250) {
+                console.log('Hello');
+                $scope.showHideBtn = false;
+                return $scope.showHideBtn;
+            } else {
+                console.log('Not visible');
+                $scope.showHideBtn = false;
+                return $scope.showHideBtn;
+            }
         };
 
-        // Archived Listing
-        $scope.orderByFieldAr       = false;
-        $scope.decisionsSortingAr   = function(someArgAr, someStateAr) {
-            $scope.sortingArgAr     = someArgAr;
-            $scope.sortingStateAr   = someStateAr;
-        };
 
-        /*=======================
-            Pagination
-        =========================*/
-        $scope.viewbyActive = 10;
-        $scope.viewbyArchived = 10;
-        $scope.currentPageActive = 11;
-        $scope.currentPageArchived = 11;
-        $scope.itemsPerPageActive = $scope.viewbyActive;
-        $scope.itemsPerPageArchived = $scope.viewbyArchived;
-        $scope.maxSizeActive = 10; //Number of pager buttons to show
-        $scope.maxSizeArchived = 10; //Number of pager buttons to show
-
-        $scope.setPage = function (pageNo) {
-            $scope.currentPageActive = pageNo;
-            $scope.currentPageArchived = pageNo;
-        };
-
-        $scope.pageChanged = function() {
-            console.log('Page changed to: ' + $scope.currentPageActive);
-            console.log('Page changed to: ' + $scope.currentPageArchived);
-        };
-
-        $scope.setItemsPerPage = function(num) {
-            $scope.itemsPerPage = num;
-            $scope.currentPageActive = 1; //reset to first page
-            $scope.currentPageArchived = 1; //reset to first page
-        };
     }
 }());
