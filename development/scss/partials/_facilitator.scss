@@ -42,28 +42,7 @@ h4 {
 .has-error .control-label,
 .has-error .help-block,
 .has-error .form-control-feedback{
-    color:lightblue;
-}
-
-/*=============================
-    Modal Title Style
-===============================*/
-
-.modal-dialog {
-    label{
-        color:red;
-    }
-}
-
-/*=============================
-    Modal Form Buttons
-===============================*/
-
-.form-buttons {
-    display:inline-flex;
-    .btn{
-        margin-left: 8px;
-    }
+    color:$blue;
 }
 
 /*=============================
@@ -73,50 +52,4 @@ h4 {
 .search-bar{
     color: blue;
     margin-top: 3px;
-}
-
-
-
-/*=============================
-    Bootstrap and other tweaks
-===============================*/
-
-.table-responsive{
-    border: none;
-}
-
-.btn-modal{
-    margin-top:7px;
-}
-
-.table {
-    tr {
-        &:hover {
-            td {
-                background-color: #fff;
-                color: #000;
-            }
-        }
-        td {
-            color: #fff;
-            
-        }
-        &:first-of-type {
-            th {
-                color: #000;
-                span {
-                    color: #000;
-                }
-            }
-            &:hover {
-                background: $loginCol;
-                th {
-                    color: #000;
-                    span {
-                        color: #000;
-                    }
-                }
-            }  
-        }
-    }
 }

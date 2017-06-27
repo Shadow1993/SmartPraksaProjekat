@@ -26,3 +26,20 @@ body {
         background-color: $lightskyblue;
     }
 }
+
+/*=========================
+    Modal Form
+===========================*/
+.modal-form {
+    padding: 20px;
+    background-color: $lightskyblue;
+    border-radius: 15px;
+    border: 2px solid $blue;
+    line-height: normal;
+    h4, label.control-label, p.extra {
+        color: $blue;
+    }
+    .form-control {
+        font-size: 14px !important;
+    }
+}
