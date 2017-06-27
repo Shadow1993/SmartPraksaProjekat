@@ -10,27 +10,6 @@ h4 {
 
 
 /*=============================
-    Form to add new Decision
-===============================*/
-#form-voting {
-    margin-top: 70px;
-    margin-bottom: 140px;
-    color: #fff;
-    justify-content: center;
-    .create-decision {
-        margin-top: 20px;
-        font-size: 15px;
-        &:hover {
-            cursor: pointer;
-        }
-    }
-    input, select {
-        font-size: 14px;
-    }
-}
-
-
-/*=============================
     Error style
 ===============================*/
 
@@ -50,6 +29,6 @@ h4 {
 ===============================*/
 
 .search-bar{
-    color: blue;
+    color: $blue;
     margin-top: 3px;
 }
