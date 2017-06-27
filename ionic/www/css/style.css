@@ -12,6 +12,15 @@
     background-color:lightskyblue;
 }
 
+/*Back to top "button"*/
+
+.icon-move .row .col{
+     text-align: center;
+     color:darkblue;
+     padding-left: 50%;
+     padding-right: 50%;
+}
+
 /*=============================
     Facilitator
 ===============================*/
@@ -42,14 +51,5 @@
 .paragraph-custom {
     font-weight: 600;
     color: darkblue !important;
-}
-
-/*Back to top "button"*/
-
-.icon-move .row .col{
-     text-align: center;
-     color:darkblue;
-     padding-left: 50%;
-     padding-right: 50%;
 }
 
