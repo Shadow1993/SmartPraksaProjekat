@@ -9,7 +9,7 @@
         '$ionicScrollDelegate',
         FacilitatorController]);
 
-    function FacilitatorController(ResolutionService, $uibModal, $state, $ionicScrollDelegate) {
+    function FacilitatorController(ResolutionService, $uibModal, $state) {
 
         var vm = this;
 
@@ -70,10 +70,6 @@
                 vm.pagination.currentPage = pageNo;
             },
             maxSize: 5
-        };
-
-        vm.scrollTop = function () {
-            $ionicScrollDelegate.scrollTop();
         };
     }
 }());
