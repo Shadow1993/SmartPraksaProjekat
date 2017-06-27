@@ -117,9 +117,10 @@ h4.title-listing {
     margin-top: 0;
     margin-bottom: 20px;
 }
-.alert-success {
-    background: #387ef5;
-    color: #fff;
+.alert-success,
+.decisions .decision-text {
+    background: #387ef5 !important;
+    color: #fff !important;
 }
 .decisions span:first-of-type,
 .decisions span:nth-of-type(2),
@@ -128,7 +129,12 @@ h4.title-listing {
 }
 .decisions .decision-text {
     margin: 0;
+    margin-top: 10px;
     margin-bottom: 20px;
     padding: 30px 10px;
+}
+.decisions .decision-text h6{
+    color: #fff;
+    margin-top: -20px;
 }
 
