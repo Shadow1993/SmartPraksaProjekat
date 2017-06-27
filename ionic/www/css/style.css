@@ -23,6 +23,7 @@
 
 .btn.btn-primary{
     margin-left: 1%;
+    margin-right:1%;
 }
 
 /*Search bar id*/
@@ -35,6 +36,7 @@
 
 .label-custom{
     font-weight:bold;
+    color:black;
 }
 
 .paragraph-custom {
@@ -42,6 +44,7 @@
     color: darkblue !important;
 }
 
+/*Back to top "button"*/
 
 .icon-move .row .col{
      text-align: center;
@@ -50,4 +53,3 @@
      padding-right: 50%;
 }
 
-/*Mijao*/
