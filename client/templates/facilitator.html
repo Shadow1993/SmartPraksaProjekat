@@ -22,7 +22,7 @@
             <div class="row">
                 <span class="col-xs-1">{{(facilitator.pagination.currentPage - 1) * facilitator.pagination.maxSize + $index + 1 }}</span>
                 <h5 class="col-xs-6"><strong>Title</strong> : &nbsp; {{resolution.title}}</h5>
-                <button class="btn btn-warning col-xs-3" ng-click="facilitator.reactivateDecision(resolution)">Reactivate</button>
+                <button class="btn btn-warning col-xs-3" ng-disabled="resolution.active === 'Active'" ng-click="facilitator.reactivateDecision(resolution)">Reactivate</button>
             </div>
         </div>
         <div class="panel-body">
