@@ -4,18 +4,20 @@
     <select class="form-control" ng-model="facilitator.sortOrder" ng-options="option for option in facilitator.sortOptions track by option"><option value="" disabled selected>Sort by:</option></select>
 </div>
 <ion-content class="has-header has-subheader has-footer">
-    <div class="item background-custom" ng-repeat="resolution in filteredDecisions = (facilitator.resolutions| filter: facilitator.filterList) |
+    <ion-list>
+        <div class="item background-custom" ng-repeat="resolution in filteredDecisions = (facilitator.resolutions| filter: facilitator.filterList) |
         orderBy: facilitator.sortOrder">
-        <label for="title" class="label-custom">Title:</label>
-        <p name="title" class="paragraph-custom">{{resolution.title}}</p>
-        <label for="title" class="label-custom">Type:</label>
-        <p name="type" class="paragraph-custom">{{resolution.type}}</p>
-        <label for="starting-date" class="label-custom">Starting Date:</label>
-        <p name="starting-date" class="paragraph-custom">{{facilitator.dateReform(resolution.startingDate)}}</p>
-        <label for="expiration-date" class="label-custom">Expiration Date:</label>
-        <p name="expiration-date" class="paragraph-custom">{{facilitator.dateReform(resolution.expirationDate)}}</p>
-        <label for="status" class="label-custom">Status:</label>
-        <p name="status" class="paragraph-custom">{{resolution.active}}</p>
-        <p><button class="btn btn-warning" ng-click="facilitator.reactivateDecision(resolution)">Reactivate</button></p>
-    </div>
+            <label for="title" class="label-custom">Title:</label>
+            <p name="title" class="paragraph-custom">{{resolution.title}}</p>
+            <label for="title" class="label-custom">Type:</label>
+            <p name="type" class="paragraph-custom">{{resolution.type}}</p>
+            <label for="starting-date" class="label-custom">Starting Date:</label>
+            <p name="starting-date" class="paragraph-custom">{{facilitator.dateReform(resolution.startingDate)}}</p>
+            <label for="expiration-date" class="label-custom">Expiration Date:</label>
+            <p name="expiration-date" class="paragraph-custom">{{facilitator.dateReform(resolution.expirationDate)}}</p>
+            <label for="status" class="label-custom">Status:</label>
+            <p name="status" class="paragraph-custom">{{resolution.active}}</p>
+            <p><button class="btn btn-warning" ng-click="facilitator.reactivateDecision(resolution)">Reactivate</button></p>
+        </div>
+    </ion-list>
 </ion-content>

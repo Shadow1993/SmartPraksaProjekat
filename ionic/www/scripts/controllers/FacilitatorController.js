@@ -6,7 +6,6 @@
     app.controller('FacilitatorController', ['ResolutionService',
         '$uibModal',
         '$state',
-        '$ionicScrollDelegate',
         FacilitatorController]);
 
     function FacilitatorController(ResolutionService, $uibModal, $state) {
@@ -71,6 +70,6 @@
         };
 
         vm.sortOptions = [' ', '+title', '-title', '+expirationDate', '-expirationDate',
-         '+startingDate', '-startingDate', '+type', '-type'];
+            '+startingDate', '-startingDate', '+type', '-type'];
     }
 }());
