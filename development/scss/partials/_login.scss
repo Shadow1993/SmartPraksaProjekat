@@ -1,39 +1,48 @@
+@keyframes login-bg {
+    0% {
+        background-color: $lightskyblue;
+    }
+    20% {
+        background-color: $blue;
+    }
+    40% {
+        background-color: darken($lightskyblue, 20);
+    }
+    60% {
+        background-color: lighten($blue, 20);
+    }
+    80% {
+        background-color: $blue;
+    }
+    100% {
+        background-color: $lightskyblue;
+    }
+}
 #wrapper{
     color: $black;
-    background-image: url('../images/login-background.jpg');
-    background-position: 0 0;
-    background-size: cover;
-    background-repeat: no-repeat;
+    animation-name: login-bg;
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
     min-height: 100vh;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     .form-input{
-        border: double 3px $black;
+        border: double 3px $lightskyblue;
         text-align: center;
         width: 280px;
         border-radius:5px;
-        background-color: $loginCol;
+        background-color: darken($blue, 20);
         padding:20px;
         .login{
             padding-left: 5px;
-            border: 1px solid $black;
+            border: 1px solid $lightskyblue;
             width:100%;
             margin-bottom:5px;
-            &[type="submit"]{
-                cursor: pointer;
-                font-weight: bold;
-                color:$black;
-                background-color: darken($loginCol, 5%);
-                width:30%;
-                border-radius: 5px;
-                border:1px solid $black;
-                &:hover{
-                    color:white;
-                     background-color: lighten($loginCol, 10%);
-                }
-            }
         }
+    }
+    .btn{
+        width: 100%;
     }
 }
