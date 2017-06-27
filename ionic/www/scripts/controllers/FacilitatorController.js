@@ -70,6 +70,7 @@
             maxSize: 5
         };
 
-        vm.sortOptions = [' ', '+title', '-title', '+expirationDate', '-expirationDate', '+startingDate', '-startingDate', '+type', '-type'];
+        vm.sortOptions = [' ', '+title', '-title', '+expirationDate', '-expirationDate',
+         '+startingDate', '-startingDate', '+type', '-type'];
     }
 }());

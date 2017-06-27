@@ -12,6 +12,4 @@
             $ionicScrollDelegate.scrollTop();
         };
     }
-
-
 }());
