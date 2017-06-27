@@ -62,28 +62,21 @@
     </div>
 </div>-->
 <div class="bar bar-subheader bar-positive">
-    <input type="text" placeholder="Search" ng-model='facilitator.filterList' id="search-bar-custom"/>
+    <input type="text" placeholder="Search" ng-model='facilitator.filterList' id="search-bar-custom" />
     <button class="btn btn-primary" ng-click="facilitator.addDecision()">New Decision</button>
 </div>
 <ion-content class="has-header has-subheader has-footer">
-<div class="item background-custom" ng-repeat="resolution in facilitator.resolutions | filter: facilitator.filterList">
-    <label for="title" class="label-custom">Title:</label>
-    <p name="title" class="paragraph-custom">{{resolution.title}}</p>
-    <label for="title" class="label-custom">Type:</label>
-    <p name="type" class="paragraph-custom">{{resolution.type}}</p>
-    <label for="date-created" class="label-custom">Date Created:</label>
-    <p name="date-created" class="paragraph-custom">{{facilitator.dateReform(resolution.startingDate)}}</p>
-    <label for="expiration-date" class="label-custom">Expiration Date:</label>
-    <p name="expiration-date" class="paragraph-custom">{{facilitator.dateReform(resolution.expirationDate)}}</p>
-    <label for="status" class="label-custom">Status:</label>
-    <p name="status" class="paragraph-custom">{{resolution.active}}</p>
-    <p><button class="btn btn-warning" ng-click="facilitator.reactivateDecision(resolution)">Reactivate</button></p>
+    <div class="item background-custom" ng-repeat="resolution in facilitator.resolutions | filter: facilitator.filterList">
+        <label for="title" class="label-custom">Title:</label>
+        <p name="title" class="paragraph-custom">{{resolution.title}}</p>
+        <label for="title" class="label-custom">Type:</label>
+        <p name="type" class="paragraph-custom">{{resolution.type}}</p>
+        <label for="date-created" class="label-custom">Date Created:</label>
+        <p name="date-created" class="paragraph-custom">{{facilitator.dateReform(resolution.startingDate)}}</p>
+        <label for="expiration-date" class="label-custom">Expiration Date:</label>
+        <p name="expiration-date" class="paragraph-custom">{{facilitator.dateReform(resolution.expirationDate)}}</p>
+        <label for="status" class="label-custom">Status:</label>
+        <p name="status" class="paragraph-custom">{{resolution.active}}</p>
+        <p><button class="btn btn-warning" ng-click="facilitator.reactivateDecision(resolution)">Reactivate</button></p>
     </div>
-    </ion-content>
-    <ion-footer-bar class="bar-positive icon-move">
-        <div class="row">
-        <a class="button button-clear col"  ng-click="facilitator.scrollTop()">
-  <i class="icon icon-custom ion-chevron-up"></i>
-</a>
-</div>
-    </ion-footer-bar>
+</ion-content>
