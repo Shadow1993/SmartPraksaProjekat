@@ -68,6 +68,7 @@
 /*===============================
     Resolution(s)
 =================================*/
+/*Resolutions*/
 #input-active-listing,
 #input-archived-listing {
     font-size: 14px;
@@ -105,3 +106,29 @@
 .bar-positive .button.button-clear {
     top: -3px;
 }
+/*Resolution*/
+.scroll-content {
+    background-color: lightskyblue;
+    margin-top: -44px;
+    padding-top: 40px;
+}
+h4.title-listing {
+    color: #000;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+.alert-success {
+    background: #387ef5;
+    color: #fff;
+}
+.decisions span:first-of-type,
+.decisions span:nth-of-type(2),
+.decisions span:last-of-type {
+    color: #fff;
+}
+.decisions .decision-text {
+    margin: 0;
+    margin-bottom: 20px;
+    padding: 30px 10px;
+}
+
