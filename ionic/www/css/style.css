@@ -10,6 +10,7 @@
 
 .item {
     background-color:lightskyblue;
+    border: 1px solid darkblue;
 }
 
 /*Back to top "button"*/
@@ -53,3 +54,54 @@
     color: darkblue !important;
 }
 
+.btn-float{
+    position:fixed;
+    right:0;
+    bottom:0;
+}
+
+.icon {
+    color:darkblue;
+}
+
+
+/*===============================
+    Resolution(s)
+=================================*/
+#input-active-listing,
+#input-archived-listing {
+    font-size: 14px;
+    font-weight: 400;
+    padding-left: 8px;
+    padding-right: 30px;
+}
+.resolution-listing-title {
+    padding: 20px;
+    background-color: #3498db;
+    color: #fff;
+    top: -1px;
+    position: relative;
+    margin-bottom: 0;
+}
+.search-list {
+    font-size: 23px;
+    position: relative;
+    right: 25px;
+    color: #000;
+    top: 5px;
+}
+.sn {
+    font-size: 12px;
+}
+.button-visit {
+    width: 150px;
+    font-size: 14px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.bar-footer {
+    padding: 0;
+}
+.bar-positive .button.button-clear {
+    top: -3px;
+}

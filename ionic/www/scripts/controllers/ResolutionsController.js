@@ -5,9 +5,10 @@
 
     app.controller('ResolutionsController', ['$scope',
                                             'ResolutionService',
+                                            '$ionicScrollDelegate',
                                             ResolutionsController]);
 
-    function ResolutionsController($scope, ResolutionService) {
+    function ResolutionsController($scope, ResolutionService, $ionicScrollDelegate) {
         var vm = this;
         vm.test = 'test';
 
@@ -16,7 +17,6 @@
 
         ResolutionService.getResolutions()
             .then(function (res) {
-                //console.log(res);
                 vm.resoultionsInfo = res;
                 return res;
             }).then(function (res) {
@@ -29,49 +29,21 @@
                 }
             });
 
-        /*=======================
-            Table Sorting
-        =========================*/
-        // Active Listing
-        $scope.orderByField     = false;
-        $scope.decisionsSorting = function(someArg, someState) {
-            $scope.sortingArg   = someArg;
-            $scope.sortingState = someState;
+        // Scroll To Top
+        $scope.scrollTop = function () {
+            $ionicScrollDelegate.scrollTop();
         };
-
-        // Archived Listing
-        $scope.orderByFieldAr       = false;
-        $scope.decisionsSortingAr   = function(someArgAr, someStateAr) {
-            $scope.sortingArgAr     = someArgAr;
-            $scope.sortingStateAr   = someStateAr;
-        };
-
-        /*=======================
-            Pagination
-        =========================*/
-        $scope.viewbyActive = 10;
-        $scope.viewbyArchived = 10;
-        $scope.currentPageActive = 11;
-        $scope.currentPageArchived = 11;
-        $scope.itemsPerPageActive = $scope.viewbyActive;
-        $scope.itemsPerPageArchived = $scope.viewbyArchived;
-        $scope.maxSizeActive = 10; //Number of pager buttons to show
-        $scope.maxSizeArchived = 10; //Number of pager buttons to show
-
-        $scope.setPage = function (pageNo) {
-            $scope.currentPageActive = pageNo;
-            $scope.currentPageArchived = pageNo;
-        };
-
-        $scope.pageChanged = function() {
-            console.log('Page changed to: ' + $scope.currentPageActive);
-            console.log('Page changed to: ' + $scope.currentPageArchived);
-        };
-
-        $scope.setItemsPerPage = function(num) {
-            $scope.itemsPerPage = num;
-            $scope.currentPageActive = 1; //reset to first page
-            $scope.currentPageArchived = 1; //reset to first page
+        // Show/hide scroll to top button
+        $scope.showHideBtn  = '';
+        $scope.scrollPosition = function() {
+            $scope.scrollC = $ionicScrollDelegate.getScrollPosition().top;
+            if ($scope.scrollC > 250) {
+                $scope.showHideBtn = 'visible';
+                console.log($scope.showHideBtn);
+            } else {
+                $scope.showHideBtn = 'not-visible';
+                console.log($scope.showHideBtn);
+            }
         };
     }
 }());
