@@ -1,14 +1,3 @@
-/*============================
-    Table with Decisions
-==============================*/
-h4 {
-    &.fascilitator-title {
-        margin-top: 70px;
-        color: #fff;
-    }
-}
-
-
 /*=============================
     Error style
 ===============================*/
@@ -22,13 +11,4 @@ h4 {
 .has-error .help-block,
 .has-error .form-control-feedback{
     color:$blue;
-}
-
-/*=============================
-    Search bar tweaks
-===============================*/
-
-.search-bar{
-    color: $blue;
-    margin-top: 3px;
 }
