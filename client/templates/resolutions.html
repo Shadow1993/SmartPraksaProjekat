@@ -1,127 +1,142 @@
-    <!-- =============================
-        Decisions for voting
-    ================================== -->
-    <div class="container">
-        
-        <h4 class="title-listing">Active Listing</h4>
-        
-        <div class="form-group col-md-4 col-md-offset-0 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1 search-decisions">
-            <i class="glyphicon glyphicon-search"></i>
-            <input type="text" ng-model='activeListFilter' class="form-control" placeholder="Search">
-        </div>
-        <div class="clearfix decisions">
-            <table class="table table-decisions users-table table-hover">
-                <tr>
-                    <th>#</th>
-                    <th>
-                        <span ng-click="decisionsSorting('title', sortingState = !sortingState)">
+<div class="container-fluid">
+    <!--
+    <h4 class="title-listing">Active Listing</h4>
+
+    <div class="form-group col-md-4 col-md-offset-0 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1 search-decisions">
+        <i class="glyphicon glyphicon-search"></i>
+        <input type="text" ng-model='activeListFilter' class="form-control" placeholder="Search">
+    </div>
+    <div class="clearfix decisions">
+        <table class="table table-decisions users-table table-hover">
+            <tr>
+                <th>#</th>
+                <th>
+                    <span ng-click="decisionsSorting('title', sortingState = !sortingState)">
                             Title
                             <i ng-if="sortingArg == 'title'" class="glyphicon glyphicon-chevron-{{ !sortingState ? 'up' : 'down' }}"></i>
                         </span>
-                    </th>
-                    <th>Question</th>
-                    <th>
-                        <span ng-click="decisionsSorting('type', sortingState = !sortingState)">
+                </th>
+                <th>Question</th>
+                <th>
+                    <span ng-click="decisionsSorting('type', sortingState = !sortingState)">
                             Type
                             <i ng-if="sortingArg == 'type'" class="glyphicon glyphicon-chevron-{{ !sortingState ? 'up' : 'down' }}"></i>
                         </span>
-                    </th>
-                    <th>
-                        <span ng-click="decisionsSorting('startingDate', sortingState = !sortingState)">
+                </th>
+                <th>
+                    <span ng-click="decisionsSorting('startingDate', sortingState = !sortingState)">
                             Date Created &nbsp; 
                             <i ng-if="sortingArg == 'startingDate'" class="glyphicon glyphicon-chevron-{{ !sortingState ? 'up' : 'down' }}"></i>
                         </span>
-                    </th>
-                    <th>
-                        <span ng-click="decisionsSorting('expirationDate', sortingState = !sortingState)">
+                </th>
+                <th>
+                    <span ng-click="decisionsSorting('expirationDate', sortingState = !sortingState)">
                             Expiration Date &nbsp; 
                             <i ng-if="sortingArg == 'expirationDate'" class="glyphicon glyphicon-chevron-{{ !sortingState ? 'up' : 'down' }}"></i>
                         </span>
-                    </th>
-                </tr>
-                <tr ng-repeat="active_decision in filteredActiveDecisions = (activeDecisions | filter: activeListFilter) |
+                </th>
+            </tr>
+            <tr ng-repeat="active_decision in filteredActiveDecisions = (activeDecisions | filter: activeListFilter) |
                         orderBy: sortingArg:sortingState |
                         limitTo: paginationDecisionListing.maxSize : (paginationDecisionListing.currentPage - 1) * paginationDecisionListing.maxSize   
                 ">
-                    <td>{{ (paginationDecisionListing.currentPage - 1) * paginationDecisionListing.maxSize + $index + 1 }}</td>
-                    <td ui-sref="main.resolution({ id: active_decision._id })">{{ active_decision.title }}</td>
-                    <td><span>{{ active_decision.description }}</span></td>
-                    <td>{{ active_decision.type }}</td>
-                    <td>{{ active_decision.startingDate | date:"short" }}</td>
-                    <td>{{ active_decision.expirationDate | date:"short" }}</td>
-                </tr>
-            </table>
+                <td>{{ (paginationDecisionListing.currentPage - 1) * paginationDecisionListing.maxSize + $index + 1 }}</td>
+                <td ui-sref="main.resolution({ id: active_decision._id })">{{ active_decision.title }}</td>
+                <td><span>{{ active_decision.description }}</span></td>
+                <td>{{ active_decision.type }}</td>
+                <td>{{ active_decision.startingDate | date:"short" }}</td>
+                <td>{{ active_decision.expirationDate | date:"short" }}</td>
+            </tr>
+        </table>
     </div>
     <div ng-show="filteredActiveDecisions.length >= 10">
-        <pagination 
-            uib-pagination 
-            total-items="filteredActiveDecisions.length" 
-            ng-model="paginationDecisionListing.currentPage" 
-            ng-change="pageChanged()" 
-            class="pagination-sm" 
-            items-per-page="paginationDecisionListing.maxSize"
-            previous-text="&larr;"
-            next-text="&rarr;"
-        ></pagination>
+        <pagination uib-pagination total-items="filteredActiveDecisions.length" ng-model="paginationDecisionListing.currentPage"
+            ng-change="pageChanged()" class="pagination-sm" items-per-page="paginationDecisionListing.maxSize" previous-text="&larr;"
+            next-text="&rarr;"></pagination>
     </div>
-    
+
     <h4 class="title-listing archived-title">Archived Listing</h4>
-        <div class="form-group col-md-4 col-md-offset-0 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1 search-decisions">
-            <i class="glyphicon glyphicon-search"></i>
-            <input type="text" ng-model='archivedListFilter' class="form-control" placeholder="Search">
-        </div>
-        <div class="clearfix decisions archived-decisions">
-            <table class="table table-decisions users-table table-archived-decisions table-hover">
-                <tr>
-                    <th>#</th>
-                    <th>
-                        <span ng-click="decisionsSortingAr('title', sortingStateAr = !sortingStateAr)">
+    <div class="form-group col-md-4 col-md-offset-0 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1 search-decisions">
+        <i class="glyphicon glyphicon-search"></i>
+        <input type="text" ng-model='archivedListFilter' class="form-control" placeholder="Search">
+    </div>
+    <div class="clearfix decisions archived-decisions">
+        <table class="table table-decisions users-table table-archived-decisions table-hover">
+            <tr>
+                <th>#</th>
+                <th>
+                    <span ng-click="decisionsSortingAr('title', sortingStateAr = !sortingStateAr)">
                             Title
                             <i ng-if="sortingArgAr == 'title'" class="glyphicon glyphicon-chevron-{{ !sortingStateAr ? 'up' : 'down' }}"></i>
                         </span>
-                    </th>
-                    <th>Question</th>
-                    <th>
-                        <span ng-click="decisionsSortingAr('type', sortingStateAr = !sortingStateAr)">
+                </th>
+                <th>Question</th>
+                <th>
+                    <span ng-click="decisionsSortingAr('type', sortingStateAr = !sortingStateAr)">
                             Type
                             <i ng-if="sortingArgAr == 'type'" class="glyphicon glyphicon-chevron-{{ !sortingStateAr ? 'up' : 'down' }}"></i>
                         </span>
-                    </th>
-                    <th>
-                        <span ng-click="decisionsSortingAr('startingDate', sortingStateAr = !sortingStateAr)">
+                </th>
+                <th>
+                    <span ng-click="decisionsSortingAr('startingDate', sortingStateAr = !sortingStateAr)">
                             Date Created &nbsp; 
                             <i ng-if="sortingArgAr == 'startingDate'" class="glyphicon glyphicon-chevron-{{ !sortingStateAr ? 'up' : 'down' }}"></i>
                         </span>
-                    </th>
-                    <th>
-                        <span ng-click="decisionsSortingAr('expirationDate', sortingStateAr = !sortingStateAr)">
+                </th>
+                <th>
+                    <span ng-click="decisionsSortingAr('expirationDate', sortingStateAr = !sortingStateAr)">
                             Expiration Date &nbsp; 
                             <i ng-if="sortingArgAr == 'expirationDate'" class="glyphicon glyphicon-chevron-{{ !sortingStateAr ? 'up' : 'down' }}"></i>
                         </span>
-                    </th>
-                </tr>
-                <tr ng-repeat="archived_decision in filteredArchivedDecisions = ( archivedDecisions | filter: archivedListFilter ) |
+                </th>
+            </tr>
+            <tr ng-repeat="archived_decision in filteredArchivedDecisions = ( archivedDecisions | filter: archivedListFilter ) |
                         orderBy:sortingArgAr:sortingStateAr |
                         limitTo: paginationDecisionListingAr.maxSize : (paginationDecisionListingAr.currentPage - 1) * paginationDecisionListingAr.maxSize">
-                    <td>{{ (paginationDecisionListingAr.currentPage - 1) * paginationDecisionListingAr.maxSize + $index + 1 }}</td>
-                    <td ui-sref="main.resolution({ id: archived_decision._id })">{{ archived_decision.title }}</td>
-                    <td><span>{{ archived_decision.description }}</span></td>
-                    <td>{{ archived_decision.type }}</td>
-                    <td>{{ archived_decision.startingDate | date:"short" }}</td>
-                    <td>{{ archived_decision.expirationDate | date:"short" }}</td>
-                </tr>
-            </table>
+                <td>{{ (paginationDecisionListingAr.currentPage - 1) * paginationDecisionListingAr.maxSize + $index + 1 }}</td>
+                <td ui-sref="main.resolution({ id: archived_decision._id })">{{ archived_decision.title }}</td>
+                <td><span>{{ archived_decision.description }}</span></td>
+                <td>{{ archived_decision.type }}</td>
+                <td>{{ archived_decision.startingDate | date:"short" }}</td>
+                <td>{{ archived_decision.expirationDate | date:"short" }}</td>
+            </tr>
+        </table>
+    </div>
+    <div ng-show="filteredArchivedDecisions.length > 10">
+        <pagination uib-pagination total-items="filteredArchivedDecisions.length" ng-model="paginationDecisionListingAr.currentPage"
+            ng-change="pageChanged()" class="pagination-sm" items-per-page="paginationDecisionListingAr.maxSize" previous-text="&larr;"
+            next-text="&rarr;"></pagination>
+    </div>-->
+    <h4 class="text-center">Active Listing</h4>
+
+    <div class="panel panel-primary" ng-repeat="active_decision in filteredActiveDecisions = (activeDecisions | filter: activeListFilter) |
+                        orderBy: sortingArg:sortingState |
+                        limitTo: paginationDecisionListing.maxSize : (paginationDecisionListing.currentPage - 1) * paginationDecisionListing.maxSize">
+        <div class="panel-heading hover-over" ui-sref="main.resolution({ id: active_decision._id })">
+            <div class="row">
+                <span class="col-xs-1">{{ (paginationDecisionListing.currentPage - 1) * paginationDecisionListing.maxSize + $index + 1 }}</span>
+                <span class="col-xs-5">Title: {{ active_decision.title }}</span>
+                <span class="col-xs-4">Type: {{ active_decision.type }}</span>
+            </div>
         </div>
-        <div ng-show="filteredArchivedDecisions.length > 10">
-            <pagination 
-                uib-pagination 
-                total-items="filteredArchivedDecisions.length" 
-                ng-model="paginationDecisionListingAr.currentPage" 
-                ng-change="pageChanged()"
-                class="pagination-sm" 
-                items-per-page="paginationDecisionListingAr.maxSize"
-                previous-text="&larr;"
-                next-text="&rarr;"
-            ></pagination>
+        <div class="panel-body">
+            <div class="row">
+                <p class="col-xs-6">Started: {{ active_decision.startingDate | date:"short" }}</p>
+                <p class="col-xs-6">Ends: {{ active_decision.expirationDate | date:"short" }}</p>
+            </div>
+            <div class="row">
+                <p class="col-xs-12">Description: </p>
+                <article class="col-xs-12">
+                    {{ active_decision.description }}
+                </article>
+            </div>
         </div>
+    </div>
+    <div ng-show="filteredActiveDecisions.length >= 5">
+        <pagination uib-pagination total-items="filteredActiveDecisions.length" ng-model="paginationDecisionListing.currentPage"
+            ng-change="pageChanged()" class="pagination-sm" items-per-page="paginationDecisionListing.maxSize" previous-text="&larr;"
+            next-text="&rarr;"></pagination>
+    </div>
+
+    <h4 class="text-center">Archived Listing</h4>
 </div>
