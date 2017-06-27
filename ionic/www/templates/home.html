@@ -2,6 +2,13 @@
     <ion-side-menu-content drag-content="false">
         <ion-header-bar class="bar bar-header bar-positive" align-title="center" ui-view='header'></ion-header-bar>
         <ion-nav-view ui-view='main'></ion-nav-view>
+        <ion-footer-bar class="bar-positive icon-move">
+    <div class="row" ng-controller="FacilitatorController as facilitator">
+        <a class="button button-clear col" ng-click="facilitator.scrollTop()">
+  <i class="icon icon-custom ion-chevron-up"></i>
+</a>
+    </div>
+</ion-footer-bar>
     </ion-side-menu-content>
     <ion-side-menu side='left'>
         <ion-header-bar class="bar bar-positive">
