@@ -6,11 +6,17 @@
     app.factory('NotificationService', [NotificationService]);
     function NotificationService() {
         var prefixes = {
-            error: '[Error] ',
-            auth: '[Auth] ',
-            validation: '[Validation] ',
-            info: '[Info] '
+            error: '',
+            auth: '',
+            validation: '',
+            info: ''
         };
+        // var prefixes = {
+        //     error: '[Error] ',
+        //     auth: '[Auth] ',
+        //     validation: '[Validation] ',
+        //     info: '[Info] '
+        // };
         return {
             error: {
                 generic: prefixes.error + 'Something broke.. call your administrator.. or a plumber..'
