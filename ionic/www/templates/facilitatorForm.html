@@ -3,7 +3,7 @@
         <div class="form-group" ng-class="{'has-error':decisionForm.decision_title.$invalid &&
                                                                 decisionForm.decision_title.$dirty}">
             <label for="decision_title" class="control-label">Decision Title</label>
-            <input name="decision_title" type="text" ng-model="ffc.decisionData.title" placeholder="Title (required)" class="form-control"
+            <input name="decision_title" type="text" ng-model="ffc.decisionData.title" placeholder="Title (required)" class="form-control decision-title-custom"
                 id="decision_title" required ng-minlength="4" ng-maxlength="15">
             <div class="custom-error-message help-block has-error">
                 <span ng-show="decisionForm.decision_title.$error.required && decisionForm.decision_title.$dirty">

@@ -5,10 +5,9 @@
 
     app.controller('ResolutionsController', ['$scope',
                                             'ResolutionService',
-                                            '$ionicScrollDelegate',
                                             ResolutionsController]);
 
-    function ResolutionsController($scope, ResolutionService, $ionicScrollDelegate) {
+    function ResolutionsController($scope, ResolutionService) {
         var vm = this;
         vm.test = 'test';
 
@@ -28,5 +27,19 @@
                     }
                 }
             });
+
+        /*================================
+            Sorting Options
+        ==================================*/
+        $scope.sortOptions  = ['+title', '-title', '+expirationDate', '-expirationDate', '+startingDate', '-startingDate', '+type', '-type'];
+        $scope.activeOpen   = true;
+        $scope.archivedOpen = true;
+
+        $scope.activeOpenClose   = function(){
+            $scope.activeOpen = !$scope.activeOpen;
+        };
+        $scope.archivedOpenClose = function() {
+            $scope.archivedOpen = !$scope.archivedOpen;
+        };
     }
 }());

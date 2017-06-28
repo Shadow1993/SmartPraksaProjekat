@@ -1,189 +1,199 @@
-<!-- =============================
-        Decisions for voting
-================================== -->
-<div class="container">
-    <h4 class="title-listing resolution">{{ resolution.resoultionInfo.decision.active == 'Active' ? 'Active' : 'Expired' }}      Resoulution
-    </h4>
-
-    <div class="decisions resolution clearfix">
-        <div class="cards col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-8  col-lg-offset-2">
-            <div class="clearfix alert-success">
-                <div class="voting-type">
-                    <span>Type: {{ resolution.resoultionInfo.decision.type }}</span>
-                </div>
-                <div class="expiration-date text-right">
-                    <div ng-show="resolution.resoultionInfo.active === 'Expired' || seconds <= 0">
-                        Time is expired!
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <div class="row">
+                <h5 class="col-xs-push-1 col-xs-5">
+                    Title: {{resolution.resoultionInfo.decision.title}}
+                </h5>
+                <h5 class="col-xs-push-1 col-xs-5">
+                    Status: {{resolution.resoultionInfo.decision.active}}
+                </h5>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-4">
+                    <h6>Date</h6>
+                    <div>Started: {{resolution.resoultionInfo.decision.startingDate}}</div>
+                    <div>
+                        {{resolution.resoultionInfo.decision.active === 'Active' ? 'Ending:' : 'Ended:'}} {{resolution.resoultionInfo.decision.expirationDate}}
                     </div>
 
-                    <div ng-show="seconds > 0">
-                        <span><strong>{{ timeTillEvent.daysLeft }}</strong> <span>days</span>,
-                        <span><strong>{{ timeTillEvent.hoursLeft }}</strong> hours</span>,
-                        <span><strong>{{ timeTillEvent.minutesLeft }}</strong> minutes</span>,
-                        <span><strong>{{ timeTillEvent.secondsLeft }}</strong> seconds</span>
+                    <h6>Details:</h6>
+                    <div><strong>Type:</strong> {{resolution.resoultionInfo.decision.type}}</div>
+                    <div ng-if='resolution.resoultionInfo.decision.type === "Super Majority"'>
+                        <strong>Step:</strong> {{resolution.resoultionInfo.decision.steps}} %
                     </div>
+                    <div>
+                        <strong>Time Left:</strong>
+                        <div ng-show="resolution.resoultionInfo.active === 'Expired' || seconds <= 0">
+                            Time has expired!
+                        </div>
 
+                        <div ng-show="seconds > 0">
+                            <div ng-if="timeTillEvent.daysLeft">{{ timeTillEvent.daysLeft }} days,</div>
+                            <div ng-if="timeTillEvent.hoursLeft">{{ timeTillEvent.hoursLeft }} hours,</div>
+                            <div ng-if="timeTillEvent.minutesLeft">{{ timeTillEvent.minutesLeft }} minutes,</div>
+                            <div>{{ timeTillEvent.secondsLeft }} seconds</div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-xs-8">
+                    <h6>Description:</h6>
+                    <article>{{resolution.resoultionInfo.decision.description}}</article>
                 </div>
             </div>
-            <div class="decision-text">
-               {{ resolution.resoultionInfo.decision.description }}
-            </div>
-            <div class="card-block">
-                <div ng-if="userRole[0] === 'Voter' || userRole[1] === 'Voter'" class="btn-group  {{ resolution.resoultionInfo.decision.active == 'Active' ? '' : 'hide' }}">
-                    <form name="voteForm" ng-submit="resolution.voteSubmit()" ng-show="!userVoted">
-                        <label>
+            <hr />
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="card-block">
+                        <div ng-if="userRole[0] === 'Voter' || userRole[1] === 'Voter'" class="btn-group  {{ resolution.resoultionInfo.decision.active == 'Active' ? '' : 'hide' }}">
+                            <form name="voteForm" ng-submit="resolution.voteSubmit(voteForm.myVote.$viewValue)" ng-show="!userVoted">
+                                <label>
                             <input type="radio" name="myVote" ng-model="myVote" value="For" autocomplete="off" required="!myVote"> For
                         </label>
-                        <label>
+                                <label>
                             <input type="radio" name="myVote"  ng-model="myVote" value="Against" autocomplete="off" required="!myVote"> Against
                         </label>
-                        <label>
+                                <label>
                             <input type="radio" name="myVote"  ng-model="myVote" value="Reserved" autocomplete="off" required="!myVote"> Reserved
                         </label>
 
-                        <div ng-if="myVote === 'Against' || myVote === 'Reserved'" class="col-xs-12">
-                            <div class="form-group">
-                                <textarea id="myText" cols="30" rows="10" class="form-control"
-                                    ng-model="resolution.voterComment" 
-                                    minimum-words-validation="5" 
-                                    name="comment"
-                                    minlength="20"
-                                    required
-                                ></textarea>
-                                <div ng-show="!voteForm.comment.$valid && voteForm.comment.$dirty">
-                                    <p ng-if="voteForm.comment.$error.minlength" class="message">You must insert 20 letters minimum!</p>
-                                    <p ng-show="voteForm.comment.$error.minimumWords" class="message">You must insert 5 words minimum!</p>
+                                <div ng-if="myVote === 'Against' || myVote === 'Reserved'" class="col-xs-12">
+                                    <div class="form-group">
+                                        <textarea id="myText" cols="30" rows="10" class="form-control" ng-model="resolution.voterComment" minimum-words-validation="5"
+                                            name="comment" minlength="20" required></textarea>
+                                        <div ng-show="!voteForm.comment.$valid && voteForm.comment.$dirty">
+                                            <p ng-if="voteForm.comment.$error.minlength" class="message">You must insert 20 letters minimum!</p>
+                                            <p ng-show="voteForm.comment.$error.minimumWords" class="message">You must insert 5 words minimum!</p>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>                    
+
+                                <div ng-if="myVote === 'for'">
+                                    <div class="form-group" ng-hide="myVote === 'for'">
+                                        <textarea col="40" rows="5" class="form-control"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="vote {{ resolution.resoultionInfo.decision.active == 'Active' ? '' : 'hide' }}">
+                                    <input type="submit" class="btn btn-primary {{ resolution.resoultionInfo.decision.active == 'Active' ? '' : 'disabled' }}"
+                                        ng-disabled="voteForm.$invalid || voteForm.$touched" value="Vote" />
+                                </div>
+                            </form>
                         </div>
 
-                        <div ng-if="myVote === 'for'">
-                            <div class="form-group" ng-hide="myVote === 'for'">
-                                <textarea col="40" rows="5" class="form-control"></textarea>
-                            </div>
+                        <div ng-show="resolution.resoultionInfo.decision.active == 'Active' && userVoted" class="col-xs-10 col-xs-offset-1 alert alert-danger">
+                            You have already voted!
                         </div>
 
-                        <div class="vote {{ resolution.resoultionInfo.decision.active == 'Active' ? '' : 'hide' }}">
-                            <input type="submit" class="btn btn-primary {{ resolution.resoultionInfo.decision.active == 'Active' ? '' : 'disabled' }}" ng-disabled="voteForm.$invalid || voteForm.$touched"
-                                value="Vote" />
-                        </div>
-                    </form>                    
+                    </div>
                 </div>
-                
-                <div ng-show="resolution.resoultionInfo.decision.active == 'Active' && userVoted" class="col-xs-10 col-xs-offset-1 alert alert-danger">
-                    You are already voted!
-                </div>
+                <div class="col-xs-6">
+                    <div ng-if="resolution.resoultionInfo.decision.active == 'Active'">
+                        <p class="btn" role="button" ng-click="seeResults = !seeResults">
+                            <strong>See Results</strong>
+                        </p>
 
-            </div>
-
-            <div ng-if="resolution.resoultionInfo.decision.active == 'Active'">
-                <a class="btn btn-secondary pull-left" role="button" ng-click="seeResults = !seeResults">
-                     See Results
-                </a>
-
-                <div class="collapse in" id="simple-majority" ng-show="seeResults">
-                    <span class="total-votes-number">Total number of votes: {{ countAllVotes }}.</span>
-                    <div class="card card-block">
-                        <div ng-if="countAllVotes">
-                            <div class="progress">
-                                <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{ countedForPercent }}" style="width: {{ countedForPercent }}%" aria-valuemin="0">{{ countedForPercent != 0 ? 'Yes &nbsp; ' : '' }}</div>
-                                <span>{{ countedForPercent != null ? countedForPercent : 0 | number: 0 }} %</span>
+                        <div class="collapse in" id="simple-majority" ng-show="seeResults">
+                            <span class="total-votes-number">Total number of votes: {{ countAllVotes }}.</span>
+                            <div ng-if="!countAllVotes">
+                                <p>Results will be displayed after first vote.</p>
                             </div>
+                            <div class="card card-block">
+                                <div ng-if="countAllVotes">
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{ countedForPercent }}" style="width: {{ countedForPercent }}%"
+                                            aria-valuemin="0">{{ countedForPercent != 0 ? 'Yes &nbsp; ' : '' }}</div>
+                                        <span>{{ countedForPercent != null ? countedForPercent : 0 | number: 0 }} %</span>
+                                    </div>
 
-                            <div class="progress">
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: {{ countedAgainstPercent }}%" aria-valuenow="{{ countedAgainstPercent }}" aria-valuemin="0" aria-valuemax="100">{{ countedForPercent != null ? 'No &nbsp; ' : '' }}</div>
-                                <span>{{ countedAgainstPercent != null ? countedAgainstPercent : 0 | number: 0 }} %</span>
-                            </div>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: {{ countedAgainstPercent }}%" aria-valuenow="{{ countedAgainstPercent }}"
+                                            aria-valuemin="0" aria-valuemax="100">{{ countedForPercent != null ? 'No &nbsp; ' : '' }}</div>
+                                        <span>{{ countedAgainstPercent != null ? countedAgainstPercent : 0 | number: 0 }} %</span>
+                                    </div>
 
-                            <div class="progress">
-                                <div class="progress-bar bg-warning" role="progressbar" style="width: {{ countedReservedPercent }}%" aria-valuenow="{{ countedReservedPercent }}" aria-valuemin="0" aria-valuemax="100">{{ countedReservedPercent != null ? 'RS &nbsp; ' : '' }}</div>
-                                <span>{{ countedReservedPercent != null ? countedReservedPercent : 0 | number: 0 }} %</span>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: {{ countedReservedPercent }}%" aria-valuenow="{{ countedReservedPercent }}"
+                                            aria-valuemin="0" aria-valuemax="100">{{ countedReservedPercent != null ? 'RS &nbsp; ' : '' }}</div>
+                                        <span>{{ countedReservedPercent != null ? countedReservedPercent : 0 | number: 0 }} %</span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div ng-if="!countAllVotes">
-                            <p class="text-center">Results will be displayed after first vote.</p>
                         </div>
                     </div>
                 </div>
+                <div class="col-xs-12" ng-if="resolution.resoultionInfo.decision.active == 'Expired'" class="card card-block card-archived alert">
+                    <div class="row">
+                        <div class="alert alert-success col-xs-10 col-xs-offset-1" ng-show="votePassed">
+                            Decision is passed, successful voting! <i class="glyphicon glyphicon-ok pull-right"></i>
+                        </div>
+                        <div class="alert alert-danger col-xs-10 col-xs-offset-1" ng-show="!votePassed">
+                            Decision isn't passed, unsuccessful voting! <i class="glyphicon glyphicon-remove pull-right"></i>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="progress">
+                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{ countedForPercent }}" style="width: {{ countedForPercent }}%"
+                                aria-valuemin="100">{{ countedForPercent != 0 ? 'Yes &nbsp; ' : '' }}</div>
+                            <span>{{ countedForPercent != null ? countedForPercent : 0 | number: 0 }} %</span>
+                        </div>
+
+                        <div class="progress">
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: {{ countedAgainstPercent }}%" aria-valuenow="{{ countedAgainstPercent }}"
+                                aria-valuemin="0" aria-valuemax="100">{{ countedForPercent != 0 ? 'No &nbsp; ' : '' }}</div>
+                            <span>{{ countedAgainstPercent != null ? countedAgainstPercent : 0 | number: 0 }} %</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: {{ countedReservedPercent }}%" aria-valuenow="{{ countedReservedPercent }}"
+                                aria-valuemin="0" aria-valuemax="100">{{ countedReservedPercent != 0 ? 'RS &nbsp; ' : '' }}</div>
+                            <span>{{ countedReservedPercent != null ? countedReservedPercent : 0 | number: 0 }} %</span>
+                        </div>
+                        <p class="archived-votes-number">Total number of votes: {{ countAllVotes }}.</p>
+                    </div>
+                </div>
             </div>
-            
-            <div ng-if="resolution.resoultionInfo.decision.active == 'Expired'" class="card card-block card-archived alert">
-                <div class="alert alert-success col-xs-10 col-xs-offset-1" ng-show="votePassed">
-                    Decision is passed, successful voting! <i class="glyphicon glyphicon-ok pull-right"></i>
-                </div>
-                <div class="alert alert-danger col-xs-10 col-xs-offset-1" ng-show="!votePassed">
-                    Decision isn't passed, unsuccessful voting! <i class="glyphicon glyphicon-remove pull-right"></i>
-                </div>
-
-
-                <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{ countedForPercent }}" style="width: {{ countedForPercent }}%" aria-valuemin="100">{{ countedForPercent != 0 ? 'Yes &nbsp; ' : '' }}</div>
-                    <span>{{ countedForPercent != null ? countedForPercent : 0 | number: 0 }} %</span>
-                </div>
-
-                <div class="progress">
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: {{ countedAgainstPercent }}%" aria-valuenow="{{ countedAgainstPercent }}" aria-valuemin="0" aria-valuemax="100">{{ countedForPercent != 0 ? 'No &nbsp; ' : '' }}</div>
-                    <span>{{ countedAgainstPercent != null ? countedAgainstPercent : 0 | number: 0 }} %</span>
-                </div>
-                <div class="progress">
-                    <div class="progress-bar bg-warning" role="progressbar" style="width: {{ countedReservedPercent }}%" aria-valuenow="{{ countedReservedPercent }}" aria-valuemin="0" aria-valuemax="100">{{ countedReservedPercent != 0 ? 'RS &nbsp; ' : '' }}</div>
-                    <span>{{ countedReservedPercent != null ? countedReservedPercent : 0 | number: 0 }} %</span>
-                </div>
-                <p class="archived-votes-number">Total number of votes: {{ countAllVotes }}.</p>
-                
-            </div>
-            <div class="col-xs-10 col-xs-offset-1 go-back">
-                <span class=" resolution-back btn btn-warning" ui-sref="main.resolutions">Go Back</span>
-            </div>
-
         </div>
-        <!-- .card -->
-    <!-- #decisions -->
-</div>
-   <div class="comments" ng-if="resolution.resoultionInfo.decision.active == 'Active'">
-        <div class="col-xs-12 col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-8  col-lg-offset-2">
-            <button class="btn btn-danger" ng-click="writeComment = !writeComment">Write Comment</button>
-            <form name="createNewCommentForm" ng-submit="resolution.commentSubmit()" ng-show="writeComment == true">
-                <div>
-                    <h5 class="write-comment">Write comment</h5>
-                    <div class="form-group">
-                        <textarea id="createNewComment" cols="30" rows="7" class="form-control"
-                            ng-model="resolution.commentAny"
-                            name="commentAny"
-                        ></textarea>
-                    </div>          
-                    <div class="form-group">
-                        <button class="btn btn-primary" type="submit">Send</button>
-                    </div>          
-                </div>
-            </form>
-            <div class="comments-table">
-                <div class="media" ng-repeat="comment in decisionComments.slice(((currentCommentsPageActive-1) * commentItemsPerPage), (currentCommentsPageActive)*commentItemsPerPage)">
-                    <div class="media-left">
-                        <a href="#">
+    </div>
+    <details class="panel panel-primary">
+        <summary class="panel-heading hover-over"><h6>Comments</h6></summary>
+        <div class="panel-body">
+            <div class="comments" ng-if="resolution.resoultionInfo.decision.active == 'Active'">
+                <div class="col-xs-12 col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-8  col-lg-offset-2">
+                    <button class="btn btn-danger" ng-click="writeComment = !writeComment">Write Comment</button>
+                    <form name="createNewCommentForm" ng-submit="resolution.commentSubmit()" ng-show="writeComment == true">
+                        <div>
+                            <h5 class="write-comment">Write comment</h5>
+                            <div class="form-group">
+                                <textarea id="createNewComment" cols="30" rows="7" class="form-control" ng-model="resolution.commentAny" name="commentAny"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary" type="submit">Send</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="comments-table">
+                        <div class="media" ng-repeat="comment in decisionComments.slice(((currentCommentsPageActive-1) * commentItemsPerPage), (currentCommentsPageActive)*commentItemsPerPage)">
+                            <div class="media-left">
+                                <a href="#">
                             <img class="media-object" src="https://www.gravatar.com/avatar/HASH" alt="gravatar">
                         </a>
+                            </div>
+                            <div class="media-body">
+                                <span>Author: {{ fromUser.username }}</span>&nbsp;
+                                <span>- &nbsp; {{ comment.submitedDate | date: "short" }}</span>
+                                <p>{{ comment.text }}</p>
+                            </div>
+                        </div><br>
+                        <div ng-show="decisionComments.length > 5">
+                            <pagination uib-pagination total-items="decisionComments.length" ng-model="currentCommentsPageActive" ng-change="commentsPageChanged()"
+                                class="pagination-sm" items-per-page="commentItemsPerPage" previous-text="&larr;" next-text="&rarr;"></pagination>
+                        </div>
                     </div>
-                    <div class="media-body">
-                        <span>Author: {{ fromUser.username }}</span>&nbsp;
-                        <span>- &nbsp; {{ comment.submitedDate | date: "short" }}</span>
-                        <p>{{ comment.text }}</p>
-                    </div>
-                </div><br>
-                <div ng-show="decisionComments.length > 5">
-                    <pagination 
-                        uib-pagination 
-                        total-items="decisionComments.length" 
-                        ng-model="currentCommentsPageActive" 
-                        ng-change="commentsPageChanged()" 
-                        class="pagination-sm" 
-                        items-per-page="commentItemsPerPage"
-                        previous-text="&larr;"
-                        next-text="&rarr;"
-                    ></pagination>
                 </div>
             </div>
         </div>
-    </div>
-
-    </div>
+    </details>
+</div>

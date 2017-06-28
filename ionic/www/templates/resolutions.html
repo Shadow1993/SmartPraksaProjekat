@@ -1,47 +1,65 @@
 <div class="bar bar-subheader bar-positive">
     <input type="text" placeholder="Search Listings" id="input-active-listing" ng-model='allFilterList' />
     <ion-icon class="ion-ios-search search-list"></ion-icon>
+    <select 
+            class="form-control resolutions-sorting" 
+            ng-model="sortResolutionsOrder" 
+            ng-options="option for option in sortOptions track by option"
+    >
+        <option value="" disabled selected>Sort by:</option>
+    </select>
 </div>
 
 <ion-content class="has-header has-subheader has-footer" scroll-watch>
     <ion-list>
-        <h3 class="text-center resolution-listing-title {{ filteredActiveDecisions.length == 0 ? 'hidden' : '' }}">Active Listing</h3>
-        <h6 ng-show="allFilterList.length > 0 && filteredActiveDecisions.length == 0" class="text-center">No matched items into Active List</h6>
-        <ion-item class="background-custom"  ng-repeat="active_decision in filteredActiveDecisions = (activeDecisions | filter: allFilterList)">
-            <p name="numberOfRecords" class="paragraph-custom"><span class="sn">Sn:</span> {{ $index + 1 }}.</p>
-            <label for="type" class="label-custom">Type:</label>
-            <p name="type" class="paragraph-custom">Active</p>
-            <label for="title" class="label-custom">Title:</label>
-            <p name="title" class="paragraph-custom">{{active_decision.title}}</p>
-            <label for="title" class="label-custom">Description:</label>
-            <p name="type" class="paragraph-custom">{{active_decision.description}}</p>
-            <label for="date-created" class="label-custom">Date Created:</label>
-            <p name="date-created" class="paragraph-custom">{{active_decision.startingDate | date:"short"}}</p>
-            <label for="expiration-date" class="label-custom">Expiration Date:</label>
-            <p name="expiration-date" class="paragraph-custom">{{active_decision.expirationDate | date:"short"}}</p>
-            <button class="btn btn-primary pull-right button-visit" ui-sref="main.resolution({ id: active_decision._id })">Visit</button>
-        </ion-item>
+        <details open>
+            <summary ng-click="activeOpenClose()">
+                <h3 class="text-center resolution-listing-title {{ filteredActiveDecisions.length == 0 ? 'hidden' : '' }}">
+                    Active Listing <i class="icon icon-custom ion-chevron-{{ activeOpen ? 'down' : 'up' }}"></i>
+                </h3>
+            </summary>
+            <h6 ng-show="allFilterList.length > 0 && filteredActiveDecisions.length == 0" class="text-center">No matched items into Active List</h6>
+            <ion-item class="background-custom"  ng-repeat="active_decision in filteredActiveDecisions = (activeDecisions | filter: allFilterList) |
+            orderBy: sortResolutionsOrder">
+                <p name="numberOfRecords" class="paragraph-custom"><span class="sn">Sn:</span> {{ $index + 1 }}.</p>
+                <label for="type" class="label-custom">Type:</label>
+                <p name="type" class="paragraph-custom">Active</p>
+                <label for="title" class="label-custom">Title:</label>
+                <p name="title" class="paragraph-custom">{{active_decision.title}}</p>
+                <label for="title" class="label-custom">Description:</label>
+                <p name="type" class="paragraph-custom">{{active_decision.description}}</p>
+                <label for="date-created" class="label-custom">Date Created:</label>
+                <p name="date-created" class="paragraph-custom">{{active_decision.startingDate | date:"short"}}</p>
+                <label for="expiration-date" class="label-custom">Expiration Date:</label>
+                <p name="expiration-date" class="paragraph-custom">{{active_decision.expirationDate | date:"short"}}</p>
+                <button class="btn btn-primary pull-right button-visit" ui-sref="main.resolution({ id: active_decision._id })">Visit</button>
+            </ion-item>
+        </details>
     </ion-list>
-
-    <ion-item-divider ng-show="filteredActiveDecisions.length > 0">&nbsp; <br><br></ion-item-divider>
     
     <ion-list>
-        <h3 class="text-center resolution-listing-title {{ filteredArchivedDecisions.length == 0 ? 'hidden' : '' }}">Archived Listing</h3>
-        <h6 ng-show="allFilterList.length > 0 && filteredArchivedDecisions.length == 0" class="text-center">No matched items into Archived List</h6>
-        <ion-item class="background-custom"  ng-repeat="archived_decision in filteredArchivedDecisions = ( archivedDecisions | filter: allFilterList )">
-            <p name="numberOfRecords" class="paragraph-custom"><span class="sn">Sn:</span> {{ $index + 1 }}.</p>
-            <label for="type" class="label-custom">Type:</label>
-            <p name="type" class="paragraph-custom">Archived</p>
-            <label for="title" class="label-custom">Title:</label>
-            <p name="title" class="paragraph-custom">{{archived_decision.title}}</p>
-            <label for="title" class="label-custom">Description:</label>
-            <p name="type" class="paragraph-custom">{{archived_decision.description}}</p>
-            <label for="date-created" class="label-custom">Date Created:</label>
-            <p name="date-created" class="paragraph-custom">{{archived_decision.startingDate | date:"short"}}</p>
-            <label for="expiration-date" class="label-custom">Expiration Date:</label>
-            <p name="expiration-date" class="paragraph-custom">{{archived_decision.expirationDate | date:"short"}}</p>
-            <button class="btn btn-primary pull-right button-visit" ui-sref="main.resolution({ id: archived_decision._id })">Visit</button>
-        </ion-item>
+        <details open>
+            <summary ng-click="archivedOpenClose()">
+                <h3 class="text-center resolution-listing-title {{ filteredArchivedDecisions.length == 0 ? 'hidden' : '' }}">
+                    Archived Listing <i class="icon icon-custom ion-chevron-{{ archivedOpen ? 'down' : 'up' }}"></i>
+                </h3>
+            </summary>
+            <h6 ng-show="allFilterList.length > 0 && filteredArchivedDecisions.length == 0" class="text-center">No matched items into Archived List</h6>
+            <ion-item class="background-custom"  ng-repeat="archived_decision in filteredArchivedDecisions = ( archivedDecisions | filter: allFilterList ) | orderBy: sortResolutionsOrder">
+                <p name="numberOfRecords" class="paragraph-custom"><span class="sn">Sn:</span> {{ $index + 1 }}.</p>
+                <label for="type" class="label-custom">Type:</label>
+                <p name="type" class="paragraph-custom">Archived</p>
+                <label for="title" class="label-custom">Title:</label>
+                <p name="title" class="paragraph-custom">{{archived_decision.title}}</p>
+                <label for="title" class="label-custom">Description:</label>
+                <p name="type" class="paragraph-custom">{{archived_decision.description}}</p>
+                <label for="date-created" class="label-custom">Date Created:</label>
+                <p name="date-created" class="paragraph-custom">{{archived_decision.startingDate | date:"short"}}</p>
+                <label for="expiration-date" class="label-custom">Expiration Date:</label>
+                <p name="expiration-date" class="paragraph-custom">{{archived_decision.expirationDate | date:"short"}}</p>
+                <button class="btn btn-primary pull-right button-visit" ui-sref="main.resolution({ id: archived_decision._id })">Visit</button>
+            </ion-item>
+        </details>
     </ion-list>
 </ion-content>
 
