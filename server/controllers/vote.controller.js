@@ -33,7 +33,9 @@ module.exports.createVote = function (req, res, next) {
                                 if (err) {
                                     return next(err.message);
                                 } else {
+                                    console.log('req. body.type' + req.body.type);
                                     if (voteDb.type === 'Against' || voteDb.type === 'Reserved') {
+                                        console.log('hi im here: ' + req.body);
                                         if (req.body.commentText.match(/(\w+)/g).length < 5 && req.body.commentText.length < 20) {
                                             console.log('less than 5 words and less than 20 characters');
                                             res.send('less than 5 words and less than 20 characters');
