@@ -6,6 +6,7 @@
 */
 
 var CommentModel = require('../models/comment.model'),
+    UserModel = require('../models/user.model'),
     DecisionModel = require('../models/decision.model');
 
 module.exports.getAllComments = function (req, res, next) {
@@ -14,13 +15,13 @@ module.exports.getAllComments = function (req, res, next) {
         .populate('comments')
         .exec(function (err, decisionDb) {
             if (err) {
-                return next(err.message);
+                return next(err);
             } else {
+                // get all comments and their users
                 res.send(decisionDb.comments);
             }
         });
 };
-
 module.exports.createComment = function (req, res, next) {
     CommentModel.create({
         text: req.body.text,
@@ -28,7 +29,7 @@ module.exports.createComment = function (req, res, next) {
         submitedDate: req.body.submitedDate
     }, function (err, commentDb) {
         if (err) {
-            return next(err.message);
+            return next(err);
         } else {
             DecisionModel.update(
                 { _id: req.body.id },
@@ -38,7 +39,7 @@ module.exports.createComment = function (req, res, next) {
                     }
                 }, function (err, decisionDb) {
                     if (err) {
-                        return next(err.message);
+                        return next(err);
                     } else {
                         res.send(decisionDb);
                     }

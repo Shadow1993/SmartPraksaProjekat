@@ -17,19 +17,19 @@ module.exports.getAllDecisions = function (req, res, next) {
                 return next(err.message);
             } else {
                 for (var i = 0; i < decisionDb.length; i++) {
-                    if (decisionDb[i].expirationDate.getTime() < Date.now()) {
-                        DecisionModel.findOneAndUpdate({ _id: decisionDb[i]._id }, { $set: { active: 'Expired' } },
-                            function (err, data) {
-                                if (err) {
-                                    return next(err.message);
-                                }
-                            });
-                    }
+                    checkIfExpired(decisionDb[i]);
                 }
                 res.send(decisionDb);
             }
         });
 };
+
+// ! helper function for checking if decision has expired
+function checkIfExpired(data) {
+    if (data.expirationDate.getTime() < Date.now()) {
+        DecisionModel.findOneAndUpdate({ _id: data._id }, { $set: { active: 'Expired' } });
+    }
+}
 
 module.exports.getDecisionById = function (req, res, next) {
     console.log(req.params);
@@ -39,68 +39,57 @@ module.exports.getDecisionById = function (req, res, next) {
             if (err) {
                 return next(err.message);
             } else {
-                var countedVotes = {
-                    agreed: 0,
-                    reserved: 0,
-                    against: 0
-                };
-                //Counting votes
-                var userVoted = false;
-                for (var i = 0; i < decisionDb.votes.length; i++) {
-                    if (decisionDb.votes[i].submitedBy.equals(req.user._id.toString())) {
-                        userVoted = true;
-                    }
-                    if (decisionDb.votes[i].type === 'For') {
-                        countedVotes.agreed++;
-                    } else if (decisionDb.votes[i].type === 'Against') {
-                        countedVotes.against++;
-                    } else if (decisionDb.votes[i].type === 'Reserved') {
-                        countedVotes.reserved++;
-                    }
-                }
-                //Checking if decision expired
-                var passed = false;
-                if (decisionDb.active === 'Expired') {
-                    if (decisionDb.type === 'Simple Majority' && countedVotes.against !== 0) {
-                        if (Math.round(countedVotes.agreed / countedVotes.against) > 60) {
-                            passed = true;
-                        }
-                    } else if (decisionDb.type === 'Unanimous') {
-                        if (countedVotes.against === 0 && countedVotes.agreed > 0) {
-                            passed = true;
-                        }
-                    } else if (decisionDb.type === 'Super Majority' && countedVotes.against !== 0) {
-                        if (Math.round(countedVotes.agreed / countedVotes.against) > decisionDb.steps) {
-                            passed = true;
-                        }
-                    } else if (countedVotes.agreed > 0 && countedVotes.against === 0) {
-                        passed = true;
-                    }
-                }
-                res.send({ decision: decisionDb, countedVotes: countedVotes, userVoted: userVoted, passed: passed });
+                var userSubmited = req.user._id.toString();
+                var countedVotes = countVotes(decisionDb, userSubmited);
+                console.log(countedVotes);
+                res.send({ decision: decisionDb, countedVotes: countedVotes.countedVotes, userVoted: countedVotes.userVoted, passed: countedVotes.passed });
             }
         });
 };
-
-function countVotes(decisionsParam) {
+// ! helper function for counting votes, checking if user already voted and checking if decision has expired
+function countVotes(data, userSubmited) {
     var retVal = {
-        userVoted: false,
         countedVotes: {
             agreed: 0,
-            against: 0,
-            reserved: 0
-        }
+            reserved: 0,
+            against: 0
+        },
+        userVoted: false,
+        passed: false
     };
-
+    // check if user voted and count votes
+    for (var i = 0; i < data.votes.length; i++) {
+        if (data.votes[i].submitedBy.equals(userSubmited)) {
+            retVal.userVoted = true;
+        }
+        if (data.votes[i].type === 'For') {
+            retVal.countedVotes.agreed++;
+        } else if (data.votes[i].type === 'Against') {
+            retVal.countedVotes.against++;
+        } else if (data.votes[i].type === 'Reserved') {
+            retVal.countedVotes.reserved++;
+        }
+    }
+    // check if decision passed or rejected
+    if (data.active === 'Expired') {
+        if (data.type === 'Simple Majority' && retVal.countedVotes.against !== 0) {
+            if (Math.round(retVal.countedVotes.agreed / retVal.countedVotes.against) > 60) {
+                retVal.passed = true;
+            }
+        } else if (data.type === 'Unanimous') {
+            if (retVal.countedVotes.against === 0 && retVal.countedVotes.agreed > 0) {
+                retVal.passed = true;
+            }
+        } else if (data.type === 'Super Majority' && retVal.countedVotes.against !== 0) {
+            if (Math.round(retVal.countedVotes.agreed / retVal.countedVotes.against) > data.steps) {
+                retVal.passed = true;
+            }
+        } else if (retVal.countedVotes.agreed > 0 && retVal.countedVotes.against === 0) {
+            retVal.passed = true;
+        }
+    }
     return retVal;
 }
-
-function checkIfExpired() {
-
-    return passed;
-}
-
-
 
 module.exports.createDecision = function (req, res, next) {
     DecisionModel.create({
@@ -138,7 +127,6 @@ module.exports.restartDecision = function (req, res, next) {
                     if (err) {
                         return next(err.message);
                     } else {
-                        console.log('ASAAAAAAAAAAAAAAAAAAAAAAAAAAAA' + decisionDb2);
                         res.send(decisionDb2);
                     }
                 });
