@@ -73,28 +73,31 @@
 
                 </div>
 
-                <div ng-if="resolution.resoultionInfo.decision.active == 'Active'">
+                <div ng-if="resolution.resoultionInfo.decision.active == 'Active'" class="ionic-vote clearfix">
                     <a class="btn btn-secondary pull-left" role="button" ng-click="seeResults = !seeResults">
                         See Results
                     </a>
 
                     <div class="collapse in" id="simple-majority" ng-show="seeResults">
-                        <span class="total-votes-number">Total number of votes: {{ countAllVotes }}.</span>
-                        <div class="card card-block">
+                        <p class="total-votes-number">Total number of votes: {{ countAllVotes }}.</p>
+                        <div class="ionic-card clearfix">
                             <div ng-if="countAllVotes">
-                                <div class="progress">
-                                    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{ countedForPercent }}" style="width: {{ countedForPercent }}%" aria-valuemin="0">{{ countedForPercent != 0 ? 'Yes &nbsp; ' : '' }}</div>
-                                    <span>{{ countedForPercent != null ? countedForPercent : 0 | number: 0 }} %</span>
+                                <div class="progress-ionic">
+                                    <div class="progress-ionic-bar bg-success" style="width: {{ countedForPercent }}%" aria-valuenow="{{ countedForPercent }}" aria-valuemin="0" aria-valuemax="100">
+                                    </div>
+                                    <p>{{ countedForPercent != null ? 'Yes &nbsp; ' : '' }} &nbsp;{{ countedForPercent != null ? countedForPercent : 0 | number: 0 }} %</p>
                                 </div>
 
-                                <div class="progress">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: {{ countedAgainstPercent }}%" aria-valuenow="{{ countedAgainstPercent }}" aria-valuemin="0" aria-valuemax="100">{{ countedForPercent != null ? 'No &nbsp; ' : '' }}</div>
-                                    <span>{{ countedAgainstPercent != null ? countedAgainstPercent : 0 | number: 0 }} %</span>
+                                <div class="progress-ionic">
+                                    <div class="progress-ionic-bar bg-danger" style="width: {{ countedAgainstPercent }}%" aria-valuenow="{{ countedAgainstPercent }}" aria-valuemin="0" aria-valuemax="100">
+                                    </div>  
+                                    <p>{{ countedForPercent != null ? 'No &nbsp; ' : '' }} &nbsp;{{ countedAgainstPercent != null ? countedAgainstPercent : 0 | number: 0 }}%</p>
                                 </div>
 
-                                <div class="progress">
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: {{ countedReservedPercent }}%" aria-valuenow="{{ countedReservedPercent }}" aria-valuemin="0" aria-valuemax="100">{{ countedReservedPercent != null ? 'RS &nbsp; ' : '' }}</div>
-                                    <span>{{ countedReservedPercent != null ? countedReservedPercent : 0 | number: 0 }} %</span>
+                                <div class="progress-ionic">
+                                    <div class="progress-ionic-bar bg-warning" style="width: {{ countedReservedPercent }}%" aria-valuenow="{{ countedReservedPercent }}" aria-valuemin="0" aria-valuemax="100">
+                                    </div>
+                                    <p>{{ countedReservedPercent != null ? 'RS &nbsp; ' : '' }} &nbsp;{{ countedReservedPercent != null ? countedReservedPercent : 0 | number: 0 }}%</p> 
                                 </div>
                             </div>
                             <div ng-if="!countAllVotes">
@@ -104,28 +107,34 @@
                     </div>
                 </div>
                 
-                <div ng-if="resolution.resoultionInfo.decision.active == 'Expired'" class="card card-block card-archived alert">
-                    <div class="alert alert-success col-xs-10 col-xs-offset-1" ng-show="votePassed">
+                <div ng-if="resolution.resoultionInfo.decision.active == 'Expired'" class="card card-block card-archived alert clearfix">
+                    <div class="alert alert-success col-xs-10 col-xs-offset-1 " ng-show="votePassed">
                         Decision is passed, successful voting! <i class="glyphicon glyphicon-ok pull-right"></i>
                     </div>
                     <div class="alert alert-danger col-xs-10 col-xs-offset-1" ng-show="!votePassed">
-                        Decision isn't passed, unsuccessful voting! <i class="glyphicon glyphicon-remove pull-right"></i>
+                        Decision isn't passed! <i class="glyphicon glyphicon-remove pull-right"></i>
+                    </div>
+                    <div class="progress-ionic-clarfix clearfix">
+                        <div class="progress-ionic">
+                            <div class="progress-ionic-bar bg-success" style="width: {{ countedForPercent }}%" aria-valuenow="{{ countedForPercent }}" aria-valuemin="0" aria-valuemax="100">
+                            </div>
+                            <p>{{ countedForPercent != null ? 'Yes &nbsp; ' : '' }} &nbsp;{{ countedForPercent != null ? countedForPercent : 0 | number: 0 }} %</p>
+                        </div>
+
+                        <div class="progress-ionic">
+                            <div class="progress-ionic-bar bg-danger" style="width: {{ countedAgainstPercent }}%" aria-valuenow="{{ countedAgainstPercent }}" aria-valuemin="0" aria-valuemax="100">
+                            </div>  
+                            <p>{{ countedForPercent != null ? 'No &nbsp; ' : '' }} &nbsp;{{ countedAgainstPercent != null ? countedAgainstPercent : 0 | number: 0 }}%</p>
+                        </div>
+
+                        <div class="progress-ionic">
+                            <div class="progress-ionic-bar bg-warning" style="width: {{ countedReservedPercent }}%" aria-valuenow="{{ countedReservedPercent }}" aria-valuemin="0" aria-valuemax="100">
+                            </div>
+                            <p>{{ countedReservedPercent != null ? 'RS &nbsp; ' : '' }} &nbsp;{{ countedReservedPercent != null ? countedReservedPercent : 0 | number: 0 }}%</p> 
+                        </div>
                     </div>
 
-
-                    <div class="progress">
-                        <div class="progress-bar bg-success" role="progressbar" aria-valuenow="{{ countedForPercent }}" style="width: {{ countedForPercent }}%" aria-valuemin="100">{{ countedForPercent != 0 ? 'Yes &nbsp; ' : '' }}</div>
-                        <span>{{ countedForPercent != null ? countedForPercent : 0 | number: 0 }} %</span>
-                    </div>
-
-                    <div class="progress">
-                        <div class="progress-bar bg-danger" role="progressbar" style="width: {{ countedAgainstPercent }}%" aria-valuenow="{{ countedAgainstPercent }}" aria-valuemin="0" aria-valuemax="100">{{ countedForPercent != 0 ? 'No &nbsp; ' : '' }}</div>
-                        <span>{{ countedAgainstPercent != null ? countedAgainstPercent : 0 | number: 0 }} %</span>
-                    </div>
-                    <div class="progress">
-                        <div class="progress-bar bg-warning" role="progressbar" style="width: {{ countedReservedPercent }}%" aria-valuenow="{{ countedReservedPercent }}" aria-valuemin="0" aria-valuemax="100">{{ countedReservedPercent != 0 ? 'RS &nbsp; ' : '' }}</div>
-                        <span>{{ countedReservedPercent != null ? countedReservedPercent : 0 | number: 0 }} %</span>
-                    </div>
+                    
                     <p class="archived-votes-number">Total number of votes: {{ countAllVotes }}.</p>
                     
                 </div>
