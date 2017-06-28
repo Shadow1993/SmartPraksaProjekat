@@ -100,6 +100,7 @@ select.resolutions-sorting {
     -moz-border-radius: 0;
     -o-border-radius: 0;
     font-size: 12px;
+    border: none;
 }
 .resolution-listing-title {
     padding: 20px;
@@ -139,14 +140,15 @@ details > summary:first-of-type {
     list-style-type: none;
 }
 ::-webkit-details-marker { 
-    display:none; 
+    display: none; 
 }
 summary i {
     color: #fff !important;
     font-size: 23px;
     position: relative;
-    left: 10px;
+    left: 10px; top: 2px;
 }
+
 /*Resolution*/
 .scroll-content {
     background-color: lightskyblue;
