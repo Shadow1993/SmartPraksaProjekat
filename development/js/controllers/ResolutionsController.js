@@ -52,7 +52,7 @@
             setPage: function (pageNo) {
                 $scope.paginationDecisionListing.currentPage = pageNo;
             },
-            maxSize: 10
+            maxSize: 5
         };
         // Archived
         $scope.paginationDecisionListingAr = {
@@ -60,7 +60,10 @@
             setPage: function (pageNoAr) {
                 $scope.paginationDecisionListingAr.currentPage = pageNoAr;
             },
-            maxSize: 10
+            maxSize: 5
         };
+
+        $scope.sortOptions = ['', '+title', '-title', '+startingDate',
+        '-startingDate', '+expirationDate', '-expirationDate', '+type', '-type'];
     }
 }());
