@@ -34,26 +34,11 @@ module.exports.createVote = function (req, res, next) {
                                 if (err) {
                                     return next(err.message);
                                 } else {
-<<<<<<< HEAD
                                     VoteModel.update({ _id: voteDb._id }, {
                                         $set:
                                         { comments: commentDb._id }
                                     },
                                         function (err, voteDb2) {
-=======
-                                    console.log('req. body.type' + req.body.type);
-                                    if (voteDb.type === 'Against' || voteDb.type === 'Reserved') {
-                                        console.log('hi im here: ' + req.body);
-                                        if (req.body.commentText.match(/(\w+)/g).length < 5 && req.body.commentText.length < 20) {
-                                            console.log('less than 5 words and less than 20 characters');
-                                            res.send('less than 5 words and less than 20 characters');
-                                        }
-                                        CommentModel.create({
-                                            text: req.body.commentText,
-                                            submitedBy: req.body.submitedBy,
-                                            submitedDate: req.body.submitedDate
-                                        }, function (err, commentDb) {
->>>>>>> 54480b7eccbce8b1bd4fba55ea9ff49e161e6a97
                                             if (err) {
                                                 return next(err.message);
                                             } else {
