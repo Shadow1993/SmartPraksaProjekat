@@ -31,6 +31,15 @@
         /*================================
             Sorting Options
         ==================================*/
-        $scope.sortOptions = ['+title', '-title', '+expirationDate', '-expirationDate', '+startingDate', '-startingDate', '+type', '-type'];
+        $scope.sortOptions  = ['+title', '-title', '+expirationDate', '-expirationDate', '+startingDate', '-startingDate', '+type', '-type'];
+        $scope.activeOpen   = true;
+        $scope.archivedOpen = true;
+
+        $scope.activeOpenClose   = function(){
+            $scope.activeOpen = !$scope.activeOpen;
+        };
+        $scope.archivedOpenClose = function() {
+            $scope.archivedOpen = !$scope.archivedOpen;
+        };
     }
 }());
