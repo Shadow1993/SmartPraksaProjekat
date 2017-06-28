@@ -3,7 +3,7 @@
     <ion-icon class="ion-ios-search search-list"></ion-icon>
 </div>
 
-<ion-content class="has-header has-subheader has-footer" on-scroll="scrollPosition()">
+<ion-content class="has-header has-subheader has-footer" scroll-watch>
     <ion-list>
         <h3 class="text-center resolution-listing-title {{ filteredActiveDecisions.length == 0 ? 'hidden' : '' }}">Active Listing</h3>
         <h6 ng-show="allFilterList.length > 0 && filteredActiveDecisions.length == 0" class="text-center">No matched items into Active List</h6>
