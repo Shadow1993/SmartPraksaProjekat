@@ -29,10 +29,6 @@
                 }
             });
 
-        // Scroll To Top
-        $scope.scrollTop = function () {
-            $ionicScrollDelegate.scrollTop();
-        };
         // Show/hide scroll to top button
         $scope.showHideBtn  = '';
         $scope.scrollPosition = function() {

@@ -9,7 +9,7 @@
         var vm = this;
 
         vm.scrollTop = function () {
-            $ionicScrollDelegate.scrollTop();
+            $ionicScrollDelegate.scrollTop(1000);
         };
     }
 }());
