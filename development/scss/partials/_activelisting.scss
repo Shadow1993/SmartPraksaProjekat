@@ -342,7 +342,7 @@ input[type='submit']:disabled {
         color: #fff;
     }
     p {
-        color: #fff;
+        color: $blue;
         font-size: 14px;
         line-height: 23px;
         margin-top: 8px;
@@ -350,7 +350,7 @@ input[type='submit']:disabled {
     }
     span {
         font-size: 12px;
-        color: #ccc;
+        color: $blue;
     }
     .comments-table {
         margin-top: 120px;
