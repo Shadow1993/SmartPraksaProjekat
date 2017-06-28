@@ -3,7 +3,7 @@
     <button class="btn btn-primary form-control" ng-click="facilitator.addDecision()">New Decision</button>
     <select class="form-control" ng-model="facilitator.sortOrder" ng-options="option for option in facilitator.sortOptions track by option"><option value="" disabled selected>Sort by:</option></select>
 </div>
-<ion-content class="has-header has-subheader has-footer">
+<ion-content class="has-header has-subheader has-footer" scroll-watch>
     <ion-list>
         <div class="item background-custom" ng-repeat="resolution in filteredDecisions = (facilitator.resolutions| filter: facilitator.filterList) |
         orderBy: facilitator.sortOrder">

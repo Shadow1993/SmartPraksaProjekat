@@ -39,7 +39,7 @@
     <button class='btn btn-primary form-control btn-modal' ng-click='admin.addUser()'>Add New User</button>
     <select class="form-control" ng-model="admin.sortOrder" ng-options="option for option in admin.sortOptions track by option"><option value="" disabled selected>Sort by:</option></select>
 </div>
-<ion-content class="has-header has-subheader has-footer">
+<ion-content class="has-header has-subheader has-footer" scroll-watch>
     <div ng-repeat='info in filteredUsers = (admin.userInfo | filter: admin.filterList) |
                     orderBy: admin.sortOrder'>
         <div class="item" ng-click='admin.editUser(info)'>
