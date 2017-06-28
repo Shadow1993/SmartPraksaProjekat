@@ -64,6 +64,23 @@
     color:darkblue;
 }
 
+.decision-title-custom {
+    padding-left: 5px !important;
+}
+
+/*===============================
+    Modal window
+=================================*/
+
+.modal-form {
+    border-radius:0;
+    min-height: 99vh;
+}
+
+.modal-dialog {
+    margin: 0;
+}
+
 
 /*===============================
     Resolution(s)
