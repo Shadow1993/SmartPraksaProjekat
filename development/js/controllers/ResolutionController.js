@@ -132,9 +132,9 @@
             id: null
         };
 
-        vm.voteSubmit = function () {
+        vm.voteSubmit = function (vote) {
             if ($window.confirm('Do you want to leave vote?')) {
-                vm.newVote.type         = $scope.myVote;
+                vm.newVote.type         = vote;
                 vm.newVote.submitedBy   = $scope.userId.id;
                 vm.newVote.commentText  = vm.voterComment;
                 vm.newVote.id           = $scope.decisionId;
