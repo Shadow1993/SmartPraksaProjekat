@@ -41,5 +41,15 @@
         $scope.archivedOpenClose = function() {
             $scope.archivedOpen = !$scope.archivedOpen;
         };
+
+        /*================================
+            Tabs
+        ==================================*/
+        $scope.tabActive    = true;
+        $scope.tabArchived  = false;
+        $scope.changeTab    = function(){
+            $scope.tabActive    = !$scope.tabActive;
+            $scope.tabArchived = !$scope.tabArchived;
+        };
     }
 }());
