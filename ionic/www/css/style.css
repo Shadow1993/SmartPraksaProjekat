@@ -160,13 +160,6 @@ h4.title-listing {
     margin-top: 0;
     margin-bottom: 20px;
 }
-.alert-success {
-    background: #27ae60 !important;
-}
-.decisions .decision-text {
-    background: #387ef5 !important;
-    color: #2c3e50 !important;
-}
 .decisions span:first-of-type,
 .decisions span:nth-of-type(2),
 .decisions span:last-of-type {
@@ -177,11 +170,41 @@ h4.title-listing {
     margin-top: 0;
     margin-bottom: 20px;
     padding: 30px 10px;
-    color: #fff !important;
+    color: #000 !important;
 }
 .decisions .decision-text h6 {
-    color: #fff;
+    color: #000;
     margin-top: -20px;
+}
+.decisions .card-block {
+    margin-top: 0;
+}
+.btn-group form {
+    color: #000;
+}
+.btn-group form textarea {
+    height: 140px;
+    border: 2px dotted #ccc;
+}
+.btn.btn-secondary {
+    padding-left: 18px;
+}
+.comments {
+    position: relative;
+    margin-top: 0;
+    left: -12px;
+}
+.comments.comments-archived {
+    margin-top: 40px;
+}
+.comments .comments-table {
+    margin-top: 40px;
+    margin-bottom: 0;
+}
+.comments h5,
+.comments p {
+    color: #000;
+    font-size: 12px;
 }
 /* Progressbars */
 .ionic-vote {
@@ -238,7 +261,7 @@ h4.title-listing {
     margin-bottom: 50px;
 }
 .decisions .card-block.card-archived .alert-success {
-    color: #fff;
+    color: #000;
     letter-spacing: .4px;
     font-weight: 100;
 }
@@ -246,4 +269,7 @@ h4.title-listing {
     margin-top: 0;
     font-size: 12px;
     text-align: left;
+}
+.archived-votes-number {
+    color: #000;
 }

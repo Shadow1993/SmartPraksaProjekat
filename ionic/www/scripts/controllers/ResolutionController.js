@@ -44,7 +44,6 @@
             .then(
                 function(res) {
                     // Count Vote Result
-                    console.log(res);
                     $scope.countedFor       = res.countedVotes.agreed;
                     $scope.countedAgainst   = res.countedVotes.against;
                     $scope.countedReserved  = res.countedVotes.reserved;
@@ -123,10 +122,7 @@
         /*=============================
             Vote Form
         ===============================*/
-        // Check if user leave vote
-        console.log('User');
-        console.log($scope.userId);
-
+         // Check if user leave vote
         vm.newVote = {
             type: null,
             submitedDate: Date.now(),
@@ -135,9 +131,9 @@
             id: null
         };
 
-        vm.voteSubmit = function () {
+        vm.voteSubmit = function (vote) {
             if ($window.confirm('Do you want to leave vote?')) {
-                vm.newVote.type         = $scope.myVote;
+                vm.newVote.type         = vote;
                 vm.newVote.submitedBy   = $scope.userId.id;
                 vm.newVote.commentText  = vm.voterComment;
                 vm.newVote.id           = $scope.decisionId;
@@ -181,7 +177,7 @@
         /*=======================
             Pagination
         =========================*/
-        $scope.commentsViewBy             = 5;
+        /*$scope.commentsViewBy             = 5;
         $scope.currentCommentsPageActive  = 1;
         $scope.commentItemsPerPage        = $scope.commentsViewBy;
         $scope.decisionMaxSize            = 5; //Number of pager buttons to show
@@ -190,14 +186,10 @@
             $scope.currentCommentsPageActive = commentsPageNo;
         };
 
-        $scope.commentsPageChanged = function() {
-           //console.log('Page changed to: ' + $scope.currentCommentsPageActive);
-        };
-
         $scope.setCommentItemsPerPage = function(num) {
             $scope.commentItemsPerPage = num;
             $scope.currentCommentsPageActive = 1; //reset to first page
-        };
+        };*/
     }
 
     /*=============================
