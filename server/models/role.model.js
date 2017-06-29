@@ -30,7 +30,7 @@ RoleModel.find({}, function (err, data) {
         }
     }
 });
-
+// Helper function for seeding role model
 function seed(data) {
     console.log(data);
     RoleModel.create({

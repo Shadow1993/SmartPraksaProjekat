@@ -7,8 +7,8 @@ var express = require('express'),
     UserController = require('../controllers/user.controller');
 
 router
-    .get('/:limit/:offset', AuthController.isLoggedIn, AuthController.isAdmin,  UserController.getAllUsers)
-    .get('/:id/:limit/:offset', AuthController.isLoggedIn, UserController.getUserByID)
+    .get('/', AuthController.isLoggedIn, AuthController.isAdmin,  UserController.getAllUsers)
+    .get('/:id', AuthController.isLoggedIn, UserController.getUserByID)
     .post('/', AuthController.isLoggedIn, AuthController.isAdmin, UserController.createUser)
     .put('/',  AuthController.isLoggedIn, AuthController.isAdmin, UserController.updateUser)
     .delete('/:id', AuthController.isLoggedIn, AuthController.isAdmin, UserController.deleteUserById);
