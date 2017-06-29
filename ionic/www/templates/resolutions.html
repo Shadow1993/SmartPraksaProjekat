@@ -11,13 +11,11 @@
 </div>
 
 <ion-content class="has-header has-subheader has-footer" scroll-watch>
-    <ion-list>
-        <details open>
-            <summary ng-click="activeOpenClose()">
-                <h3 class="text-center resolution-listing-title {{ filteredActiveDecisions.length == 0 ? 'hidden' : '' }}">
-                    Active Listing <i class="icon icon-custom ion-chevron-{{ activeOpen ? 'down' : 'up' }}"></i>
-                </h3>
-            </summary>
+    <ul class="nav nav-pills">
+        <li role="presentation" class="{{ tabActive == true ? 'active' : '' }}" ng-click="changeTab()">Active Listing</li>
+        <li role="presentation" class="{{ tabArchived == true ? 'active' : '' }}" ng-click="changeTab()">Archived Listing</li>
+    </ul>
+    <ion-list ng-show="tabActive">
             <h6 ng-show="allFilterList.length > 0 && filteredActiveDecisions.length == 0" class="text-center">No matched items into Active List</h6>
             <ion-item class="background-custom"  ng-repeat="active_decision in filteredActiveDecisions = (activeDecisions | filter: allFilterList) |
             orderBy: sortResolutionsOrder">
@@ -34,18 +32,11 @@
                 <p name="expiration-date" class="paragraph-custom">{{active_decision.expirationDate | date:"short"}}</p>
                 <button class="btn btn-primary pull-right button-visit" ui-sref="main.resolution({ id: active_decision._id })">Visit</button>
             </ion-item>
-        </details>
     </ion-list>
     
-    <ion-list>
-        <details open>
-            <summary ng-click="archivedOpenClose()">
-                <h3 class="text-center resolution-listing-title {{ filteredArchivedDecisions.length == 0 ? 'hidden' : '' }}">
-                    Archived Listing <i class="icon icon-custom ion-chevron-{{ archivedOpen ? 'down' : 'up' }}"></i>
-                </h3>
-            </summary>
-            <h6 ng-show="allFilterList.length > 0 && filteredArchivedDecisions.length == 0" class="text-center">No matched items into Archived List</h6>
-            <ion-item class="background-custom"  ng-repeat="archived_decision in filteredArchivedDecisions = ( archivedDecisions | filter: allFilterList ) | orderBy: sortResolutionsOrder">
+    <ion-list ng-show="tabArchived">
+        <h6 ng-show="allFilterList.length > 0 && filteredArchivedDecisions.length == 0" class="text-center">No matched items into Archived List</h6>
+        <ion-item class="background-custom"  ng-repeat="archived_decision in filteredArchivedDecisions = ( archivedDecisions | filter: allFilterList ) | orderBy: sortResolutionsOrder">
                 <p name="numberOfRecords" class="paragraph-custom"><span class="sn">Sn:</span> {{ $index + 1 }}.</p>
                 <label for="type" class="label-custom">Type:</label>
                 <p name="type" class="paragraph-custom">Archived</p>
@@ -59,12 +50,9 @@
                 <p name="expiration-date" class="paragraph-custom">{{archived_decision.expirationDate | date:"short"}}</p>
                 <button class="btn btn-primary pull-right button-visit" ui-sref="main.resolution({ id: archived_decision._id })">Visit</button>
             </ion-item>
-        </details>
     </ion-list>
 </ion-content>
 
-    
-<p>Show or Hide: {{ showHideBtn }}</p>
 <ion-footer-bar class="bar-positive icon-move">
     <a class="button button-clear" ng-click="resolutions.scrollTop()">
         <i class="icon ion-arrow-up-a"></i>
