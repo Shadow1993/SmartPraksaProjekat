@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose'),
     seedRoleData = require('./seed.role.model'),
+    UserModel = require('./user.model'),
     Schema = mongoose.Schema;
 
 var roleSchema = new Schema({
@@ -30,7 +31,7 @@ RoleModel.find({}, function (err, data) {
         }
     }
 });
-// Helper function for seeding role model
+
 function seed(data) {
     console.log(data);
     RoleModel.create({

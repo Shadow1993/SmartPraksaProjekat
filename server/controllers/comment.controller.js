@@ -13,6 +13,7 @@ module.exports.getAllComments = function (req, res, next) {
     var limit = parseInt(req.query.limit),
         offset = parseInt(req.query.offset),
         checkIfNum = /^\d+$/;
+        console.log(req.params.id);
     if (limit === 0 && offset === 0) {
         DecisionModel
             .findOne({ _id: req.params.id })
@@ -30,8 +31,8 @@ module.exports.getAllComments = function (req, res, next) {
     } else {
         DecisionModel
             .findOne({ _id: req.params.id })
-            .skip(offset).limit(limit)
             .populate('comments')
+            .skip(offset).limit(limit)
             .exec(function (err, decisionDb) {
                 if (err) {
                     return next(err);

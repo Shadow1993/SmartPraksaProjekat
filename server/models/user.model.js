@@ -45,30 +45,35 @@ userSchema.pre('save', function (next) {
 
 var UserModel = mongoose.model('User', userSchema);
 
-//Create admin if users collection is empty
-UserModel.find({}, function (err, userData) {
-    if (err) {
-        console.log(err);
-    } else if (userData == '') {
-        Role.find({
-            title: 'Administrator'
-        }, function (err, roleDb) {
+function createAdminUser() {
+    setTimeout(function () {
+        //Create admin if users collection is empty
+        UserModel.find({}, function (err, userData) {
             if (err) {
                 console.log(err);
-            } else {
-                UserModel.create({
-                    username: process.env.ADMINUSERNAME || 'admin',
-                    password: process.env.ADMINPASSWORD || '123',
-                    role: roleDb
-                }, function (err, userSaved) {
+            } else if (userData == '') {
+                Role.find({
+                    title: 'Administrator'
+                }, function (err, roleDb) {
                     if (err) {
                         console.log(err);
                     } else {
-                        console.log(userSaved);
+                        UserModel.create({
+                            username: process.env.ADMINUSERNAME || 'admin',
+                            password: process.env.ADMINPASSWORD || '123',
+                            role: roleDb
+                        }, function (err, userSaved) {
+                            if (err) {
+                                console.log(err);
+                            } else {
+                                console.log(userSaved);
+                            }
+                        });
                     }
                 });
             }
         });
-    }
-});
+    }, 1000)
+}
+createAdminUser();
 module.exports = mongoose.model('User', userSchema);

@@ -10,6 +10,6 @@
 		"description": "Voter has permissions to view decisions, create votes and post comments"
 	}, {
 		"title": "Viewer",
-		"description": "Voter has permissions to view decisions and post comments"
+		"description": "Viewer has permissions to view decisions and post comments"
 	}]
 }

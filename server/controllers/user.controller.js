@@ -10,6 +10,37 @@ var bcrypt = require('bcryptjs');
 * CREATE USER ('/users', POST) => body = username, password, role, dateCreated
 */
 
+module.exports.createUser = function (req, res, next) {
+    RoleModel.find({
+        title: {
+            $in: req.body.role
+        }
+    }, function (err, roleDb) {
+        if (err) {
+            return next(err.message);
+        }
+        if (!roleDb[0]) {
+            res.send({ message: 'error in role type' });
+        } else {
+            UserModel.create({
+                username: req.body.username,
+                password: req.body.password,
+                dateCreated: req.body.dateCreated,
+                role: roleDb
+            }, function (err, userDb) {
+                if (err) {
+                    return next(err.message)
+                }
+                if (!userDb) {
+                    return next(err.message);
+                } else {
+                    res.send(userDb);
+                }
+            });
+        }
+    });
+};
+
 module.exports.getAllUsers = function (req, res, next) {
     var offset = parseInt(req.query.offset),
         limit = parseInt(req.query.limit),
@@ -53,17 +84,6 @@ module.exports.getUserByID = function (req, res, next) {
         });
 };
 
-module.exports.deleteUserById = function (req, res, next) {
-    UserModel.findByIdAndUpdate(req.params.id, { $set: { isActive: false } }, function (err, userDb) {
-        if (err) {
-            console.log(err.message);
-            return next(err.message);
-        } else {
-            res.send(userDb);
-        }
-    });
-};
-
 module.exports.updateUser = function (req, res, next) {
     RoleModel.find({
         title: {
@@ -92,37 +112,17 @@ module.exports.updateUser = function (req, res, next) {
     });
 };
 
-module.exports.createUser = function (req, res, next) {
-    RoleModel.find({
-        title: {
-            $in: req.body.role
-        }
-    }, function (err, roleDb) {
-        if (err) {
-            return next(err.message);
-        }
-        if (!roleDb[0]) {
-            res.send({ message: 'error in role type' });
-        } else {
-            UserModel.create({
-                username: req.body.username,
-                password: req.body.password,
-                dateCreated: req.body.dateCreated,
-                role: roleDb
-            }, function (err, userDb) {
-                if (err) {
-                    return next(err.message)
-                }
-                if (!userDb) {
-                    return next(err.message);
-                } else {
-                    res.send(userDb);
-                }
-            });
-        }
-    });
-};
-
 var generateHash = function (password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
+
+module.exports.deleteUserById = function (req, res, next) {
+    UserModel.findByIdAndUpdate(req.params.id, { $set: { isActive: false } }, function (err, userDb) {
+        if (err) {
+            console.log(err.message);
+            return next(err.message);
+        } else {
+            res.send(userDb);
+        }
+    });
 };

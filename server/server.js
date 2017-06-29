@@ -31,6 +31,7 @@ app.use(expressSession({
     resave: false,
     saveUninitialized: false
 }));
+console.log(process.argv[2]);
 // Passport session and middlware initialization
 app.use(passport.initialize());
 app.use(passport.session());
