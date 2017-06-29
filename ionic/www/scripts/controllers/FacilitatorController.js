@@ -19,16 +19,22 @@
             limit: 5
         };
 
+        var spamprevent =  ['rip'];
+
         $scope.loadMore = function() {
+            if (spamprevent.length === 0) {
+                return $scope.$broadcast('scroll.infiniteScrollComplete');
+            }
             params.offset = vm.resolutions.length;
             ResolutionService.getResolutions(params.offset, params.limit)
                 .then(function (res) {
+                    spamprevent = res;
                     vm.resolutions = vm.resolutions.concat(res);
+                    $scope.$broadcast('scroll.infiniteScrollComplete');
                 })
                 .catch(function (res) {
                     console.error(res);
                 });
-            $scope.$broadcast('scroll.infiniteScrollComplete');
         };
 
         // Reactivate decision

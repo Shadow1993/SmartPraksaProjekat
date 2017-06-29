@@ -3,11 +3,40 @@
 
     var app = angular.module('app');
 
-    app.controller('AdminController', ['$state', 'UserService', '$uibModal', AdminController]);
+    app.controller('AdminController', ['$state', 'UserService', '$uibModal', '$scope', AdminController]);
 
-    function AdminController($state, UserService, $uibModal) {
+    function AdminController($state, UserService, $uibModal, $scope) {
         var vm = this;
         vm.test = 'test';
+
+        vm.userInfo = [];
+
+        var params = {
+            offset: 0,
+            limit: 5
+        };
+
+        var spamprevent =  ['rip'];
+
+        $scope.loadMore = function() {
+            if (spamprevent.length === 0) {
+                return $scope.$broadcast('scroll.infiniteScrollComplete');
+            }
+            params.offset = vm.userInfo.length;
+            UserService.getUsers(params.offset, params.limit)
+                .then(SuccessCall)
+                .catch(ErrorCall);
+        };
+
+        function SuccessCall(res) {
+            vm.userInfo = vm.userInfo.concat(res);
+            spamprevent = res;
+            $scope.$broadcast('scroll.infiniteScrollComplete');
+        }
+        function ErrorCall(res) {
+            console.error(res);
+            toastr.error(res);
+        }
 
         function reloadState() {
             $state.reload();
@@ -72,20 +101,10 @@
             return convertedDate.toUTCString();
         };
 
-        function SuccessCall(res) {
-            vm.userInfo = res;
-        }
-        function ErrorCall(res) {
-            console.error(res);
-            toastr.error(res);
-        }
         vm.deleteUser = function (user) {
             UserService.deleteUser(user);
             $state.reload();
         };
-        UserService.getUsers()
-            .then(SuccessCall)
-            .catch(ErrorCall);
 
         vm.pagination = {
             currentPage: 1,
