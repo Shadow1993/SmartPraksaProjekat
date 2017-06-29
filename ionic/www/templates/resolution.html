@@ -140,7 +140,7 @@
             </ion-col>
             <ion-col class="ionic-comments">
                 <div class="panel-body">
-                    <div class="comments" ng-if="resolution.resoultionInfo.decision.active == 'Active'">
+                    <div class="comments comments-archived">
                         <div class="col-xs-12 col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-8  col-lg-offset-2">
                             <button class="btn btn-danger" ng-click="writeComment = !writeComment">Write Comment</button>
                             <form name="createNewCommentForm" ng-submit="resolution.commentSubmit()" ng-show="writeComment == true">
