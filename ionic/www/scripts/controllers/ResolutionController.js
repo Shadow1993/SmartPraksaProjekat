@@ -35,6 +35,8 @@
         $scope.seeResults    = false;
         $scope.writeComment  = false;
 
+        console.log('Role ' + $scope.userId.role);
+
         ResolutionService.getResolution($stateParams.id)
             .then(function (res) {
                 $scope.decisionId = $stateParams.id;
@@ -188,10 +190,6 @@
 
         $scope.setPage = function (commentsPageNo) {
             $scope.currentCommentsPageActive = commentsPageNo;
-        };
-
-        $scope.commentsPageChanged = function() {
-           //console.log('Page changed to: ' + $scope.currentCommentsPageActive);
         };
 
         $scope.setCommentItemsPerPage = function(num) {
