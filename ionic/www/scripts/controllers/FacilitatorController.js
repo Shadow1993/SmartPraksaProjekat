@@ -6,21 +6,30 @@
     app.controller('FacilitatorController', ['ResolutionService',
         '$uibModal',
         '$state',
+        '$scope',
         FacilitatorController]);
 
-    function FacilitatorController(ResolutionService, $uibModal, $state) {
+    function FacilitatorController(ResolutionService, $uibModal, $state, $scope) {
 
         var vm = this;
+        vm.resolutions = [];
 
-        ResolutionService.getResolutions()
-            .then(function (res) {
-                console.log(res);
-                vm.resolutions = res;
-            })
-            .catch(function (res) {
-                console.log(res);
-                toastr.error();
-            });
+        var params = {
+            offset: 0,
+            limit: 5
+        };
+
+        $scope.loadMore = function() {
+            params.offset = vm.resolutions.length;
+            ResolutionService.getResolutions(params.offset, params.limit)
+                .then(function (res) {
+                    vm.resolutions = vm.resolutions.concat(res);
+                })
+                .catch(function (res) {
+                    console.error(res);
+                });
+            $scope.$broadcast('scroll.infiniteScrollComplete');
+        };
 
         // Reactivate decision
 
