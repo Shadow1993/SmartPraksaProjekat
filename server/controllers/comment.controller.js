@@ -10,17 +10,37 @@ var CommentModel = require('../models/comment.model'),
     DecisionModel = require('../models/decision.model');
 
 module.exports.getAllComments = function (req, res, next) {
-    DecisionModel
-        .findOne({ _id: req.params.id })
-        .populate('comments')
-        .exec(function (err, decisionDb) {
-            if (err) {
-                return next(err);
-            } else {
-                // get all comments and their users
-                res.send(decisionDb.comments);
-            }
-        });
+    var limit = parseInt(req.query.limit),
+        offset = parseInt(req.query.offset),
+        checkIfNum = /^\d+$/;
+    if (limit === 0 && offset === 0) {
+        DecisionModel
+            .findOne({ _id: req.params.id })
+            .populate('comments')
+            .exec(function (err, decisionDb) {
+                if (err) {
+                    return next(err);
+                } else {
+                    // get all comments and their users
+                    res.send(decisionDb.comments);
+                }
+            });
+    } else if (!checkIfNum.test(limit) || !checkIfNum.test(offset) || limit < 0 || offset < 0) {
+        res.status(418).send('wrong parameters');
+    } else {
+        DecisionModel
+            .findOne({ _id: req.params.id })
+            .skip(offset).limit(limit)
+            .populate('comments')
+            .exec(function (err, decisionDb) {
+                if (err) {
+                    return next(err);
+                } else {
+                    // get all comments and their users
+                    res.send(decisionDb.comments);
+                }
+            });
+    }
 };
 module.exports.createComment = function (req, res, next) {
     CommentModel.create({
