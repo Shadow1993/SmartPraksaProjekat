@@ -7,7 +7,7 @@ var express = require('express'),
     UserController = require('../controllers/user.controller');
 
 router
-    .get('/', AuthController.isLoggedIn, AuthController.isAdmin,  UserController.getAllUsers)
+    .get('/:offset/:limit', AuthController.isLoggedIn, AuthController.isAdmin,  UserController.getAllUsers)
     .get('/:id', AuthController.isLoggedIn, UserController.getUserByID)
     .post('/', AuthController.isLoggedIn, AuthController.isAdmin, UserController.createUser)
     .put('/',  AuthController.isLoggedIn, AuthController.isAdmin, UserController.updateUser)

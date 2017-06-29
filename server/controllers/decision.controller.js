@@ -9,8 +9,8 @@
 var DecisionModel = require('../models/decision.model');
 
 module.exports.getAllDecisions = function (req, res, next) {
-    var limit = parseInt(req.params.limit),
-        offset = parseInt(req.params.offset),
+    var limit = parseInt(req.query.limit),
+        offset = parseInt(req.query.offset),
         checkIfNum = /^\d+$/;
     // if limit & offset == 0 return all decisions
     if (limit === 0 && offset === 0) {
@@ -53,10 +53,6 @@ function checkIfExpired(data) {
 }
 
 module.exports.getDecisionById = function (req, res, next) {
-    console.log('hi im ur req.params: ' + req.params);
-    console.log('req.params.id: ' + req.params.id);
-    console.log('req.params.offset: ' + req.params.offset);
-    console.log('req.params.limit: ' + req.params.limit);
     DecisionModel.findById({ _id: req.params.id })
         .populate(['comments', 'votes'])
         .exec(function (err, decisionDb) {
