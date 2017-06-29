@@ -9,10 +9,18 @@
         var api = '/decisions';
 
         //Get all Decisions
-        function getResolutions() {
+        function getResolutions(offset, limit) {
+            if (offset === undefined || limit === undefined) {
+                offset = 0;
+                limit = 0;
+            }
             return $http({
                 method: 'GET',
-                url: api
+                url: api,
+                params: {
+                    limit: limit,
+                    offset: offset
+                }
             })
                 .then(HandlingService.ReturnData)
                 .catch(HandlingService.ReturnError);

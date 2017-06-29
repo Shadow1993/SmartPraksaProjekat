@@ -7,10 +7,18 @@
         var api = '/comments';
 
         //Get Comments for a Decision
-        function getComments(id) {
+        function getComments(id, offset, limit) {
+            if (offset === undefined || limit === undefined) {
+                offset = 0;
+                limit = 0;
+            }
             return $http({
                 method: 'GET',
-                url: api + '/' + id
+                url: api + '/' + id,
+                params: {
+                    offset: offset,
+                    limit: limit
+                }
             })
                 .then(HandlingService.ReturnData)
                 .catch(HandlingService.ReturnError);
