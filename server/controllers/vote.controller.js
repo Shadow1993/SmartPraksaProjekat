@@ -63,14 +63,14 @@ module.exports.editVote = function (req, res, next) {
             $set: {
                 type: req.body.type,
                 submitedDate: req.body.submitedDate,
-                submitedBy: req.date.submitedBy
+                submitedBy: req.body.submitedBy
             }
         },
         function (err, voteDb) {
             if (err) {
                 return next(err.message);
             } else {
-                if (req.body.role === 'Against' || req.body.role === 'Reserved') {
+                if (req.body.type === 'Against' || req.body.type === 'Reserved') {
                     CommentModel.create({
                         text: req.body.commentText,
                         submitedBy: req.body.submitedBy,
