@@ -186,6 +186,18 @@ h4.title-listing {
     height: 140px;
     border: 2px dotted #ccc;
 }
+.btn.btn-secondary {
+    padding-left: 18px;
+}
+.comments {
+    position: relative;
+    margin-top: 0;
+    left: -12px;
+}
+.comments .comments-table {
+    margin-top: 40px;
+    margin-bottom: 0;
+}
 .comments h5,
 .comments p {
     color: #000;
