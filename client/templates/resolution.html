@@ -49,7 +49,7 @@
                 <div class="col-xs-6">
                     <div class="card-block">
                         <div ng-if="userRole[0] === 'Voter' || userRole[1] === 'Voter'" class="btn-group  {{ resolution.resoultionInfo.decision.active == 'Active' ? '' : 'hide' }}">
-                            <form name="voteForm" ng-submit="resolution.voteSubmit(voteForm.myVote.$viewValue)" ng-show="!userVoted">
+                            <form name="voteForm" ng-submit="resolution.voteSubmit(voteForm.myVote.$viewValue)">
                                 <label>
                             <input type="radio" name="myVote" ng-model="myVote" value="For" autocomplete="off" required="!myVote"> For
                         </label>
@@ -83,11 +83,6 @@
                                 </div>
                             </form>
                         </div>
-
-                        <div ng-show="resolution.resoultionInfo.decision.active == 'Active' && userVoted" class="col-xs-10 col-xs-offset-1 alert alert-danger">
-                            You have already voted!
-                        </div>
-
                     </div>
                 </div>
                 <div class="col-xs-6">

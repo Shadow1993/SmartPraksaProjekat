@@ -171,6 +171,7 @@ h4.title-listing {
     margin-bottom: 20px;
     padding: 30px 10px;
     color: #000 !important;
+    font-size: 12px;
 }
 .decisions .decision-text h6 {
     color: #000;
@@ -197,9 +198,8 @@ h4.title-listing {
 .comments.comments-archived {
     margin-top: 40px;
 }
-.comments .comments-table {
-    margin-top: 40px;
-    margin-bottom: 0;
+.comments .comments-table .list {
+    margin-top: 50px;
 }
 .comments h5,
 .comments p {
@@ -272,4 +272,8 @@ h4.title-listing {
 }
 .archived-votes-number {
     color: #000;
+}
+.pagination {
+    margin-top: 20px;
+    margin-bottom: 30px;
 }

@@ -9,10 +9,18 @@
         var api = '/users';
 
         //Get all Users
-        function getUsers() {
+        function getUsers(offset, limit) {
+            if (offset === undefined || limit === undefined) {
+                offset = 0;
+                limit = 0;
+            }
             return $http({
                 method: 'GET',
-                url: api
+                url: api,
+                params: {
+                    offset: offset,
+                    limit: limit
+                }
             })
                 .then(HandlingService.ReturnData)
                 .catch(HandlingService.ReturnError);

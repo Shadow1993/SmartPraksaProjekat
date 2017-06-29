@@ -35,6 +35,8 @@
         $scope.seeResults    = false;
         $scope.writeComment  = false;
 
+        vm.comments = [];
+
         ResolutionService.getResolution($stateParams.id)
             .then(function (res) {
                 $scope.decisionId = $stateParams.id;
@@ -177,19 +179,20 @@
         /*=======================
             Pagination
         =========================*/
-        /*$scope.commentsViewBy             = 5;
-        $scope.currentCommentsPageActive  = 1;
-        $scope.commentItemsPerPage        = $scope.commentsViewBy;
-        $scope.decisionMaxSize            = 5; //Number of pager buttons to show
+        $scope.commentsViewBy = 5;
+        $scope.currentCommentsPageActive = 1;
+        $scope.commentItemsPerPage = $scope.commentsViewBy;
+        $scope.decisionMaxSize = 5; //Number of pager buttons to show
 
         $scope.setPage = function (commentsPageNo) {
             $scope.currentCommentsPageActive = commentsPageNo;
         };
 
-        $scope.setCommentItemsPerPage = function(num) {
+        $scope.setCommentItemsPerPage = function (num) {
             $scope.commentItemsPerPage = num;
             $scope.currentCommentsPageActive = 1; //reset to first page
-        };*/
+        };
+
     }
 
     /*=============================

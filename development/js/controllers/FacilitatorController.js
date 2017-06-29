@@ -71,7 +71,9 @@
                 });
         };
 
-        vm.sortOptions = ['', '+active', '-active','+title', '-title', '+startingDate', '-startingDate', '+expirationDate', '-expirationDate', '+type', '-type'];
+        vm.sortOptions = ['', '+active', '-active','+title', '-title',
+                            '+startingDate', '-startingDate', '+expirationDate',
+                            '-expirationDate', '+type', '-type'];
 
     }
 }());

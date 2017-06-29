@@ -51,4 +51,6 @@
             <p name="date-created" class="paragraph-custom">{{ admin.convertDate(info.dateCreated) }}</p>
             <button class="btn btn-warning" ng-click='admin.deleteUser(info._id)'>Delete User</button>
         </div>
+    </div>
+    <ion-infinite-scroll on-infinite="loadMore()" distance="1%"></ion-infinite-scroll>
 </ion-content>

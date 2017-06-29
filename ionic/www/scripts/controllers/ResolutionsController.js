@@ -13,12 +13,14 @@
 
         $scope.activeDecisions   = [];
         $scope.archivedDecisions = [];
+        vm.decisions = [];
 
-        ResolutionService.getResolutions()
+        ResolutionService.getResolutions(2, 5)
             .then(function (res) {
                 vm.resoultionsInfo = res;
                 return res;
-            }).then(function (res) {
+            })
+            .then(function (res) {
                 for (var obj = 0; obj <= res.length - 1; obj++) {
                     if (res[obj].active === 'Active') {
                         $scope.activeDecisions.push(res[obj]);
@@ -27,6 +29,62 @@
                     }
                 }
             });
+
+        /*===================================
+            Infinite Scroll        
+        ===================================== */
+        var params = {
+            offset: 0,
+            limit: 5
+        };
+
+        var spamprevent =  ['rip'];
+
+        // Active Decisions
+        $scope.loadMoreActiveDecisions = function() {
+            if (spamprevent.length === 0) {
+                return $scope.$broadcast('scroll.infiniteScrollComplete');
+            }
+            params.offset = vm.decisions.length;
+            ResolutionService.getResolutions(params.offset, params.limit)
+                .then(function (res) {
+                    spamprevent = res;
+                    vm.decisions = vm.decisions.concat(res);
+                    for (var obj = 0; obj <= res.length - 1; obj++) {
+                        if (res[obj].active === 'Active') {
+                            $scope.activeDecisions.push(res[obj]);
+                        }
+                    }
+                    $scope.$broadcast('scroll.infiniteScrollComplete');
+                    return vm.decisions;
+                })
+                .catch(function (res) {
+                    console.error(res);
+                });
+        };
+
+        // Archived Decisions
+        $scope.loadMoreArchivedDecisions = function() {
+            if (spamprevent.length === 0) {
+                return $scope.$broadcast('scroll.infiniteScrollComplete');
+            }
+            params.offset = vm.decisions.length;
+            ResolutionService.getResolutions(params.offset, params.limit)
+                .then(function (res) {
+                    spamprevent = res;
+                    vm.decisions = vm.decisions.concat(res);
+                    for (var obj = 0; obj <= res.length - 1; obj++) {
+                        if (res[obj].active === 'Expired') {
+                            $scope.archivedDecisions.push(res[obj]);
+                        }
+                    }
+                    $scope.$broadcast('scroll.infiniteScrollComplete');
+                    return vm.decisions;
+                })
+                .catch(function (res) {
+                    console.error(res);
+                });
+        };
 
         /*================================
             Sorting Options

@@ -8,17 +8,25 @@
 
         var api = '/decisions';
 
-        //Get all Decisions
-        function getResolutions() {
+        // Get all Decisions
+        function getResolutions(offset, limit) {
+            if (offset === undefined || limit === undefined) {
+                offset = 0;
+                limit = 0;
+            }
             return $http({
                 method: 'GET',
-                url: api
+                url: api,
+                params: {
+                    limit: limit,
+                    offset: offset
+                }
             })
                 .then(HandlingService.ReturnData)
                 .catch(HandlingService.ReturnError);
         }
 
-        //Get a specific Decision
+        // Get a specific Decision
         function getResolution(id) {
             return $http({
                 method: 'GET',
