@@ -154,7 +154,7 @@
                                     </div>
                                 </div>
                             </form>
-                            <div class="comments-table">
+                            <ion-list class="comments-table">
                                 <div class="media" ng-repeat="comment in decisionComments">
                                     <div class="media-left">
                                         <a href="#">
@@ -167,11 +167,17 @@
                                         <p>{{ comment.text }}</p>
                                     </div>
                                 </div><br>
-                            </div>
+                            </ion-list>
                             
                             <div class="col-xs-10 col-xs-offset-1 go-back">
                                 <span class=" resolution-back btn btn-primary" ui-sref="main.resolutions">Go Back</span>
                             </div>
+
+                            <ion-infinite-scroll
+                                on-infinite="loadMoreComments()"
+                                distance="1%"
+                            >
+                            </ion-infinite-scroll>
                         </div>
                     </div>
                 </div>

@@ -35,6 +35,8 @@
         $scope.seeResults    = false;
         $scope.writeComment  = false;
 
+        vm.comments = [];
+
         ResolutionService.getResolution($stateParams.id)
             .then(function (res) {
                 $scope.decisionId = $stateParams.id;
@@ -65,7 +67,7 @@
         /*=================================
             Get All Comments for Decision
         ===================================*/
-        function asdf(n) {
+        /*function asdf(n) {
             $scope.fromUser = n;
         }
         CommentService.getComments($stateParams.id)
@@ -79,7 +81,28 @@
                         );
                 }
                 $scope.decisionComments = array;
-            });
+            });*/
+        var params = {
+            offset: 0,
+            limit: 5
+        };
+
+        var spamprevent =  ['rip'];
+
+        $scope.loadMoreComments = function() {
+            if (spamprevent.length === 0) {
+                return $scope.$broadcast('scroll.infiniteScrollComplete');
+            }
+            params.offset = vm.comments.length;
+            CommentService.getComments($stateParams.id, params.offset, params.limit)
+                .then(function (res) {
+                    vm.comments = vm.comments.concat(res);
+                })
+                .catch(function (res) {
+                    console.error(res);
+                });
+            $scope.$broadcast('scroll.infiniteScrollComplete');
+        };
 
         /*============================
             Countdown for decisions
@@ -175,21 +198,9 @@
         };
 
         /*=======================
-            Pagination
+            Infinite Scroll
         =========================*/
-        /*$scope.commentsViewBy             = 5;
-        $scope.currentCommentsPageActive  = 1;
-        $scope.commentItemsPerPage        = $scope.commentsViewBy;
-        $scope.decisionMaxSize            = 5; //Number of pager buttons to show
 
-        $scope.setPage = function (commentsPageNo) {
-            $scope.currentCommentsPageActive = commentsPageNo;
-        };
-
-        $scope.setCommentItemsPerPage = function(num) {
-            $scope.commentItemsPerPage = num;
-            $scope.currentCommentsPageActive = 1; //reset to first page
-        };*/
     }
 
     /*=============================

@@ -6,7 +6,7 @@ var express = require('express'),
     CommentController = require('../controllers/comment.controller');
 
 router
-    .get('/:id',  AuthController.isLoggedIn, CommentController.getAllComments)
+    .get('/:id',   CommentController.getAllComments)
     .post('/', AuthController.isLoggedIn, CommentController.createComment);
 
 module.exports = router;
