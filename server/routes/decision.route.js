@@ -7,8 +7,8 @@ var express = require('express'),
     DecisionController = require('../controllers/decision.controller');
 
 router
-    .get('/', AuthController.isLoggedIn, DecisionController.getAllDecisions)
-    .get('/:id', AuthController.isLoggedIn, DecisionController.getDecisionById)
+    .get('/:limit/:offset',  DecisionController.getAllDecisions)
+    .get('/:id/:limit/:offset', DecisionController.getDecisionById)
     .put('/', AuthController.isLoggedIn, AuthController.isFacilitator, DecisionController.restartDecision)
     .post('/', AuthController.isLoggedIn, AuthController.isFacilitator, DecisionController.createDecision);
 

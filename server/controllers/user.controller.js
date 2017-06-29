@@ -11,15 +11,33 @@ var bcrypt = require('bcryptjs');
 */
 
 module.exports.getAllUsers = function (req, res, next) {
-    UserModel.find({ isActive: true })
-        .populate('role')
-        .exec(function (err, userDb) {
-            if (err) {
-                return next(err.message);
-            } else {
-                res.send(userDb);
-            }
-        });
+    var offset = parseInt(req.query.offset),
+        limit = parseInt(req.query.limit),
+        checkIfNum = /^\d+$/;
+    if (limit === 0 && offset === 0) {
+        UserModel.find({ isActive: true })
+            .populate('role')
+            .exec(function (err, userDb) {
+                if (err) {
+                    return next(err.message);
+                } else {
+                    res.send(userDb);
+                }
+            });
+    } else if (!checkIfNum.test(limit) || !checkIfNum.test(offset) || limit < 0 || offset < 0) {
+        res.status(418).send('wrong parameters');
+    } else {
+        UserModel.find({ isActive: true })
+            .populate('role')
+            .skip(offset).limit(limit)
+            .exec(function (err, userDb) {
+                if (err) {
+                    return next(err.message);
+                } else {
+                    res.send(userDb);
+                }
+            });
+    }
 };
 
 module.exports.getUserByID = function (req, res, next) {

@@ -1,29 +1,50 @@
 'use strict';
-
 /*
 * GET DECISIONS ('/decisions', GET) => params = {}
 * GET DECISION ('/decisions/:id', GET) => params = id
 * CREATE DECISION ('/decisions', POST) => body = title, description, type, steps, startingDate, expirationDate
 * RESTART DECISION ('/decisions', PUT) => body = id, title, description, type, steps, startingDate, expirationDate
 */
-
+// infinite scrolling, login za sequelize, na pocetku app napraviti samo jednog admina!
 var DecisionModel = require('../models/decision.model');
 
 module.exports.getAllDecisions = function (req, res, next) {
-    DecisionModel.find({ active: ['Active', 'Expired'] })
-        .populate(['comments', 'votes'])
-        .exec(function (err, decisionDb) {
-            if (err) {
-                return next(err.message);
-            } else {
-                for (var i = 0; i < decisionDb.length; i++) {
-                    checkIfExpired(decisionDb[i]);
+    var limit = parseInt(req.query.limit),
+        offset = parseInt(req.query.offset),
+        checkIfNum = /^\d+$/;
+    // if limit & offset == 0 return all decisions
+    if (limit === 0 && offset === 0) {
+        DecisionModel.find({ active: ['Active', 'Expired'] })
+            .populate(['comments', 'votes'])
+            .exec(function (err, decisionDb) {
+                if (err) {
+                    return next(err.message);
+                } else {
+                    for (var i = 0; i < decisionDb.length; i++) {
+                        checkIfExpired(decisionDb[i]);
+                    }
+                    res.send(decisionDb);
                 }
-                res.send(decisionDb);
-            }
-        });
+            });
+    } else if (!checkIfNum.test(limit) || !checkIfNum.test(offset) || limit < 0 || offset < 0) {
+        res.status(418).send('wrong parameters');
+    } else {
+        // if params ok, return limit and offset decisions
+        DecisionModel.find({ active: ['Active', 'Expired'] })
+            .populate(['comments', 'votes'])
+            .skip(offset).limit(limit)
+            .exec(function (err, decisionDb) {
+                if (err) {
+                    return next(err.message);
+                } else {
+                    for (var i = 0; i < decisionDb.length; i++) {
+                        checkIfExpired(decisionDb[i]);
+                    }
+                    res.send(decisionDb);
+                }
+            });
+    }
 };
-
 // ! helper function for checking if decision has expired
 function checkIfExpired(data) {
     if (data.expirationDate.getTime() < Date.now()) {
@@ -32,7 +53,6 @@ function checkIfExpired(data) {
 }
 
 module.exports.getDecisionById = function (req, res, next) {
-    console.log(req.params);
     DecisionModel.findById({ _id: req.params.id })
         .populate(['comments', 'votes'])
         .exec(function (err, decisionDb) {
