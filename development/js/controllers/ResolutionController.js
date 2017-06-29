@@ -17,8 +17,8 @@
         ResolutionController]);
 
     function ResolutionController($scope, $interval, ResolutionService, CommentService,
-                                    AuthorizeService, VoteService, UserService,
-                                    $stateParams, $state, $location, $window) {
+        AuthorizeService, VoteService, UserService,
+        $stateParams, $state, $window) {
         var vm = this;
         vm.test = 'test';
         vm.voterComment = '';
@@ -32,8 +32,8 @@
         $scope.countedAgainstPercent = null;
         $scope.countedReservedPercent = null;
         $scope.countAllVotes = null;
-        $scope.seeResults    = false;
-        $scope.writeComment  = false;
+        $scope.seeResults = false;
+        $scope.writeComment = false;
 
         ResolutionService.getResolution($stateParams.id)
             .then(function (res) {
@@ -42,25 +42,25 @@
                 return res;
             })
             .then(
-                function(res) {
-                    // Count Vote Result
-                    //console.log(res);
-                    $scope.countedFor       = res.countedVotes.agreed;
-                    $scope.countedAgainst   = res.countedVotes.against;
-                    $scope.countedReserved  = res.countedVotes.reserved;
+            function (res) {
+                // Count Vote Result
+                //console.log(res);
+                $scope.countedFor = res.countedVotes.agreed;
+                $scope.countedAgainst = res.countedVotes.against;
+                $scope.countedReserved = res.countedVotes.reserved;
 
-                    $scope.countAllVotes = $scope.countedFor + $scope.countedAgainst + $scope.countedReserved;
+                $scope.countAllVotes = $scope.countedFor + $scope.countedAgainst + $scope.countedReserved;
 
-                    $scope.countedForPercent        = $scope.countedFor / $scope.countAllVotes * 100;
-                    $scope.countedAgainstPercent    = $scope.countedAgainst / $scope.countAllVotes * 100;
-                    $scope.countedReservedPercent   = $scope.countedReserved / $scope.countAllVotes * 100;
+                $scope.countedForPercent = $scope.countedFor / $scope.countAllVotes * 100;
+                $scope.countedAgainstPercent = $scope.countedAgainst / $scope.countAllVotes * 100;
+                $scope.countedReservedPercent = $scope.countedReserved / $scope.countAllVotes * 100;
 
-                    // Is voted or not
-                    $scope.userVoted = res.userVoted;
+                // Is voted or not
+                $scope.userVoted = res.userVoted;
 
-                    // Is Vote passed
-                    $scope.votePassed = res.passed;
-                }
+                // Is Vote passed
+                $scope.votePassed = res.passed;
+            }
             );
 
         /*=================================
@@ -70,13 +70,13 @@
             $scope.fromUser = n;
         }
         CommentService.getComments($stateParams.id)
-            .then(function(res) {
+            .then(function (res) {
                 var array = [];
                 for (var x = res.length - 1; x >= 0; x--) {
                     array.push(res[x]);
                     UserService.getUser(res[x].submitedBy)
                         .then(
-                            asdf
+                        asdf
                         );
                 }
                 $scope.decisionComments = array;
@@ -114,7 +114,7 @@
                         $scope.timeTillEvent.hoursLeft === 0 &&
                         $scope.timeTillEvent.minutesLeft === 0 &&
                         $scope.timeTillEvent.secondsLeft === 0) {
-                        return $location.path('/resolutions');
+                        return $state.go('main.resolutions');
                     }
                 }, 1000);
                 $scope.updateClock();
@@ -133,17 +133,31 @@
         };
 
         vm.voteSubmit = function (vote) {
-            if ($window.confirm('Do you want to leave vote?')) {
-                vm.newVote.type         = vote;
-                vm.newVote.submitedBy   = $scope.userId.id;
-                vm.newVote.commentText  = vm.voterComment;
-                vm.newVote.id           = $scope.decisionId;
-
+            vm.newVote.type = vote;
+            vm.newVote.submitedBy = $scope.userId.id;
+            vm.newVote.commentText = vm.voterComment;
+            if ($scope.userVoted) {
+                for (var i in vm.resoultionInfo.decision.votes) {
+                    if ($scope.userId.id === vm.resoultionInfo.decision.votes[i].submitedBy) {
+                        vm.newVote.id = vm.resoultionInfo.decision.votes[i]._id;
+                    }
+                }
+                VoteService.editVote(vm.newVote)
+                    .then(function() {
+                        toastr.success('You\'ve successfully changed your vote.');
+                        $state.go('main.resolutions');
+                    })
+                    .catch(function(res) {
+                        throw res;
+                    });
+            } else {
+                vm.newVote.id = $scope.decisionId;
                 VoteService.createVote(vm.newVote)
-                    .then(function (res) {
-                        console.log(res);
-                        $location.path('/resolutions');
-                    }).catch(function (res) {
+                    .then(function () {
+                        toastr.success('You\'ve successfully voted.');
+                        $state.go('main.resolutions');
+                    })
+                    .catch(function (res) {
                         throw res;
                     });
             }
@@ -153,22 +167,20 @@
             New Comment Form
         ===============================*/
         vm.newCommentAny = {
-            id: null,
             text: '',
             submitedBy: '',
             submitedDate: Date.now()
         };
 
-        vm.commentSubmit = function() {
+        vm.commentSubmit = function () {
             if ($window.confirm('Do you want to leave comment?')) {
                 vm.newCommentAny.id = $stateParams.id;
                 vm.newCommentAny.text = vm.commentAny;
                 vm.newCommentAny.submitedBy = $scope.userId.id;
 
                 CommentService.createComment(vm.newCommentAny)
-                    .then(function(res) {
-                        console.log(res);
-                        $location.path('/resolutions');
+                    .then(function () {
+                        $state.go('main.resolutions');
                     }).catch(function (res) {
                         throw res;
                     });
@@ -178,20 +190,20 @@
         /*=======================
             Pagination
         =========================*/
-        $scope.commentsViewBy             = 5;
-        $scope.currentCommentsPageActive  = 1;
-        $scope.commentItemsPerPage        = $scope.commentsViewBy;
-        $scope.decisionMaxSize            = 5; //Number of pager buttons to show
+        $scope.commentsViewBy = 5;
+        $scope.currentCommentsPageActive = 1;
+        $scope.commentItemsPerPage = $scope.commentsViewBy;
+        $scope.decisionMaxSize = 5; //Number of pager buttons to show
 
         $scope.setPage = function (commentsPageNo) {
             $scope.currentCommentsPageActive = commentsPageNo;
         };
 
-        $scope.commentsPageChanged = function() {
-           //console.log('Page changed to: ' + $scope.currentCommentsPageActive);
+        $scope.commentsPageChanged = function () {
+            //console.log('Page changed to: ' + $scope.currentCommentsPageActive);
         };
 
-        $scope.setCommentItemsPerPage = function(num) {
+        $scope.setCommentItemsPerPage = function (num) {
             $scope.commentItemsPerPage = num;
             $scope.currentCommentsPageActive = 1; //reset to first page
         };
