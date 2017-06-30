@@ -35,7 +35,9 @@
         ===================================== */
         var params = {
             offset: 0,
-            limit: 5
+            limit: 5,
+            active: 'active',
+            archived: 'expired'
         };
 
         var spamprevent =  ['rip'];
@@ -46,7 +48,7 @@
                 return $scope.$broadcast('scroll.infiniteScrollComplete');
             }
             params.offset = vm.decisions.length;
-            ResolutionService.getResolutions(params.offset, params.limit)
+            ResolutionService.getResolutions(params.offset, params.limit, params.active)
                 .then(function (res) {
                     spamprevent = res;
                     vm.decisions = vm.decisions.concat(res);
@@ -69,7 +71,7 @@
                 return $scope.$broadcast('scroll.infiniteScrollComplete');
             }
             params.offset = vm.decisions.length;
-            ResolutionService.getResolutions(params.offset, params.limit)
+            ResolutionService.getResolutions(params.offset, params.limit, params.archived)
                 .then(function (res) {
                     spamprevent = res;
                     vm.decisions = vm.decisions.concat(res);
